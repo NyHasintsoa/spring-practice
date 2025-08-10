@@ -50,7 +50,7 @@ public class User implements UserDetails {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = true)
     private Date updatedAt;
 
     @Column(name = "is_enabled")
