@@ -14,6 +14,10 @@ install: ## Install all dependencies of the project
 dev: ## Run the project
 	$(MVN) clean spring-boot:run
 
+.PHONY: test
+test: ## Test the project
+	$(MVN) clean test
+
 .PHONY: clean
 clean: ## Clean the project
 	$(MVN) clean
@@ -25,10 +29,6 @@ clear: ## Alias of clean command
 .PHONY: build
 build: ## Build the project
 	$(MVN) clean build
-
-.PHONY: test
-test: ## Test the project
-	$(MVN) clean test
 
 ##
 ##-----------------------------------
