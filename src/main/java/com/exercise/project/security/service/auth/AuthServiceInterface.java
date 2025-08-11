@@ -1,5 +1,6 @@
 package com.exercise.project.security.service.auth;
 
+import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
@@ -21,5 +22,10 @@ public interface AuthServiceInterface {
      * Get User Informations to show in the response
      */
     public UserInfoResponse getConnectedUserInfo();
+
+    /**
+     * Generate Refresh token from refresh token request
+     */
+    public JwtResponse refreshToken(RefreshTokenRequest request);
 
 }

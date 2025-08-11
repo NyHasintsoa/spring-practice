@@ -9,6 +9,8 @@ public class JwtResponse {
 
     private String token;
 
+    private String refreshToken;
+
     private UserInfoResponse userInfoResponse;
 
 }

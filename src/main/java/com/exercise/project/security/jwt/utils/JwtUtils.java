@@ -17,7 +17,6 @@ import com.exercise.project.util.KeyPairUtil;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -31,6 +30,9 @@ public class JwtUtils implements JwtUtilsInterface {
     @Value("${project.jwt.token.expiration}")
     private Integer JWT_TOKEN_EXPIRATION;
 
+    @Value("${project.jwt.refresh.token.expiration}")
+    private Integer JWT_REFRESH_TOKEN_EXPIRATION;
+
     @Override
     public String generateTokenForUser(User user) {
         Map<String, Object> claims = new HashMap<String, Object>();
@@ -39,16 +41,27 @@ public class JwtUtils implements JwtUtilsInterface {
             "roles",
             user.getRoles());
 
-        return this.doGenerateToken(claims, user.getEmail());
+        return this.doGenerateToken(claims, user.getEmail(), this.JWT_TOKEN_EXPIRATION);
     }
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    @Override
+    public String generateRefreshTokenForUser(User user) {
+        Map<String, Object> claims = new HashMap<String, Object>();
+        claims.put("id", user.getId());
+        claims.put(
+            "roles",
+            user.getRoles());
+
+        return this.doGenerateToken(claims, user.getEmail(), this.JWT_REFRESH_TOKEN_EXPIRATION);
+    }
+
+    private String doGenerateToken(Map<String, Object> claims, String subject, Integer expirationTime) {
         return Jwts.builder()
             .issuer(subject)
             .subject(subject)
             .claims(claims)
             .issuedAt(new Date())
-            .expiration(new Date(new Date().getTime() + this.JWT_TOKEN_EXPIRATION))
+            .expiration(new Date(new Date().getTime() + expirationTime))
             .id(UUID.randomUUID().toString())
             .signWith(KeyPairUtil.getPrivateKey())
             .compact();
@@ -88,7 +101,7 @@ public class JwtUtils implements JwtUtilsInterface {
             | MalformedJwtException
             | SecurityException
             | IllegalArgumentException e) {
-            throw new JwtException(e.getMessage());
+            return false;
         }
     }
 

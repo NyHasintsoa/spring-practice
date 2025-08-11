@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exercise.project.exception.InvalidRefreshTokenException;
 import com.exercise.project.response.ApiResponse;
+import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
@@ -76,6 +78,30 @@ public class AuthController {
                     e.getMessage(),
                     false,
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
+        }
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse> refreshToken(
+        @RequestBody @Valid RefreshTokenRequest request) {
+        try {
+            return ResponseEntity.ok(
+                new ApiResponse(
+                    "Refresh token generated successfully",
+                    true,
+                    this.authService.refreshToken(request)));
+        } catch (InvalidRefreshTokenException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ApiResponse(
+                    "UNAUTHORIZED",
+                    false,
+                    e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ApiResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    false,
+                    e.getMessage()));
         }
     }
 

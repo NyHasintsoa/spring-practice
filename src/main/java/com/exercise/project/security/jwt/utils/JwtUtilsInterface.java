@@ -9,6 +9,8 @@ public interface JwtUtilsInterface {
 
     public String generateTokenForUser(User user);
 
+    public String generateRefreshTokenForUser(User user);
+
     public String getUsernameFromToken(String token);
 
     public Claims getClaimsFromToken(String token);

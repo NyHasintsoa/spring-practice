@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.enums.Roles;
+import com.exercise.project.security.jwt.refresh.JwtRefreshTokenServiceInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
+import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
@@ -30,6 +32,9 @@ public class AuthService implements AuthServiceInterface {
 
     @Autowired
     private JwtUtilsInterface jwtUtils;
+
+    @Autowired
+    private JwtRefreshTokenServiceInterface jwtRefreshTokenService;
 
     @Autowired
     private UserServiceInterface userService;
@@ -48,6 +53,7 @@ public class AuthService implements AuthServiceInterface {
 
         return new JwtResponse(
             this.jwtUtils.generateTokenForUser(user),
+            this.jwtRefreshTokenService.createRefreshToken(user),
             new UserInfoResponse(user));
     }
 
@@ -78,6 +84,12 @@ public class AuthService implements AuthServiceInterface {
             .getPrincipal());
 
         return new UserInfoResponse(this.userService.getByEmail(userDetails.getEmail()));
+    }
+
+    @Override
+    public JwtResponse refreshToken(RefreshTokenRequest request) {
+        String newAccessToken = this.jwtRefreshTokenService.refreshAccessToken(request.getRefreshToken());
+        return new JwtResponse(newAccessToken, newAccessToken, null);
     }
 
 }

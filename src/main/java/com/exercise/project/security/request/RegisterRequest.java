@@ -12,10 +12,6 @@ public class RegisterRequest {
     @Email(message = "NOT_VALID_EMAIL_VALIDATION")
     private String email;
 
-    @NotBlank(message = "NOT_BLANK_VALIDATION")
-    @Size(min = 5, message = "NOT_IN_SIZE_VALIDATION")
-    private String username;
-
     private String fullname;
 
     @NotBlank

@@ -1,32 +1,39 @@
-{"properties": [
-  {
-    "name": "project.name.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.name.from'"
-  },
-  {
-    "name": "project.mail.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.mail.from'"
-  },
-  {
-    "name": "project.api.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'project.api.prefix'"
-  },
-  {
-    "name": "project.jwt.token.expiration",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.token.expiration'"
-  },
-  {
-    "name": "project.jwt.bearer.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.bearer.prefix'"
-  },
-  {
-    "name": "project.jwt.signing.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.signing.key'"
-  }
-]}
+{
+  "properties": [
+    {
+      "name": "project.name.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.name.from'"
+    },
+    {
+      "name": "project.mail.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.mail.from'"
+    },
+    {
+      "name": "project.api.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'project.api.prefix'"
+    },
+    {
+      "name": "project.jwt.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.jwt.token.expiration'"
+    },
+    {
+      "name": "project.jwt.bearer.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.bearer.prefix'"
+    },
+    {
+      "name": "project.jwt.signing.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.signing.key'"
+    },
+    {
+      "name": "project.jwt.refresh.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.jwt.refresh.token.expiration'"
+    }
+  ]
+}
