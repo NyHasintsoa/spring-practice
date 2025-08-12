@@ -46,13 +46,7 @@ public class JwtUtils implements JwtUtilsInterface {
 
     @Override
     public String generateRefreshTokenForUser(User user) {
-        Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("id", user.getId());
-        claims.put(
-            "roles",
-            user.getRoles());
-
-        return this.doGenerateToken(claims, user.getEmail(), this.JWT_REFRESH_TOKEN_EXPIRATION);
+        return this.doGenerateToken(null, user.getEmail(), this.JWT_REFRESH_TOKEN_EXPIRATION);
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject, Integer expirationTime) {
