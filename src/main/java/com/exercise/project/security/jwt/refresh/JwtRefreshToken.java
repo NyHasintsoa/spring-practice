@@ -14,7 +14,7 @@ import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.service.user.UserServiceInterface;
 
 @Service
-public class JwtRefreshTokenService implements JwtRefreshTokenServiceInterface {
+public class JwtRefreshToken implements JwtRefreshTokenInterface {
 
     @Autowired
     private JwtUtilsInterface jwtUtils;

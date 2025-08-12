@@ -119,4 +119,9 @@ public class JwtUtils implements JwtUtilsInterface {
             roles.stream().map((role) -> Roles.valueOf(role)).collect(Collectors.toSet()));
     }
 
+    @Override
+    public String extractTokenId(String token) {
+        return this.getClaimsFromToken(token).getId();
+    }
+
 }

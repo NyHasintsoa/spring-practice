@@ -2,7 +2,7 @@ package com.exercise.project.security.jwt.refresh;
 
 import com.exercise.project.entity.auth.User;
 
-public interface JwtRefreshTokenServiceInterface {
+public interface JwtRefreshTokenInterface {
 
     public String createRefreshToken(User user);
 

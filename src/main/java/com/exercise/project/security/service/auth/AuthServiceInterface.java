@@ -28,4 +28,9 @@ public interface AuthServiceInterface {
      */
     public JwtResponse refreshToken(RefreshTokenRequest request);
 
+    /**
+     * Log out user and revoke token
+     */
+    public void logout(String authHeader);
+
 }

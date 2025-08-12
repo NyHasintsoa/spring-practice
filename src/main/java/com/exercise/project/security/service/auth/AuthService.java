@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.enums.Roles;
-import com.exercise.project.security.jwt.refresh.JwtRefreshTokenServiceInterface;
+import com.exercise.project.security.jwt.refresh.JwtRefreshTokenInterface;
+import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
@@ -34,13 +36,19 @@ public class AuthService implements AuthServiceInterface {
     private JwtUtilsInterface jwtUtils;
 
     @Autowired
-    private JwtRefreshTokenServiceInterface jwtRefreshTokenService;
+    private JwtRefreshTokenInterface jwtRefreshToken;
+
+    @Autowired
+    private JwtRevokeTokenInterface jwtRevokeToken;
 
     @Autowired
     private UserServiceInterface userService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Value("${project.jwt.bearer.prefix}")
+    private String BEARER_PREFIX;
 
     @Override
     public JwtResponse signIn(SignInRequest request) {
@@ -53,7 +61,7 @@ public class AuthService implements AuthServiceInterface {
 
         return new JwtResponse(
             this.jwtUtils.generateTokenForUser(user),
-            this.jwtRefreshTokenService.createRefreshToken(user),
+            this.jwtRefreshToken.createRefreshToken(user),
             new UserInfoResponse(user));
     }
 
@@ -88,8 +96,14 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public JwtResponse refreshToken(RefreshTokenRequest request) {
-        String newAccessToken = this.jwtRefreshTokenService.refreshAccessToken(request.getRefreshToken());
+        String newAccessToken = this.jwtRefreshToken.refreshAccessToken(request.getRefreshToken());
         return new JwtResponse(newAccessToken, newAccessToken, null);
+    }
+
+    @Override
+    public void logout(String authHeader) {
+        String token = authHeader.substring(BEARER_PREFIX.length());
+        this.jwtRevokeToken.revokeToken(token, false);
     }
 
 }

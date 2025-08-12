@@ -19,4 +19,6 @@ public interface JwtUtilsInterface {
 
     public AuthUserDetails buildUserDetailsFromToken(String token);
 
+    public String extractTokenId(String token);
+
 }
