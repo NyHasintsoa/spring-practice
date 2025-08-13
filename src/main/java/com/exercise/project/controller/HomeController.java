@@ -16,9 +16,9 @@ public class HomeController {
         try {
             return ResponseEntity.ok(
                 new ApiResponse(
-                    "Hello World !",
+                    "Hello World ! from MCP Client",
                     true,
-                    "this is a message"));
+                    "this is a message from MCP Client"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(

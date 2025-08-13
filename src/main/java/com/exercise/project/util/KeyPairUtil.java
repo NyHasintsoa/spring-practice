@@ -1,10 +1,8 @@
 package com.exercise.project.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -14,17 +12,16 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
 public final class KeyPairUtil {
 
-    private static String privateKeyPath = "src/main/java/com/exercise/project/config/jwt/private.pem";
-
-    private static String publicKeyPath = "src/main/java/com/exercise/project/config/jwt/public.pem";
+    private static final String PRIVATE_KEY_PATH = "jwt/private.pem";
+    private static final String PUBLIC_KEY_PATH = "jwt/public.pem";
 
     public static PrivateKey getPrivateKey() {
         try {
-            String key = readKeyFile(privateKeyPath);
+            String key = readKeyFile(PRIVATE_KEY_PATH);
             String privateKeyPEM = key
                 .replace("-----BEGIN PRIVATE KEY-----", "")
                 .replace("-----END PRIVATE KEY-----", "")
@@ -35,15 +32,13 @@ public final class KeyPairUtil {
 
             return kf.generatePrivate(keySpec);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load private key", e);
         }
-
-        return null;
     }
 
     public static PublicKey getPublicKey() {
         try {
-            String key = readKeyFile(publicKeyPath);
+            String key = readKeyFile(PUBLIC_KEY_PATH);
             String publicKeyPEM = key
                 .replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")
@@ -54,25 +49,18 @@ public final class KeyPairUtil {
 
             return kf.generatePublic(keySpec);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load public key", e);
         }
-
-        return null;
     }
 
-    private static String readKeyFile(String resourceLocation) {
+    private static String readKeyFile(String classpathLocation) {
         try {
-            File file;
-            file = ResourceUtils.getFile(resourceLocation);
-
-            return new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ClassPathResource resource = new ClassPathResource(classpathLocation);
+            try (InputStream inputStream = resource.getInputStream()) {
+                return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Key file not found in classpath: " + classpathLocation, e);
         }
-
-        return null;
     }
-
 }
