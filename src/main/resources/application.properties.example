@@ -1,20 +1,43 @@
 ###############################################
-# Database Properties
+# Project Properties
 ###############################################
 spring.application.name=Spring Api Ressource
-project.api.prefix=/api
 server.port=8000
-project.entity.id.length=16
 spring.thymeleaf.check-template-location=false
+project.api.prefix=/api
+project.login.max.attempts=3
+###############################################
+
+###############################################
+# SpringDoc Properties
+###############################################
+springdoc.api-docs.enabled=true
+springdoc.api-docs.path=/api
+springdoc.swagger-ui.path=/swagger-ui
+springdoc.show-actuator=true
+springdoc.cache.disabled=true
 ###############################################
 
 ###############################################
 # Database Properties
 ###############################################
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/spring_project
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/my_database
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.username=root
-spring.datasource.password=hasintsoa
+spring.datasource.username=
+spring.datasource.password=
+###############################################
+
+###############################################
+# Redis Database Properties
+###############################################
+spring.data.redis.host=127.0.0.1
+spring.data.redis.port=6379
+spring.data.redis.database=0
+spring.data.redis.jedis.pool.max-active=8
+spring.data.redis.jedis.pool.max-wait=-1ms
+spring.data.redis.jedis.pool.max-idle=8
+spring.data.redis.jedis.pool.min-idle=0
+spring.session.redis.repository-type=default
 ###############################################
 
 ###############################################
@@ -22,28 +45,31 @@ spring.datasource.password=hasintsoa
 ###############################################
 #spring.jpa.properties.hibernate.default_schema=preferedSchema
 #spring.jpa.properties.hibernate.transaction.jta.platform=""
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 spring.jpa.database=mysql
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.open-in-view=true
 ###############################################
 
 ###############################################
 # Mailing Properties
 ###############################################
-project.mail.from=noreply@domain.com
-project.name.from=Spring Admin Society
-spring.mail.host=127.0.0.1
-spring.mail.port=1025
-spring.mail.username=user
-spring.mail.password=password
+project.mail.from=
+project.name.from=
+spring.mail.host=
+spring.mail.port=
+spring.mail.username=
+spring.mail.password=
 spring.mail.test-connection=false
 ###############################################
 
 ###############################################
 # Security Properties
 ###############################################
-jwt.passphrase=9fb64d578cd0013992ba74cfeee212148e70d7a5354d06a7de79853da372ad4e
-jwt.token.expiration=3600000
+project.jwt.bearer.prefix=Bearer 
+project.jwt.signing.key=
+project.jwt.token.expiration=
+project.jwt.refresh.token.expiration=
 ###############################################
