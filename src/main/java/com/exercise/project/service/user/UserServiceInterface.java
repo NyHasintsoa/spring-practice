@@ -9,6 +9,14 @@ public interface UserServiceInterface {
      */
     public User persistUser(User user);
 
+    /**
+     * Get User by email address
+     */
     public User getByEmail(String email);
+
+    /**
+     * Lock User by email
+     */
+    public User lockUserByEmail(String email);
 
 }

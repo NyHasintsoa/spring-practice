@@ -22,7 +22,8 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
     public void commence(
         HttpServletRequest request,
         HttpServletResponse response,
-        AuthenticationException authException) throws IOException, ServletException {
+        AuthenticationException authException
+    ) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         final Map<String, Object> body = new HashMap<>();

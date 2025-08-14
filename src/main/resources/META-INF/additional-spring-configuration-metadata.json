@@ -34,6 +34,11 @@
       "name": "project.jwt.refresh.token.expiration",
       "type": "java.lang.Integer",
       "description": "A description for 'project.jwt.refresh.token.expiration'"
+    },
+    {
+      "name": "project.login.max.attempts",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.login.max.attempts'"
     }
   ]
 }

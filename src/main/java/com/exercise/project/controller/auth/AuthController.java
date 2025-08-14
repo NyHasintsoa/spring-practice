@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,6 +19,7 @@ import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
+import com.exercise.project.security.service.redis.login.RedisLoginAttemptServiceInterface;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -27,6 +30,9 @@ public class AuthController {
 
     @Autowired
     private AuthServiceInterface authService;
+
+    @Autowired
+    private RedisLoginAttemptServiceInterface loginAttemptService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/me")
@@ -55,12 +61,20 @@ public class AuthController {
                     "Sign in Request",
                     true,
                     this.authService.signIn(request)));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+        } catch (BadCredentialsException e) {
+            Long attemtp = this.loginAttemptService.loginFailed(request.getEmail());
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ApiResponse(
                     e.getMessage(),
                     false,
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
+                    attemtp));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ApiResponse(
+                    e.getMessage(),
+                    false,
+                    HttpServletResponse.SC_UNAUTHORIZED));
         }
     }
 
@@ -108,7 +122,8 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse> logout(
-        @RequestHeader("Authorization") String authHeader) {
+        @RequestHeader("Authorization") String authHeader,
+        @PathVariable String id) {
         try {
             this.authService.logout(authHeader);
 

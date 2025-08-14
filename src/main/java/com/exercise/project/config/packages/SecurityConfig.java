@@ -35,7 +35,8 @@ public class SecurityConfig {
     private AuthEntryPoint authEntryPoint;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    SecurityFilterChain securityFilterChain(
+        HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .csrf((csrf) -> csrf.disable())
             .cors((cors) -> cors.disable())
@@ -44,8 +45,7 @@ public class SecurityConfig {
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
             .authenticationManager(authenticationManager())
-            .exceptionHandling(
-                e -> e.authenticationEntryPoint(authEntryPoint))
+            .exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
