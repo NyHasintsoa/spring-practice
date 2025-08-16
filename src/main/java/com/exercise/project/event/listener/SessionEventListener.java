@@ -1,6 +1,7 @@
 package com.exercise.project.event.listener;
 
 import org.springframework.context.event.EventListener;
+import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.session.events.SessionCreatedEvent;
 import org.springframework.session.events.SessionDeletedEvent;
 import org.springframework.session.events.SessionDestroyedEvent;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class SessionEventListener {
 
     @EventListener
-    public void processSessionCreatedEvent(SessionCreatedEvent event) {
+    void processSessionCreatedEvent(SessionCreatedEvent event) {
         System.out.println(
             "\n##############################################\n" +
                 "processSessionCreatedEvent" +
@@ -19,7 +20,7 @@ public class SessionEventListener {
     }
 
     @EventListener
-    public void processSessionDeletedEvent(SessionDeletedEvent event) {
+    void processSessionDeletedEvent(SessionDeletedEvent event) {
         System.out.println(
             "\n##############################################\n" +
                 "processSessionDeletedEvent" +
@@ -27,7 +28,7 @@ public class SessionEventListener {
     }
 
     @EventListener
-    public void processSessionDestroyedEvent(SessionDestroyedEvent event) {
+    void processSessionDestroyedEvent(SessionDestroyedEvent event) {
         System.out.println(
             "\n##############################################\n" +
                 "processSessionDestroyedEvent" +
@@ -35,10 +36,18 @@ public class SessionEventListener {
     }
 
     @EventListener
-    public void processSessionExpiredEvent(SessionExpiredEvent event) {
+    void processSessionExpiredEvent(SessionExpiredEvent event) {
         System.out.println(
             "\n##############################################\n" +
                 "processSessionExpiredEven" +
+                "\n##############################################\n");
+    }
+
+    @EventListener
+    void processExceptionEvent(ExceptionEvent event) {
+        System.out.println(
+            "\n##############################################\n" +
+                "processExceptionEvent" +
                 "\n##############################################\n");
     }
 

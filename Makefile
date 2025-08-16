@@ -13,8 +13,8 @@ PROJECT_ARTIFACT_ID := mcp-spring
 PROJECT_DIR := $(PWD)/src/main/java/com/exercise/project
 RESOURCES_DIR := $(PWD)/src/main/resources
 
-GREEN = /bin/echo -e "\x1b[32m\#\# $1\x1b[0m"
-RED = /bin/echo -e "\x1b[31m\#\# $1\x1b[0m"
+GREEN = @echo -e "\x1b[32m\#\# $1\x1b[0m"
+RED = @echo -e "\x1b[31m\#\# $1\x1b[0m"
 
 ##-----------------------------------
 ## Application
@@ -23,8 +23,15 @@ RED = /bin/echo -e "\x1b[31m\#\# $1\x1b[0m"
 install: ## Install all dependencies of the project
 	$(MVN) clean install
 
+.PHONY: init
+init: # Init the project
+	@make properties
+	@make install
+	@make keypair
+	@$(call GREEN,"-- Project initiate successfully --")
+
 .PHONY: dev
-dev: ## Run the project
+dev: ## Run the project (Local server)
 	$(MVN) clean spring-boot:run
 
 .PHONY: test
@@ -40,12 +47,12 @@ clear: ## Alias of clean command
 	$(MAKE) clean
 
 .PHONY: build
-build: ## Build the project
-	$(MVN) clean build
+build: ## Alias of package
+	@make package
 
-.PHONY: echoPath
-echoPath: ## Echo
-	@echo $(PROJECT_DIR)
+.PHONY: package
+package: ## Pack to project from packaging configuration (war, jar)
+	$(MVN) clean package
 
 .PHONY: keypair
 keypair: ## Generate keypair for JWT Authentication
@@ -53,14 +60,18 @@ keypair: ## Generate keypair for JWT Authentication
 	@openssl genpkey -algorithm RSA -out "$(RESOURCES_DIR)/jwt/private.pem" -pkeyopt rsa_keygen_bits:2048
 	@openssl rsa -pubout -in "$(RESOURCES_DIR)/jwt/private.pem" -out "$(RESOURCES_DIR)/jwt/public.pem"
 
+.PHONY: properties
+properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resiyrces dir
+	@if [ -f "$(RESOURCES_DIR)/application.properties" ]; then; else cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
+
 ##
 ##-----------------------------------
-## Others
+## Other
 ##-----------------------------------
 .PHONY: deploy
 deploy: ## Deploy to local apache server
 	@if [ -d "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)" ]; then rm -r "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"; fi
-	@if [ -f "$(PROJECT_ARTIFACT_ID).war" ]; then rm "$(PROJECT_ARTIFACT_ID).war"; fi
+	@if [ -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war" ]; then rm "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"; fi
 	@make install
 	@cp ./target/$(PROJECT_ARTIFACT_ID).war $(DEPLOY_DIR)/
 
@@ -75,4 +86,7 @@ help: ## List commands
 #-----------------------------------
 target/$(PROJECT_ARTIFACT_ID).war:
 	$(MVN) clean install
+
+"$(RESOURCES_DIR)/application.properties.example":
+	@touch "$(RESOURCES_DIR)/application.properties.example"
 #-----------------------------------
