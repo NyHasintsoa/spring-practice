@@ -7,6 +7,28 @@ spring.thymeleaf.check-template-location=false
 project.api.prefix=/api
 project.login.max.attempts=3
 ###############################################
+server.ssl.enabled=true
+server.ssl.certificate=classpath:cert/localhost+2.pem
+server.ssl.certificate-private-key=classpath:cert/localhost+2-key.pem
+###############################################
+
+###############################################
+# Cybersource Properties
+###############################################
+project.cybersource.merchant.id=
+project.cybersource.api.endpoint=https://apitest.cybersource.com
+project.cybersource.checkout.url=https://testsecureacceptance.cybersource.com
+project.cybersource.run.environment=apitest.cybersource.com
+project.cybersource.request.timeout=30000
+###############################################
+project.cybersource.api.key.id=
+project.cybersource.secret.key=
+project.cybersource.access.key=
+project.cybersource.profile.id=
+###############################################
+project.cybersource.certificate.file.name=
+project.cybersource.certificate.password=
+###############################################
 
 ###############################################
 # SpringDoc Properties
@@ -16,15 +38,16 @@ springdoc.api-docs.path=/api
 springdoc.swagger-ui.path=/swagger-ui
 springdoc.show-actuator=true
 springdoc.cache.disabled=true
+springdoc.swagger-ui.with-credentials=true
 ###############################################
 
 ###############################################
 # Database Properties
 ###############################################
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/my_database
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/database_name
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.username=
-spring.datasource.password=
+spring.datasource.username=username
+spring.datasource.password=password
 ###############################################
 
 ###############################################
@@ -56,10 +79,10 @@ spring.jpa.open-in-view=true
 ###############################################
 # Mailing Properties
 ###############################################
-project.mail.from=
-project.name.from=
-spring.mail.host=
-spring.mail.port=
+project.mail.from=noreply@domain.com
+project.name.from=Spring Admin Society
+spring.mail.host=127.0.0.1
+spring.mail.port=1025
 spring.mail.username=
 spring.mail.password=
 spring.mail.test-connection=false
@@ -70,6 +93,6 @@ spring.mail.test-connection=false
 ###############################################
 project.jwt.bearer.prefix=Bearer 
 project.jwt.signing.key=
-project.jwt.token.expiration=
-project.jwt.refresh.token.expiration=
+project.jwt.token.expiration=3600000
+project.jwt.refresh.token.expiration=604800000
 ###############################################

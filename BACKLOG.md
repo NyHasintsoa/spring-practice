@@ -23,8 +23,9 @@ Use Spring MCP Client to perform connexion with MCP Server from express.
 | Simple Refresh Token    | 🔥       | ✅     | _Hasintsoa_ | 2025-08-11 | Store refresh token in database                                  |
 | Revoke Token            | 🔥       | ✅     | _Hasintsoa_ | 2025-08-12 | Mark revoked tokens in database when `logout`                    |
 | Login Attempts Tracking | 🔥       | ✅     | _Hasintsoa_ | 2025-08-13 | Use Redis to store & check login attempts and `lock` user        |
-| 2FA Authentication      | 🕓       | 🕓     | _Hasintsao_ | 2025-08-17 | Send Mail to verify user's account AND enable user               |
-| OAuth2 Social Login     | 🕓       | 🕓     | _Hasintsoa_ | 2025-08-23 | Use `Google` and `Github` to perform Social login Authentication |
+| 2FA Authentication      | 🔥       | ✅     | _Hasintsao_ | 2025-08-17 | Send Mail to verify user's account AND enable user               |
+| Password Recovery       | 🔥       | 🕓     | _Hasintsoa_ | 2025-08-23 | Send Mail to reset user's password (no bundle)                   |
+| OAuth2 Social Login     | 🔥       | 🕓     | _Hasintsoa_ | 2025-08-23 | Use `Google` and `Github` to perform Social login Authentication |
 
 ---
 

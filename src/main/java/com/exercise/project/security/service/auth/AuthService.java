@@ -1,5 +1,6 @@
 package com.exercise.project.security.service.auth;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,7 @@ import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
+import com.exercise.project.security.service.email.verifier.EmailVerifierServiceInterface;
 import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.service.user.UserServiceInterface;
 
@@ -47,8 +49,14 @@ public class AuthService implements AuthServiceInterface {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailVerifierServiceInterface emailVerifierService;
+
     @Value("${project.jwt.bearer.prefix}")
     private String BEARER_PREFIX;
+
+    @Value("${project.frontend.url}")
+    private String FRONTEND_URL;
 
     @Override
     public JwtResponse signIn(SignInRequest request) {
@@ -66,7 +74,7 @@ public class AuthService implements AuthServiceInterface {
     }
 
     @Override
-    public JwtResponse register(RegisterRequest request) {
+    public void register(RegisterRequest request) {
         User newUser = new User();
         newUser.setEmail(request.getEmail());
         newUser.setPassword(this.passwordEncoder.encode(request.getPassword()));
@@ -75,13 +83,16 @@ public class AuthService implements AuthServiceInterface {
         roles.add(Roles.ROLE_USER);
         newUser.setRoles(roles);
         newUser.setCreatedAt(new Date());
-        newUser.setEnabled(true);
+        newUser.setEnabled(false);
         newUser.setAccountNonLocked(true);
-        this.userService.persistUser(newUser);
 
-        return this.signIn(
-            new SignInRequest(
-                request.getEmail(), request.getPassword()));
+        this.emailVerifierService.sendEmailConfirmation(newUser);
+        this.userService.persistUser(newUser);
+    }
+
+    @Override
+    public void confirmUserByToken(String token) {
+        this.emailVerifierService.handleEmailConfirmation(token);
     }
 
     @Override
@@ -104,6 +115,11 @@ public class AuthService implements AuthServiceInterface {
     public void logout(String authHeader) {
         String token = authHeader.substring(BEARER_PREFIX.length());
         this.jwtRevokeToken.revokeToken(token, false);
+    }
+
+    @Override
+    public URI buildRedirectUrl() {
+        return URI.create(FRONTEND_URL + "/auth/sign-in");
     }
 
 }

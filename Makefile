@@ -61,7 +61,7 @@ keypair: ## Generate keypair for JWT Authentication
 	@openssl rsa -pubout -in "$(RESOURCES_DIR)/jwt/private.pem" -out "$(RESOURCES_DIR)/jwt/public.pem"
 
 .PHONY: properties
-properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resiyrces dir
+properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resources dir
 	@if [ -f "$(RESOURCES_DIR)/application.properties" ]; then; else cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
 
 ##
