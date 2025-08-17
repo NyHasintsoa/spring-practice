@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.exception.InvalidRefreshTokenException;
@@ -82,17 +83,39 @@ public class AuthController {
     public ResponseEntity<ApiResponse> register(
         @RequestBody @Valid RegisterRequest request) {
         try {
+            this.authService.register(request);
+
             return ResponseEntity.ok(
                 new ApiResponse(
-                    "authentication request",
+                    "Message for email verification is sended to the user, please verify your mailbox !",
                     true,
-                    this.authService.register(request)));
+                    null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
                     e.getMessage(),
                     false,
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
+        }
+    }
+
+    @GetMapping("/confirm-email")
+    public ResponseEntity<ApiResponse> confirmEmail(
+        @RequestParam String token) {
+        try {
+            this.authService.confirmUserByToken(token);
+
+            return ResponseEntity.ok(
+                new ApiResponse(
+                    "User email verified successfully",
+                    true,
+                    null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ApiResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    false,
+                    e.getMessage()));
         }
     }
 

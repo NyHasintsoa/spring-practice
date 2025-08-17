@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Hi! Please confirm your email!</h1>
+
+  <p>
+    Please confirm your email address by clicking the following link: <br><br>
+    <a th:href="@{'http://127.0.0.1:8000/confirm-email?token='+${token}}">Confirm my Email</a>.
+    This link will expire in 1 hours.
+    <span th:text="${email}"></span>
+  </p>
+
+  <p>
+    Cheers!
+  </p>
+</body>
+
+</html>

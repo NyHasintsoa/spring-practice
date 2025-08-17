@@ -36,4 +36,9 @@ public class UserService implements UserServiceInterface {
         return this.userRepository.save(user);
     }
 
+    @Override
+    public User saveUser(User user) {
+        return this.userRepository.save(user);
+    }
+
 }

@@ -19,4 +19,9 @@ public interface UserServiceInterface {
      */
     public User lockUserByEmail(String email);
 
+    /**
+     * Save Existing user to the database
+     */
+    public User saveUser(User user);
+
 }

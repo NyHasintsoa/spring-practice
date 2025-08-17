@@ -16,7 +16,12 @@ public interface AuthServiceInterface {
     /**
      * Register User with Register Request
      */
-    public JwtResponse register(RegisterRequest request);
+    public void register(RegisterRequest request);
+
+    /**
+     * Confirm User By Token
+     */
+    public void confirmUserByToken(String token);
 
     /**
      * Get User Informations to show in the response
