@@ -1,5 +1,6 @@
 package com.exercise.project.security.service.auth;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.enums.Roles;
+import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
 import com.exercise.project.security.jwt.refresh.JwtRefreshTokenInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
@@ -27,9 +29,10 @@ import com.exercise.project.security.service.email.verifier.EmailVerifierService
 import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.service.user.UserServiceInterface;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class AuthService implements AuthServiceInterface {
-
     @Autowired
     private AuthenticationManager authManager;
 
@@ -43,6 +46,9 @@ public class AuthService implements AuthServiceInterface {
     private JwtRevokeTokenInterface jwtRevokeToken;
 
     @Autowired
+    private JwtTokenParserInterface jwtTokenParser;
+
+    @Autowired
     private UserServiceInterface userService;
 
     @Autowired
@@ -53,6 +59,9 @@ public class AuthService implements AuthServiceInterface {
 
     @Value("${project.jwt.bearer.prefix}")
     private String BEARER_PREFIX;
+
+    @Value("${project.frontend.url}")
+    private String FRONTEND_URL;
 
     @Override
     public JwtResponse signIn(SignInRequest request) {
@@ -65,7 +74,7 @@ public class AuthService implements AuthServiceInterface {
 
         return new JwtResponse(
             this.jwtUtils.generateTokenForUser(user),
-            this.jwtRefreshToken.createRefreshToken(user),
+            request.getRememberMe() ? this.jwtRefreshToken.createRefreshToken(user) : null,
             new UserInfoResponse(user));
     }
 
@@ -108,9 +117,14 @@ public class AuthService implements AuthServiceInterface {
     }
 
     @Override
-    public void logout(String authHeader) {
-        String token = authHeader.substring(BEARER_PREFIX.length());
+    public void logout(HttpServletRequest request) {
+        String token = jwtTokenParser.parseJwt(request);
         this.jwtRevokeToken.revokeToken(token, false);
+    }
+
+    @Override
+    public URI buildRedirectUrl() {
+        return URI.create(FRONTEND_URL + "/auth/sign-in");
     }
 
 }

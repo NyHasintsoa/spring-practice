@@ -24,9 +24,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Service
 public class JwtUtils implements JwtUtilsInterface {
 
-    @Value("${project.jwt.signing.key}")
-    private String JWT_SECRET;
-
     @Value("${project.jwt.token.expiration}")
     private Integer JWT_TOKEN_EXPIRATION;
 

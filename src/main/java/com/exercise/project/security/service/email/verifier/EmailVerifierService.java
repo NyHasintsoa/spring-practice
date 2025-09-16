@@ -31,14 +31,14 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
     @Value("${project.name.from}")
     private String NAME_FROM;
 
+    @Value("${project.backend.url}")
+    private String BACKEND_URL;
+
     @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
     private SpringTemplateEngine templateEngine;
-
-    @Autowired
-    private UserServiceInterface emailService;
 
     @Autowired
     private UserServiceInterface userService;
@@ -58,6 +58,7 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
             String token = generateTokenToConfirmEmail(userEmail);
             context.put("token", token);
             context.put("email", userEmail);
+            context.put("backend_url", BACKEND_URL);
             mimeHelper.setText(
                 templateEngine.process("email/email_verifiy", new Context(Locale.FRENCH, context)),
                 true);
@@ -70,7 +71,7 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
     @Override
     public void handleEmailConfirmation(String token) {
         String email = getEmailFromToken(token);
-        User user = emailService.getByEmail(email);
+        User user = userService.getByEmail(email);
         user.setEnabled(true);
         this.userService.saveUser(user);
     }

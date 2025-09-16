@@ -1,10 +1,14 @@
 package com.exercise.project.security.service.auth;
 
+import java.net.URI;
+
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface AuthServiceInterface {
 
@@ -36,6 +40,11 @@ public interface AuthServiceInterface {
     /**
      * Log out user and revoke token
      */
-    public void logout(String authHeader);
+    public void logout(HttpServletRequest request);
+
+    /**
+     * Build Redirect URL after payment successfully
+     */
+    public URI buildRedirectUrl();
 
 }

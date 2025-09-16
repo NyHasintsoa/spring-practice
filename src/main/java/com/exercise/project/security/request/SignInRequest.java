@@ -18,4 +18,6 @@ public class SignInRequest {
     @Size(min = 5, message = "PASSWORD_NOT_IN_SIZE_VALIDATION")
     private String password;
 
+    private Boolean rememberMe;
+
 }

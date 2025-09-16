@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.user.AuthUserDetails;
@@ -37,6 +38,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtRevokeTokenInterface jwtRevokeToken;
 
+    @Autowired
+    private JwtTokenParserInterface jwtTokenParser;
+
     @Override
     protected void doFilterInternal(
         @SuppressWarnings("null") HttpServletRequest request,
@@ -44,7 +48,7 @@ public class AuthRequestFilter extends OncePerRequestFilter {
         @SuppressWarnings("null") FilterChain filterChain)
         throws ServletException, IOException, UsernameNotFoundException {
         try {
-            String jwt = this.parseJwt(request);
+            String jwt = jwtTokenParser.parseJwt(request);
             if (StringUtils.hasText(jwt) && this.jwtUtils.validateToken(jwt)) {
                 if (this.jwtRevokeToken.isTokenRevoked(jwtUtils.extractTokenId(jwt))) {
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -83,14 +87,6 @@ public class AuthRequestFilter extends OncePerRequestFilter {
             return;
         }
         filterChain.doFilter(request, response);
-    }
-
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(this.BEARER_PREFIX)) {
-            return headerAuth.substring(this.BEARER_PREFIX.length());
-        }
-        return null;
     }
 
 }
