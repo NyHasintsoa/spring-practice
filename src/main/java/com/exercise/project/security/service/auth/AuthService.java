@@ -30,7 +30,6 @@ import com.exercise.project.service.user.UserServiceInterface;
 
 @Service
 public class AuthService implements AuthServiceInterface {
-
     @Autowired
     private AuthenticationManager authManager;
 
@@ -69,7 +68,7 @@ public class AuthService implements AuthServiceInterface {
 
         return new JwtResponse(
             this.jwtUtils.generateTokenForUser(user),
-            this.jwtRefreshToken.createRefreshToken(user),
+            request.getRememberMe() ? this.jwtRefreshToken.createRefreshToken(user) : null,
             new UserInfoResponse(user));
     }
 

@@ -26,11 +26,6 @@
       "description": "A description for 'project.jwt.bearer.prefix'"
     },
     {
-      "name": "project.jwt.signing.key",
-      "type": "java.lang.String",
-      "description": "A description for 'project.jwt.signing.key'"
-    },
-    {
       "name": "project.jwt.refresh.token.expiration",
       "type": "java.lang.Integer",
       "description": "A description for 'project.jwt.refresh.token.expiration'"
@@ -104,6 +99,31 @@
       "name": "project.backend.url",
       "type": "java.lang.String",
       "description": "A description for 'project.backend.url'"
+    },
+    {
+      "name": "project.jwt.cookie.storage.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.cookie.storage.key'"
+    },
+    {
+      "name": "project.reset.password.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.token.expiration'"
+    },
+    {
+      "name": "project.reset.password.cooldown",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.cooldown'"
+    },
+    {
+      "name": "project.secret.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.secret.key'"
+    },
+    {
+      "name": "project.reset.password.selector.length",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.selector.length'"
     }
   ]
 }

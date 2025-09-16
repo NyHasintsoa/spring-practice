@@ -3,13 +3,18 @@
 ###############################################
 spring.application.name=Spring Api Ressource
 server.port=8000
-spring.thymeleaf.check-template-location=false
 project.api.prefix=/api
 project.login.max.attempts=3
+project.frontend.url=https://127.0.0.1:3000
+project.backend.url=https://127.0.0.1:8000
+project.secret.key=abd2e2d1d4e90cd99695283c512f756b
+spring.thymeleaf.check-template-location=false
+spring.thymeleaf.suffix=.html
+spring.profiles.active=local
 ###############################################
 server.ssl.enabled=true
-server.ssl.certificate=classpath:cert/localhost+2.pem
-server.ssl.certificate-private-key=classpath:cert/localhost+2-key.pem
+server.ssl.certificate=classpath:certs/localhost+2.pem
+server.ssl.certificate-private-key=classpath:certs/localhost+2-key.pem
 ###############################################
 
 ###############################################
@@ -82,17 +87,38 @@ spring.jpa.open-in-view=true
 project.mail.from=noreply@domain.com
 project.name.from=Spring Admin Society
 spring.mail.host=127.0.0.1
-spring.mail.port=1025
-spring.mail.username=
-spring.mail.password=
-spring.mail.test-connection=false
+spring.mail.port=1143
+spring.mail.ssl.enabled=true
+spring.mail.protocol=smtps
+spring.mail.username=admin@domain.com
+spring.mail.password=Admin@123
+spring.mail.test-connection=true
+###############################################
+spring.mail.properties[mail.smtps.auth]=true
+spring.mail.properties[mail.smtps.starttls.enable]=true
+spring.mail.properties[mail.smtps.starttls.required]=true
+spring.mail.properties[mail.smtps.timeout]=3000
+spring.mail.properties[mail.smtps.writetimeout]=5000
+spring.mail.properties[mail.smtps.connectiontimeout]=5000
+# STARTTLS Configuration ######################
+# spring.mail.properties[mail.smtps.ssl.trust.store]=classpath:certs/mailpit.p12
+# spring.mail.properties[mail.smtps.ssl.trust.store.password]=hasintsoa
+# spring.mail.properties[mail.smtps.ssl.trust.store.type]=PKCS12
+spring.mail.properties[mail.smtps.ssl.trust]=*
+spring.mail.properties[mail.smtps.ssl.checkserveridentity]=false
+###############################################
+spring.mail.properties[mail.debug]=false
 ###############################################
 
 ###############################################
 # Security Properties
 ###############################################
 project.jwt.bearer.prefix=Bearer 
-project.jwt.signing.key=
+project.jwt.cookie.storage.key=project-jwt-token
 project.jwt.token.expiration=3600000
 project.jwt.refresh.token.expiration=604800000
+###############################################
+project.reset.password.selector.length=20
+project.reset.password.token.expiration=3600
+project.reset.password.cooldown=300
 ###############################################

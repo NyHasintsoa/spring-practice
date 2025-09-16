@@ -79,6 +79,18 @@ deploy: ## Deploy to local apache server
 help: ## List commands
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
+.PHONY: mailpit
+mailpit: $(RESOURCES_DIR)/mail/mailpit-auth-file ## Run Mailpit Server
+	@mailpit --listen 127.0.0.1:8025 --smtp 127.0.0.1:1143 \
+		--ui-tls-cert $(RESOURCES_DIR)/certs/mailpit.pem \
+		--ui-tls-key $(RESOURCES_DIR)/certs/mailpit-key.pem \
+		--smtp-tls-cert $(RESOURCES_DIR)/certs/mailpit.crt \
+		--smtp-tls-key $(RESOURCES_DIR)/certs/mailpit.key \
+		--send-api-auth-file $(RESOURCES_DIR)/mail/mailpit-auth-file \
+		--ui-auth-file $(RESOURCES_DIR)/mail/mailpit-auth-file \
+		--database $(RESOURCES_DIR)/mail/database.db \
+		--verbose --hide-delete-all-button \
+		--smtp-require-tls
 ##
 
 #-----------------------------------
@@ -89,4 +101,7 @@ target/$(PROJECT_ARTIFACT_ID).war:
 
 "$(RESOURCES_DIR)/application.properties.example":
 	@touch "$(RESOURCES_DIR)/application.properties.example"
+
+"$(RESOURCES_DIR)/mail/mailpit-auth-file":
+	@touch $(RESOURCES_DIR)/mailpit-auth-file
 #-----------------------------------

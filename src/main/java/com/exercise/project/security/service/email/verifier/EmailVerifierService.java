@@ -41,9 +41,6 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
     private SpringTemplateEngine templateEngine;
 
     @Autowired
-    private UserServiceInterface emailService;
-
-    @Autowired
     private UserServiceInterface userService;
 
     private Integer TOKEN_EXPIRATION_TIME = 3600000;
@@ -74,7 +71,7 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
     @Override
     public void handleEmailConfirmation(String token) {
         String email = getEmailFromToken(token);
-        User user = emailService.getByEmail(email);
+        User user = userService.getByEmail(email);
         user.setEnabled(true);
         this.userService.saveUser(user);
     }
