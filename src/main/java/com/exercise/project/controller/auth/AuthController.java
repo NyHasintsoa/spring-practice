@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +26,7 @@ import com.exercise.project.security.service.auth.AuthServiceInterface;
 import com.exercise.project.security.service.redis.login.RedisLoginAttemptServiceInterface;
 import com.exercise.project.security.service.reset.password.PasswordResetServiceInterface;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
@@ -43,7 +43,7 @@ public class AuthController {
     @Autowired
     private PasswordResetServiceInterface passwordResetService;
 
-    @Value("${project.jwt.cookie.storage.key}")
+    @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;
 
     @Value("${project.jwt.token.expiration}")
@@ -161,12 +161,13 @@ public class AuthController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse> logout(
-        @RequestHeader("Authorization") String authHeader,
-        HttpServletResponse response) {
+        HttpServletResponse response,
+        HttpServletRequest request) {
         try {
-            this.authService.logout(authHeader);
+            authService.logout(request);
 
             ResponseCookie jwtCookie = ResponseCookie.from(
                 JWT_COOKIE_STORAGE_KEY, "")

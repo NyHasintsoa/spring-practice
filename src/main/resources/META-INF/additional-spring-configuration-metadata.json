@@ -101,11 +101,6 @@
       "description": "A description for 'project.backend.url'"
     },
     {
-      "name": "project.jwt.cookie.storage.key",
-      "type": "java.lang.String",
-      "description": "A description for 'project.jwt.cookie.storage.key'"
-    },
-    {
       "name": "project.reset.password.token.expiration",
       "type": "java.lang.Integer",
       "description": "A description for 'project.reset.password.token.expiration'"
@@ -124,6 +119,16 @@
       "name": "project.reset.password.selector.length",
       "type": "java.lang.Integer",
       "description": "A description for 'project.reset.password.selector.length'"
+    },
+    {
+      "name": "project.jwt.cookie.token.storage.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.cookie.token.storage.key'"
+    },
+    {
+      "name": "project.jwt.cookie.refresh.token.storage.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.cookie.refresh.token.storage.key'"
     }
   ]
 }

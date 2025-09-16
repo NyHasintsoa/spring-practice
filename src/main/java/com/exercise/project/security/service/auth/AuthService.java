@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.enums.Roles;
+import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
 import com.exercise.project.security.jwt.refresh.JwtRefreshTokenInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
@@ -27,6 +28,8 @@ import com.exercise.project.security.response.UserInfoResponse;
 import com.exercise.project.security.service.email.verifier.EmailVerifierServiceInterface;
 import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.service.user.UserServiceInterface;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class AuthService implements AuthServiceInterface {
@@ -41,6 +44,9 @@ public class AuthService implements AuthServiceInterface {
 
     @Autowired
     private JwtRevokeTokenInterface jwtRevokeToken;
+
+    @Autowired
+    private JwtTokenParserInterface jwtTokenParser;
 
     @Autowired
     private UserServiceInterface userService;
@@ -111,8 +117,8 @@ public class AuthService implements AuthServiceInterface {
     }
 
     @Override
-    public void logout(String authHeader) {
-        String token = authHeader.substring(BEARER_PREFIX.length());
+    public void logout(HttpServletRequest request) {
+        String token = jwtTokenParser.parseJwt(request);
         this.jwtRevokeToken.revokeToken(token, false);
     }
 
