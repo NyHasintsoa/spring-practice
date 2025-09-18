@@ -24,6 +24,7 @@ import com.exercise.project.entity.auth.User;
 import com.exercise.project.exception.SendMailException;
 import com.exercise.project.repository.auth.ResetPasswordRequestRepository;
 import com.exercise.project.repository.auth.UserRepository;
+import com.exercise.project.security.request.ForgotPasswordRequest;
 import com.exercise.project.security.service.reset.token.generator.PasswordResetTokenGeneratorInterface;
 import com.exercise.project.security.service.reset.token.verifier.PasswordResetTokenVerifierInterface;
 
@@ -74,8 +75,8 @@ public class PasswordResetService implements PasswordResetServiceInterface {
 
     @Override
     @Transactional
-    public void requestPasswordReset(String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
+    public void requestPasswordReset(ForgotPasswordRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
         if (userOptional.isEmpty())
             return;
 
@@ -109,7 +110,7 @@ public class PasswordResetService implements PasswordResetServiceInterface {
         resetPasswordRequestRepository.save(resetPasswordRequest);
 
         sendResetPasswordEmail(
-            email,
+            request.getEmail(),
             String.format("%s/password-update/%s%s", FRONTEND_URL, selector, hashedToken));
     }
 

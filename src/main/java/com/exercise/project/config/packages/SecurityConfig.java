@@ -1,6 +1,9 @@
 package com.exercise.project.config.packages;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,10 +18,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.exercise.project.security.jwt.AuthEntryPoint;
 import com.exercise.project.security.jwt.AuthRequestFilter;
 import com.exercise.project.security.service.AuthUserDetailsService;
+import com.exercise.project.security.service.OAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -34,19 +41,30 @@ public class SecurityConfig {
     @Autowired
     private AuthEntryPoint authEntryPoint;
 
+    @Autowired
+    private OAuth2UserService oAuth2UserService;
+
+    @Value("${project.cors.allow.origins}")
+    private String[] CORS_ALLOWED_ORIGINS;
+
     @Bean
     SecurityFilterChain securityFilterChain(
         HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .csrf((csrf) -> csrf.disable())
-            .cors((cors) -> cors.disable())
+            .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(
                 (request) -> request.anyRequest().permitAll())
+            .oauth2Login((oauth2) -> oauth2
+                .authorizationEndpoint((endpoint) -> endpoint.baseUri("/oauth2/authorization"))
+                .redirectionEndpoint((endpoint) -> endpoint.baseUri("/oauth2/callback/*"))
+                .userInfoEndpoint((endpoint) -> endpoint.userService(oAuth2UserService)))
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
             .authenticationManager(authenticationManager())
             .exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
         return httpSecurity.build();
     }
 
@@ -67,6 +85,20 @@ public class SecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(CORS_ALLOWED_ORIGINS));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

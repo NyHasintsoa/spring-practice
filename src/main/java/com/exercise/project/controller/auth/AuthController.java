@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.exception.InvalidRefreshTokenException;
 import com.exercise.project.response.ApiResponse;
+import com.exercise.project.security.request.ForgotPasswordRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.ResetPasswordRequest;
@@ -193,12 +194,12 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse> forgotPassword(
-        @RequestParam String email) {
+        @RequestBody ForgotPasswordRequest request) {
         try {
-            passwordResetService.requestPasswordReset(email);
+            passwordResetService.requestPasswordReset(request);
 
             return ResponseEntity.ok(
-                new ApiResponse("Reset password Request", true, email));
+                new ApiResponse("Reset password Request", true, request));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
