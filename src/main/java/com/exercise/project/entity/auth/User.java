@@ -58,17 +58,17 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return roles;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return email;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isAccountNonLocked;
+        return isAccountNonLocked;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.isEnabled;
+        return isEnabled;
     }
 
 }

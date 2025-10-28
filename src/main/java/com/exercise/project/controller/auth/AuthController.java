@@ -8,24 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.exception.InvalidRefreshTokenException;
 import com.exercise.project.response.ApiResponse;
-import com.exercise.project.security.request.ForgotPasswordRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
-import com.exercise.project.security.request.ResetPasswordRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
 import com.exercise.project.security.service.redis.login.RedisLoginAttemptServiceInterface;
-import com.exercise.project.security.service.reset.password.PasswordResetServiceInterface;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,9 +36,6 @@ public class AuthController {
     @Autowired
     private RedisLoginAttemptServiceInterface loginAttemptService;
 
-    @Autowired
-    private PasswordResetServiceInterface passwordResetService;
-
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;
 
@@ -58,7 +50,7 @@ public class AuthController {
                 new ApiResponse(
                     "current user informations",
                     true,
-                    this.authService.getConnectedUserInfo()));
+                    authService.getConnectedUserInfo()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
@@ -73,7 +65,7 @@ public class AuthController {
         @RequestBody @Valid SignInRequest request,
         HttpServletResponse response) {
         try {
-            JwtResponse jwtResponse = this.authService.signIn(request);
+            JwtResponse jwtResponse = authService.signIn(request);
             ResponseCookie jwtCookie = ResponseCookie.from(
                 JWT_COOKIE_STORAGE_KEY,
                 jwtResponse.getToken()).httpOnly(true)
@@ -89,7 +81,7 @@ public class AuthController {
                     true,
                     jwtResponse));
         } catch (BadCredentialsException e) {
-            Long attemtp = this.loginAttemptService.loginFailed(request.getEmail());
+            Long attemtp = loginAttemptService.loginFailed(request.getEmail());
 
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ApiResponse(
@@ -109,7 +101,7 @@ public class AuthController {
     public ResponseEntity<ApiResponse> register(
         @RequestBody @Valid RegisterRequest request) {
         try {
-            this.authService.register(request);
+            authService.register(request);
 
             return ResponseEntity.ok(
                 new ApiResponse(
@@ -125,19 +117,6 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/confirm-email")
-    public ResponseEntity<Void> confirmEmail(
-        @RequestParam String token) {
-        try {
-            this.authService.confirmUserByToken(token);
-        } catch (Exception e) {
-        }
-
-        return ResponseEntity
-            .status(HttpStatus.FOUND)
-            .location(authService.buildRedirectUrl()).build();
-    }
-
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse> refreshToken(
         @RequestBody @Valid RefreshTokenRequest request) {
@@ -146,7 +125,7 @@ public class AuthController {
                 new ApiResponse(
                     "Refresh token generated successfully",
                     true,
-                    this.authService.refreshToken(request)));
+                    authService.refreshToken(request)));
         } catch (InvalidRefreshTokenException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                 new ApiResponse(
@@ -183,41 +162,6 @@ public class AuthController {
                     "user logged out successfully !",
                     true,
                     null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
-    }
-
-    @PostMapping("/forgot-password")
-    public ResponseEntity<ApiResponse> forgotPassword(
-        @RequestBody ForgotPasswordRequest request) {
-        try {
-            passwordResetService.requestPasswordReset(request);
-
-            return ResponseEntity.ok(
-                new ApiResponse("Reset password Request", true, request));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
-    }
-
-    @PostMapping("/reset-password/{token}")
-    public ResponseEntity<ApiResponse> resetPassword(
-        @PathVariable String token,
-        @Valid @RequestBody ResetPasswordRequest request) {
-        try {
-            passwordResetService.updatePassword(request, token);
-
-            return ResponseEntity.ok(
-                new ApiResponse("Reset password Request", true, request));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(

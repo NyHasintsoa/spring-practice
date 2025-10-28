@@ -25,7 +25,7 @@ public class RedisLoginAttemptService implements RedisLoginAttemptServiceInterfa
     private UserServiceInterface userService;
 
     private ValueOperations<String, Object> getValueOperations() {
-        return this.redisTemplate.opsForValue();
+        return redisTemplate.opsForValue();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RedisLoginAttemptService implements RedisLoginAttemptServiceInterfa
 
         if (attempts >= MAX_ATTEMPTS) {
             try {
-                this.userService.lockUserByEmail(email);
+                userService.lockUserByEmail(email);
                 throw new UserAccountLockedException();
             } catch (UserNotFoundException e) {
             }

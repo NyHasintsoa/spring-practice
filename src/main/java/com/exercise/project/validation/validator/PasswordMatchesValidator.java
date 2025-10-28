@@ -14,8 +14,8 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
-        this.passwordFieldName = constraintAnnotation.password();
-        this.confirmPasswordFieldName = constraintAnnotation.confirmPassword();
+        passwordFieldName = constraintAnnotation.password();
+        confirmPasswordFieldName = constraintAnnotation.confirmPassword();
     }
 
     @Override

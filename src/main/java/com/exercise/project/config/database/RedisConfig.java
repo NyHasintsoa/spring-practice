@@ -25,7 +25,7 @@ public class RedisConfig {
 
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
+        mapper.registerModules(SecurityJackson2Modules.getModules(loader));
 
         return mapper;
     }

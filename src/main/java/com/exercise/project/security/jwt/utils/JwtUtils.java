@@ -38,12 +38,12 @@ public class JwtUtils implements JwtUtilsInterface {
             "roles",
             user.getRoles());
 
-        return this.doGenerateToken(claims, user.getEmail(), this.JWT_TOKEN_EXPIRATION);
+        return doGenerateToken(claims, user.getEmail(), JWT_TOKEN_EXPIRATION);
     }
 
     @Override
     public String generateRefreshTokenForUser(User user) {
-        return this.doGenerateToken(null, user.getEmail(), this.JWT_REFRESH_TOKEN_EXPIRATION);
+        return doGenerateToken(null, user.getEmail(), JWT_REFRESH_TOKEN_EXPIRATION);
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject, Integer expirationTime) {
@@ -112,7 +112,7 @@ public class JwtUtils implements JwtUtilsInterface {
 
     @Override
     public String extractTokenId(String token) {
-        return this.getClaimsFromToken(token).getId();
+        return getClaimsFromToken(token).getId();
     }
 
 }

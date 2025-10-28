@@ -49,8 +49,8 @@ public class AuthRequestFilter extends OncePerRequestFilter {
         throws ServletException, IOException, UsernameNotFoundException {
         try {
             String jwt = jwtTokenParser.parseJwt(request);
-            if (StringUtils.hasText(jwt) && this.jwtUtils.validateToken(jwt)) {
-                if (this.jwtRevokeToken.isTokenRevoked(jwtUtils.extractTokenId(jwt))) {
+            if (StringUtils.hasText(jwt) && jwtUtils.validateToken(jwt)) {
+                if (jwtRevokeToken.isTokenRevoked(jwtUtils.extractTokenId(jwt))) {
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     final Map<String, Object> body = new HashMap<>();
@@ -63,7 +63,7 @@ public class AuthRequestFilter extends OncePerRequestFilter {
 
                     return;
                 }
-                AuthUserDetails userDetails = this.jwtUtils.buildUserDetailsFromToken(jwt);
+                AuthUserDetails userDetails = jwtUtils.buildUserDetailsFromToken(jwt);
                 UsernamePasswordAuthenticationToken auth = UsernamePasswordAuthenticationToken.authenticated(
                     userDetails, null,
                     userDetails.getAuthorities());

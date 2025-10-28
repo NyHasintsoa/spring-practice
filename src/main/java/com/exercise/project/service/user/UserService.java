@@ -19,26 +19,26 @@ public class UserService implements UserServiceInterface {
     public User persistUser(User user) {
         user.setId(UUID.randomUUID());
 
-        return this.userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public User getByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(
+        return userRepository.findByEmail(email).orElseThrow(
             () -> new UserNotFoundException("user not found with this email : " + email));
     }
 
     @Override
     public User lockUserByEmail(String email) {
-        User user = this.getByEmail(email);
+        User user = getByEmail(email);
         user.setAccountNonLocked(false);
 
-        return this.userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public User saveUser(User user) {
-        return this.userRepository.save(user);
+        return userRepository.save(user);
     }
 
 }

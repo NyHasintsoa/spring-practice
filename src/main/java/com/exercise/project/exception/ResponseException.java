@@ -8,11 +8,11 @@ public abstract class ResponseException extends RuntimeException {
 
     public ResponseException(String message) {
         super(message);
-        this.statusCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        statusCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
     }
 
     public Integer getStatusCode() {
-        return this.statusCode;
+        return statusCode;
     }
 
 }

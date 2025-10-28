@@ -25,11 +25,11 @@ public class UserInfoResponse {
     private Date createdAt;
 
     public UserInfoResponse(User user) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.fullName = user.getFullName();
-        this.roles = user.getRoles();
-        this.createdAt = user.getCreatedAt();
+        id = user.getId();
+        email = user.getEmail();
+        fullName = user.getFullName();
+        roles = user.getRoles();
+        createdAt = user.getCreatedAt();
     }
 
 }

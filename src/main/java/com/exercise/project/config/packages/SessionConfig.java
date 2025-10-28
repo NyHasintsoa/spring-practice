@@ -29,7 +29,7 @@ public class SessionConfig implements BeanClassLoaderAware {
     @Override
     public void setBeanClassLoader(
         @SuppressWarnings("null") ClassLoader classLoader) {
-        this.loader = classLoader;
+        loader = classLoader;
     }
 
 }

@@ -32,20 +32,20 @@ public class JwtRefreshToken implements JwtRefreshTokenInterface {
     public String createRefreshToken(User user) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setEmail(user.getEmail());
-        refreshToken.setExpiryDate(new Date(new Date().getTime() + this.JWT_REFRESH_TOKEN_EXPIRATION));
+        refreshToken.setExpiryDate(new Date(new Date().getTime() + JWT_REFRESH_TOKEN_EXPIRATION));
         refreshToken.setRefreshToken(jwtUtils.generateRefreshTokenForUser(user));
-        this.refreshTokenRepository.save(refreshToken);
+        refreshTokenRepository.save(refreshToken);
 
         return refreshToken.getRefreshToken();
     }
 
     @Override
     public String refreshAccessToken(String refreshToken) {
-        if (!this.jwtUtils.validateToken(refreshToken)) {
+        if (!jwtUtils.validateToken(refreshToken)) {
             throw new InvalidRefreshTokenException();
         }
 
-        RefreshToken storedToken = this.refreshTokenRepository.findByRefreshToken(refreshToken)
+        RefreshToken storedToken = refreshTokenRepository.findByRefreshToken(refreshToken)
             .orElseThrow(() -> new InvalidRefreshTokenException());
 
         if (storedToken.getExpiryDate().before(new Date())) {
@@ -53,14 +53,14 @@ public class JwtRefreshToken implements JwtRefreshTokenInterface {
             throw new InvalidRefreshTokenException();
         }
 
-        User user = this.userService.getByEmail(storedToken.getEmail());
+        User user = userService.getByEmail(storedToken.getEmail());
 
-        return this.jwtUtils.generateTokenForUser(user);
+        return jwtUtils.generateTokenForUser(user);
     }
 
     @Override
     public void deleteRefreshToken(String refreshToken) {
-        this.refreshTokenRepository
+        refreshTokenRepository
             .findByRefreshToken(refreshToken)
             .ifPresent(refreshTokenRepository::delete);
     }

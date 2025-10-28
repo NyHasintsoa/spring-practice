@@ -73,7 +73,7 @@ public class EmailVerifierService implements EmailVerifierServiceInterface {
         String email = getEmailFromToken(token);
         User user = userService.getByEmail(email);
         user.setEnabled(true);
-        this.userService.saveUser(user);
+        userService.saveUser(user);
     }
 
     private String generateTokenToConfirmEmail(String email) {

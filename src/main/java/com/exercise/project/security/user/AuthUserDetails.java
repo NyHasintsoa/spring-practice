@@ -23,25 +23,25 @@ public class AuthUserDetails implements UserDetails {
     private Set<Roles> roles;
 
     public UUID getId() {
-        return this.id;
+        return id;
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return roles;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return email;
     }
 }

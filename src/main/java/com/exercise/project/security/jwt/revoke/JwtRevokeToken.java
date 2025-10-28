@@ -20,17 +20,17 @@ public class JwtRevokeToken implements JwtRevokeTokenInterface {
 
     @Override
     public void revokeToken(String token, Boolean isRefreshToken) {
-        Claims claims = this.jwtUtils.getClaimsFromToken(token);
+        Claims claims = jwtUtils.getClaimsFromToken(token);
         RevokedToken revokedToken = new RevokedToken();
         revokedToken.setTokenId(claims.getId());
         revokedToken.setExpiryDate(claims.getExpiration());
         revokedToken.setIsRefreshToken(isRefreshToken);
-        this.revokedTokenRepository.save(revokedToken);
+        revokedTokenRepository.save(revokedToken);
     }
 
     @Override
     public Boolean isTokenRevoked(String tokenId) {
-        return this.revokedTokenRepository.existsByTokenId(tokenId);
+        return revokedTokenRepository.existsByTokenId(tokenId);
     }
 
 }

@@ -65,7 +65,7 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public JwtResponse signIn(SignInRequest request) {
-        Authentication authentication = this.authManager.authenticate(
+        Authentication authentication = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -73,8 +73,8 @@ public class AuthService implements AuthServiceInterface {
         User user = ((User) authentication.getPrincipal());
 
         return new JwtResponse(
-            this.jwtUtils.generateTokenForUser(user),
-            request.getRememberMe() ? this.jwtRefreshToken.createRefreshToken(user) : null,
+            jwtUtils.generateTokenForUser(user),
+            request.getRememberMe() ? jwtRefreshToken.createRefreshToken(user) : null,
             new UserInfoResponse(user));
     }
 
@@ -82,7 +82,7 @@ public class AuthService implements AuthServiceInterface {
     public void register(RegisterRequest request) {
         User newUser = new User();
         newUser.setEmail(request.getEmail());
-        newUser.setPassword(this.passwordEncoder.encode(request.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setFullName(request.getFullname());
         Set<Roles> roles = new HashSet<Roles>();
         roles.add(Roles.ROLE_USER);
@@ -91,13 +91,13 @@ public class AuthService implements AuthServiceInterface {
         newUser.setEnabled(false);
         newUser.setAccountNonLocked(true);
 
-        this.emailVerifierService.sendEmailConfirmation(newUser);
-        this.userService.persistUser(newUser);
+        emailVerifierService.sendEmailConfirmation(newUser);
+        userService.persistUser(newUser);
     }
 
     @Override
     public void confirmUserByToken(String token) {
-        this.emailVerifierService.handleEmailConfirmation(token);
+        emailVerifierService.handleEmailConfirmation(token);
     }
 
     @Override
@@ -107,24 +107,24 @@ public class AuthService implements AuthServiceInterface {
             .getAuthentication()
             .getPrincipal());
 
-        return new UserInfoResponse(this.userService.getByEmail(userDetails.getEmail()));
+        return new UserInfoResponse(userService.getByEmail(userDetails.getEmail()));
     }
 
     @Override
     public JwtResponse refreshToken(RefreshTokenRequest request) {
-        String newAccessToken = this.jwtRefreshToken.refreshAccessToken(request.getRefreshToken());
-        return new JwtResponse(newAccessToken, newAccessToken, null);
+        String newAccessToken = jwtRefreshToken.refreshAccessToken(request.getRefreshToken());
+        return new JwtResponse(newAccessToken, null, null);
     }
 
     @Override
     public void logout(HttpServletRequest request) {
         String token = jwtTokenParser.parseJwt(request);
-        this.jwtRevokeToken.revokeToken(token, false);
+        jwtRevokeToken.revokeToken(token, false);
     }
 
     @Override
     public URI buildRedirectUrl() {
-        return URI.create(FRONTEND_URL + "/auth/sign-in");
+        return URI.create(FRONTEND_URL + "/sign-in");
     }
 
 }

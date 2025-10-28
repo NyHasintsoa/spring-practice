@@ -6,12 +6,12 @@ public class UserNotFoundException extends ResponseException {
 
     public UserNotFoundException() {
         super("User not Found !");
-        this.statusCode = HttpServletResponse.SC_NOT_FOUND;
+        statusCode = HttpServletResponse.SC_NOT_FOUND;
     }
 
     public UserNotFoundException(String message) {
         super(message);
-        this.statusCode = HttpServletResponse.SC_NOT_FOUND;
+        statusCode = HttpServletResponse.SC_NOT_FOUND;
     }
 
     public UserNotFoundException(String message, int statusCode) {
