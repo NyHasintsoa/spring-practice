@@ -26,20 +26,20 @@ Use Spring MCP Client to perform connexion with MCP Server from express.
 | 2FA Authentication      | 🔥       | ✅      | _Hasintsoa_ | 2025-08-17 | 2025-08-17  | Send Mail to verify user's account AND enable user                         |
 | Password Recovery       | 🔥       | ✅      | _Hasintsoa_ | 2025-08-23 | 2025-09-16  | Send Mail to reset user's password (no bundle)                             |
 | Update Profile User     | 🔥       | ✅      | Hasintsoa   | 2025-11-03 | 2025-11-02  | Update FullName and phone of the user                                      |
-| OAuth2 Social Login     | 🔥       | 🕓     | _Hasintsoa_ | 2025-08-23 |             | Use `Google` and `Github` to perform Social login Authentication           |
+| OAuth2 Social Login     | 🕓       | 🕓     | _Hasintsoa_ |            |             | Use `Google` and `Github` to perform Social login Authentication           |
 
 ---
 
-## 🚀 Epic 2 – MCP Client
+## 🚀 Epic 2 – Blog for Articles
 
-| Task | Priority | Status | Assignee | Due Date | Notes |
-| ---- | -------- | ------ | -------- | -------- | ----- |
-|      |          |        |          |          |       |
+| Task                         | Priority | Status | Assignee    | Due Date | Finish Date | Notes                        |
+| ---------------------------- |:--------:|:------:| ----------- | -------- | ----------- | ---------------------------- |
+| Create Post                  | 🔥       | 🕓     | _Hasintsoa_ |          |             | Add some tags for each posts |
+| Create comment for each Post | 🔥       | 🕓     | _Hasintsoa_ |          |             |                              |
+| Create Post Like             | 🔥       | 🕓     | _Hasintsoa_ |          |             |                              |
 
 ---
 
 ## 🗒 Notes
 
-- **Epic 1** covers the full authentication lifecycle: login, token issuance, refresh, and security checks.
-- Redis integration is used for tracking login attempts to mitigate brute-force attacks.
-- Future work may include **multi-factor authentication (MFA)** and **OAuth2 social logins**.
+- **Epic 2 :** Create Blog to the project
