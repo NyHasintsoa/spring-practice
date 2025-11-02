@@ -20,7 +20,7 @@ public class FixtureController {
     @GetMapping("/fixtures")
     public ResponseEntity<ApiResponse> makeFixtures() {
         try {
-            fixtures.store();
+            fixtures.init();
 
             return ResponseEntity.ok(
                 new ApiResponse(

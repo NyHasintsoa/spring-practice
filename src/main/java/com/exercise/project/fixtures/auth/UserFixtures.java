@@ -42,6 +42,26 @@ public class UserFixtures {
         return users;
     }
 
+    public User storeAdmin() {
+        User user = new User();
+
+        Date createdAt = faker.date().past(3, TimeUnit.DAYS);
+        user.setId(UUID.randomUUID());
+        user.setFullName("Admin User");
+        user.setEmail("admin@domain.com");
+        user.setPassword(passwordEncoder.encode("Admin@123"));
+        Set<Roles> roles = new HashSet<Roles>();
+        roles.add(Roles.ROLE_USER);
+        roles.add(Roles.ROLE_ADMIN);
+        user.setRoles(roles);
+        user.setCreatedAt(createdAt);
+        user.setUpdatedAt(createdAt);
+        user.setEnabled(true);
+        user.setAccountNonLocked(true);
+
+        return userService.saveUser(user);
+    }
+
     public User create() {
         User user = new User();
 
@@ -61,14 +81,11 @@ public class UserFixtures {
         return user;
     }
 
-    public UserFixtures store() {
+    public void store(User user) {
         try {
-            userService.saveUser(this.create());
+            userService.saveUser(user);
         } catch (Exception e) {
-
         }
-
-        return this;
     }
 
 }

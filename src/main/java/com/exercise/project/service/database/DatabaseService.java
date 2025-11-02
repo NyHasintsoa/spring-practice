@@ -31,7 +31,7 @@ public class DatabaseService implements DatabaseServiceInterface {
     @SuppressWarnings("unchecked")
     public void truncateAllTables() {
         String query = """
-                SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_type = 'BASE TABLE'
+                    SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_type = 'BASE TABLE'
             """;
         List<String> tableNames = entityManager.createNativeQuery(query).getResultList();
         entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
