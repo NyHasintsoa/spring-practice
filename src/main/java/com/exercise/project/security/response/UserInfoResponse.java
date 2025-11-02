@@ -20,6 +20,8 @@ public class UserInfoResponse {
 
     private String fullName;
 
+    private String phone;
+
     private Set<Roles> roles;
 
     private Date createdAt;
@@ -28,6 +30,7 @@ public class UserInfoResponse {
         id = user.getId();
         email = user.getEmail();
         fullName = user.getFullName();
+        phone = user.getPhone();
         roles = user.getRoles();
         createdAt = user.getCreatedAt();
     }

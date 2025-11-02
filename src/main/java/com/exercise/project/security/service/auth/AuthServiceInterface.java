@@ -2,6 +2,7 @@ package com.exercise.project.security.service.auth;
 
 import java.net.URI;
 
+import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
@@ -46,5 +47,10 @@ public interface AuthServiceInterface {
      * Build Redirect URL after payment successfully
      */
     public URI buildRedirectUrl();
+
+    /**
+     * Update User profile
+     */
+    public UserInfoResponse updateUserProfile(ProfileUserRequest request);
 
 }

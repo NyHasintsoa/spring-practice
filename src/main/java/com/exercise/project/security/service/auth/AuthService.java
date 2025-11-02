@@ -20,6 +20,7 @@ import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
 import com.exercise.project.security.jwt.refresh.JwtRefreshTokenInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
+import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
@@ -27,12 +28,13 @@ import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
 import com.exercise.project.security.service.email.verifier.EmailVerifierServiceInterface;
 import com.exercise.project.security.user.AuthUserDetails;
+import com.exercise.project.service.BaseService;
 import com.exercise.project.service.user.UserServiceInterface;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
-public class AuthService implements AuthServiceInterface {
+public class AuthService extends BaseService implements AuthServiceInterface {
     @Autowired
     private AuthenticationManager authManager;
 
@@ -102,10 +104,7 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public UserInfoResponse getConnectedUserInfo() {
-        AuthUserDetails userDetails = ((AuthUserDetails) SecurityContextHolder
-            .getContext()
-            .getAuthentication()
-            .getPrincipal());
+        AuthUserDetails userDetails = getConnectedUser();
 
         return new UserInfoResponse(userService.getByEmail(userDetails.getEmail()));
     }
@@ -125,6 +124,18 @@ public class AuthService implements AuthServiceInterface {
     @Override
     public URI buildRedirectUrl() {
         return URI.create(FRONTEND_URL + "/sign-in");
+    }
+
+    @Override
+    public UserInfoResponse updateUserProfile(ProfileUserRequest request) {
+        AuthUserDetails userDetails = getConnectedUser();
+
+        User user = userService.getByEmail(userDetails.getEmail());
+        user.setFullName(request.getFirstname() + " " + request.getLastname());
+        user.setPhone(request.getPhone());
+        User updatedUser = userService.saveUser(user);
+
+        return new UserInfoResponse(updatedUser);
     }
 
 }

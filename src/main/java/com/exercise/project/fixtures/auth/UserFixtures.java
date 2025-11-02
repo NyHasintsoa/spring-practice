@@ -48,6 +48,7 @@ public class UserFixtures {
         Date createdAt = faker.date().past(3, TimeUnit.DAYS);
         user.setId(UUID.randomUUID());
         user.setFullName("Admin User");
+        user.setPhone(faker.phoneNumber().phoneNumber());
         user.setEmail("admin@domain.com");
         user.setPassword(passwordEncoder.encode("Admin@123"));
         Set<Roles> roles = new HashSet<Roles>();
@@ -68,6 +69,7 @@ public class UserFixtures {
         Date createdAt = faker.date().past(5, TimeUnit.DAYS);
         user.setId(UUID.randomUUID());
         user.setFullName(faker.name().fullName());
+        user.setPhone(faker.phoneNumber().phoneNumber());
         user.setEmail(faker.name().username() + "@domain.com");
         user.setPassword(passwordEncoder.encode("Admin@123"));
         Set<Roles> roles = new HashSet<Roles>();
