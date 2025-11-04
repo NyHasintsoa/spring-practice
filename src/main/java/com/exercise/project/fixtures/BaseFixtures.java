@@ -1,27 +1,44 @@
 package com.exercise.project.fixtures;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
-import com.exercise.project.fixtures.auth.UserFixtures;
-import com.exercise.project.service.database.DatabaseServiceInterface;
+import com.github.javafaker.Faker;
+import com.github.slugify.Slugify;
 
-@Service
-public class BaseFixtures {
+public abstract class BaseFixtures<T> {
 
-    @Autowired
-    private UserFixtures userFixtures;
+    private Faker faker;
 
-    @Autowired
-    private DatabaseServiceInterface databaseService;
-
-    public void init() {
-        /** TRUNCATE ALL TABLES */
-        databaseService.truncateAllTables();
-
-        /** USERS */
-        userFixtures.createMany(3).stream().forEach(userFixtures::store);
-        userFixtures.storeAdmin();
+    public BaseFixtures() {
+        faker = Faker.instance(Locale.ENGLISH);
     }
+
+    public Faker faker() {
+        return faker;
+    }
+
+    public List<T> createMany(Integer number) {
+        List<T> datas = new ArrayList<T>();
+        for (int i = 0; i < number; i++) {
+            datas.add(create());
+        }
+
+        return datas;
+    }
+
+    protected String slugify(String text) {
+        return Slugify
+            .builder()
+            .lowerCase(true)
+            .build()
+            .slugify(text) + "-" + (new Random()).nextInt();
+    }
+
+    public abstract void store(T data);
+
+    public abstract T create();
 
 }

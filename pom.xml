@@ -189,6 +189,12 @@
 			<version>0.8.13</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.slugify/slugify -->
+		<dependency>
+			<groupId>com.github.slugify</groupId>
+			<artifactId>slugify</artifactId>
+			<version>3.0.7</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

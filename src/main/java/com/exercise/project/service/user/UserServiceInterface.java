@@ -1,6 +1,7 @@
 package com.exercise.project.service.user;
 
 import com.exercise.project.entity.auth.User;
+import com.exercise.project.exception.UserNotFoundException;
 
 public interface UserServiceInterface {
 
@@ -11,6 +12,8 @@ public interface UserServiceInterface {
 
     /**
      * Get User by email address
+     * 
+     * @throws UserNotFoundException
      */
     public User getByEmail(String email);
 

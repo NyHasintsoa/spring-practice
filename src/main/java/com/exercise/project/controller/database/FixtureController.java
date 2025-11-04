@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exercise.project.fixtures.BaseFixtures;
+import com.exercise.project.fixtures.AppFixtures;
 import com.exercise.project.response.ApiResponse;
 
 @RestController
@@ -15,7 +15,7 @@ import com.exercise.project.response.ApiResponse;
 public class FixtureController {
 
     @Autowired
-    private BaseFixtures fixtures;
+    private AppFixtures fixtures;
 
     @GetMapping("/fixtures")
     public ResponseEntity<ApiResponse> makeFixtures() {

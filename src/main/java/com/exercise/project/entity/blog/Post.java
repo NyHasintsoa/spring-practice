@@ -51,7 +51,7 @@ public class Post {
     )
     private Collection<Tag> tags = new HashSet<Tag>();
 
-    @OneToMany(targetEntity = Comment.class, orphanRemoval = true)
+    @OneToMany(targetEntity = Comment.class, orphanRemoval = true, cascade = CascadeType.ALL)
     private Collection<Comment> comments = new HashSet<Comment>();
 
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.DETACH)
