@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "reset_password_requests")
+@Table(name = "auth_reset_password_requests")
 public class ResetPasswordRequest {
 
     @Id

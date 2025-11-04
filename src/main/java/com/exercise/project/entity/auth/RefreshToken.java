@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "refresh_tokens")
+@Table(name = "auth_refresh_tokens")
 public class RefreshToken {
 
     @Id

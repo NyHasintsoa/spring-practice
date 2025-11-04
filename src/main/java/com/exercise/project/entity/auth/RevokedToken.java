@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "revoked_tokens")
+@Table(name = "auth_revoked_tokens")
 public class RevokedToken {
 
     @Id
