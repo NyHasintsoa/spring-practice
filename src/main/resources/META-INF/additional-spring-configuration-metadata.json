@@ -1,137 +1,144 @@
-{"properties": [
-  {
-    "name": "project.name.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.name.from'"
-  },
-  {
-    "name": "project.mail.from",
-    "type": "java.lang.String",
-    "description": "A description for 'project.mail.from'"
-  },
-  {
-    "name": "project.api.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'project.api.prefix'"
-  },
-  {
-    "name": "project.jwt.token.expiration",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.jwt.token.expiration'"
-  },
-  {
-    "name": "project.jwt.bearer.prefix",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.bearer.prefix'"
-  },
-  {
-    "name": "project.jwt.refresh.token.expiration",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.jwt.refresh.token.expiration'"
-  },
-  {
-    "name": "project.login.max.attempts",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.login.max.attempts'"
-  },
-  {
-    "name": "project.cybersource.merchant.id",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.merchant.id'"
-  },
-  {
-    "name": "project.cybersource.api.key.id",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.api.key.id'"
-  },
-  {
-    "name": "project.cybersource.secret.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.secret.key'"
-  },
-  {
-    "name": "project.cybersource.api.endpoint",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.api.endpoint'"
-  },
-  {
-    "name": "project.cybersource.certificate.password",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.certificate.password'"
-  },
-  {
-    "name": "project.cybersource.certificate.file.name",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.certificate.name'"
-  },
-  {
-    "name": "project.cybersource.request.timeout",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.cybersource.request.timeout'"
-  },
-  {
-    "name": "project.cybersource.run.environment",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.run.environment'"
-  },
-  {
-    "name": "project.cybersource.profile.id",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.profile.id'"
-  },
-  {
-    "name": "project.cybersource.access.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.access.key'"
-  },
-  {
-    "name": "project.cybersource.checkout.url",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cybersource.checkout.url'"
-  },
-  {
-    "name": "project.frontend.url",
-    "type": "java.lang.String",
-    "description": "A description for 'project.frontend.url'"
-  },
-  {
-    "name": "project.backend.url",
-    "type": "java.lang.String",
-    "description": "A description for 'project.backend.url'"
-  },
-  {
-    "name": "project.reset.password.token.expiration",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.reset.password.token.expiration'"
-  },
-  {
-    "name": "project.reset.password.cooldown",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.reset.password.cooldown'"
-  },
-  {
-    "name": "project.secret.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.secret.key'"
-  },
-  {
-    "name": "project.reset.password.selector.length",
-    "type": "java.lang.Integer",
-    "description": "A description for 'project.reset.password.selector.length'"
-  },
-  {
-    "name": "project.jwt.cookie.token.storage.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.cookie.token.storage.key'"
-  },
-  {
-    "name": "project.jwt.cookie.refresh.token.storage.key",
-    "type": "java.lang.String",
-    "description": "A description for 'project.jwt.cookie.refresh.token.storage.key'"
-  },
-  {
-    "name": "project.cors.allow.origins",
-    "type": "java.lang.String",
-    "description": "A description for 'project.cors.allow.origins'"
-  }
-]}
+{
+  "properties": [
+    {
+      "name": "project.name.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.name.from'"
+    },
+    {
+      "name": "project.mail.from",
+      "type": "java.lang.String",
+      "description": "A description for 'project.mail.from'"
+    },
+    {
+      "name": "project.api.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'project.api.prefix'"
+    },
+    {
+      "name": "project.jwt.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.jwt.token.expiration'"
+    },
+    {
+      "name": "project.jwt.bearer.prefix",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.bearer.prefix'"
+    },
+    {
+      "name": "project.jwt.refresh.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.jwt.refresh.token.expiration'"
+    },
+    {
+      "name": "project.login.max.attempts",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.login.max.attempts'"
+    },
+    {
+      "name": "project.cybersource.merchant.id",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.merchant.id'"
+    },
+    {
+      "name": "project.cybersource.api.key.id",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.api.key.id'"
+    },
+    {
+      "name": "project.cybersource.secret.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.secret.key'"
+    },
+    {
+      "name": "project.cybersource.api.endpoint",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.api.endpoint'"
+    },
+    {
+      "name": "project.cybersource.certificate.password",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.certificate.password'"
+    },
+    {
+      "name": "project.cybersource.certificate.file.name",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.certificate.name'"
+    },
+    {
+      "name": "project.cybersource.request.timeout",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.cybersource.request.timeout'"
+    },
+    {
+      "name": "project.cybersource.run.environment",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.run.environment'"
+    },
+    {
+      "name": "project.cybersource.profile.id",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.profile.id'"
+    },
+    {
+      "name": "project.cybersource.access.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.access.key'"
+    },
+    {
+      "name": "project.cybersource.checkout.url",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cybersource.checkout.url'"
+    },
+    {
+      "name": "project.frontend.url",
+      "type": "java.lang.String",
+      "description": "A description for 'project.frontend.url'"
+    },
+    {
+      "name": "project.backend.url",
+      "type": "java.lang.String",
+      "description": "A description for 'project.backend.url'"
+    },
+    {
+      "name": "project.reset.password.token.expiration",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.token.expiration'"
+    },
+    {
+      "name": "project.reset.password.cooldown",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.cooldown'"
+    },
+    {
+      "name": "project.secret.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.secret.key'"
+    },
+    {
+      "name": "project.reset.password.selector.length",
+      "type": "java.lang.Integer",
+      "description": "A description for 'project.reset.password.selector.length'"
+    },
+    {
+      "name": "project.jwt.cookie.token.storage.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.cookie.token.storage.key'"
+    },
+    {
+      "name": "project.jwt.cookie.refresh.token.storage.key",
+      "type": "java.lang.String",
+      "description": "A description for 'project.jwt.cookie.refresh.token.storage.key'"
+    },
+    {
+      "name": "project.cors.allow.origins",
+      "type": "java.lang.String",
+      "description": "A description for 'project.cors.allow.origins'"
+    },
+    {
+      "name": "project.blog.image.upload.path",
+      "type": "java.lang.String",
+      "description": "A description for 'project.blog.image.upload.path'"
+    }
+  ]
+}

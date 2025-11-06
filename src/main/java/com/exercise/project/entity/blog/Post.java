@@ -54,6 +54,9 @@ public class Post {
     @OneToMany(targetEntity = Comment.class, orphanRemoval = true, cascade = CascadeType.ALL)
     private Collection<Comment> comments = new HashSet<Comment>();
 
+    @OneToMany(targetEntity = PostLike.class, orphanRemoval = true, cascade = CascadeType.ALL)
+    private Collection<PostLike> likes = new HashSet<PostLike>();
+
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.DETACH)
     @JoinColumn(nullable = false, name = "author_id")
     private User author;

@@ -2,6 +2,8 @@ package com.exercise.project.security.service.auth;
 
 import java.net.URI;
 
+import com.exercise.project.dto.UserDto;
+import com.exercise.project.entity.auth.User;
 import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
@@ -52,5 +54,10 @@ public interface AuthServiceInterface {
      * Update User profile
      */
     public UserInfoResponse updateUserProfile(ProfileUserRequest request);
+
+    /**
+     * Convert User To DTO
+     */
+    public UserDto convertToDto(User data);
 
 }

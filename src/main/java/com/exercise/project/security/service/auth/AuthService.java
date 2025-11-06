@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.dto.UserDto;
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.enums.Roles;
 import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
@@ -34,7 +35,7 @@ import com.exercise.project.service.user.UserServiceInterface;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
-public class AuthService extends BaseService implements AuthServiceInterface {
+public class AuthService extends BaseService<User> implements AuthServiceInterface {
     @Autowired
     private AuthenticationManager authManager;
 
@@ -136,6 +137,11 @@ public class AuthService extends BaseService implements AuthServiceInterface {
         User updatedUser = userService.saveUser(user);
 
         return new UserInfoResponse(updatedUser);
+    }
+
+    @Override
+    public UserDto convertToDto(User data) {
+        return userService.convertToDto(data);
     }
 
 }

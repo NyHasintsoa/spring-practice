@@ -1,5 +1,8 @@
 package com.exercise.project.service.user;
 
+import java.util.List;
+
+import com.exercise.project.dto.UserDto;
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
 
@@ -26,5 +29,15 @@ public interface UserServiceInterface {
      * Save Existing user to the database
      */
     public User saveUser(User user);
+
+    /**
+     * Convert User To DTO
+     */
+    public UserDto convertToDto(User data);
+
+    /**
+     * Convert All Users to DTO
+     */
+    public List<Object> convertAllToDto(List<User> datas);
 
 }

@@ -5,12 +5,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.dto.UserDto;
 import com.exercise.project.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
 import com.exercise.project.repository.auth.UserRepository;
+import com.exercise.project.service.BaseService;
 
 @Service
-public class UserService implements UserServiceInterface {
+public class UserService extends BaseService<User> implements UserServiceInterface {
 
     @Autowired
     private UserRepository userRepository;
@@ -39,6 +41,17 @@ public class UserService implements UserServiceInterface {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserDto convertToDto(User data) {
+        return new UserDto(
+            data.getId(),
+            data.getEmail(),
+            data.getUsername(),
+            data.getFullName(),
+            data.getRoles()
+        );
     }
 
 }

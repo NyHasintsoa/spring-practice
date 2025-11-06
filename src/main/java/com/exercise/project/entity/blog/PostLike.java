@@ -31,11 +31,11 @@ public class PostLike {
     @Column(name = "ip_address", nullable = false)
     private String ipAddress;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Post.class, optional = false)
+    @ManyToOne(cascade = CascadeType.DETACH, targetEntity = Post.class, optional = false)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
+    @ManyToOne(cascade = CascadeType.DETACH, targetEntity = User.class, optional = false)
     @JoinColumn(name = "author_id")
     private User author;
 

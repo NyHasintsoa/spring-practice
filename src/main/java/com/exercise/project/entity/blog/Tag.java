@@ -1,10 +1,13 @@
 package com.exercise.project.entity.blog;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,4 +24,7 @@ public class Tag {
 
     @Column(name = "name", length = 250, nullable = false, unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "tags")
+    private Collection<Post> posts = new HashSet<Post>();
 }
