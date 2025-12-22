@@ -1,7 +1,6 @@
 package com.exercise.project.controller.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,18 +21,10 @@ public class ProfileUserController {
 
     @PutMapping("/profile")
     public ResponseEntity<ApiResponse> updateProfile(@RequestBody ProfileUserRequest request) {
-        try {
-            UserInfoResponse userInfo = authService.updateUserProfile(request);
+        UserInfoResponse userInfo = authService.updateUserProfile(request);
 
-            return ResponseEntity.ok(
-                new ApiResponse("Profile User Updated successfully", true, userInfo));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse("Profile User Updated successfully", true, userInfo));
     }
 
 }

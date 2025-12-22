@@ -54,7 +54,6 @@ public class AuthRequestFilter extends OncePerRequestFilter {
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     final Map<String, Object> body = new HashMap<>();
-                    body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
                     body.put("error", "Unauthorized");
                     body.put("message", "Invalid or expired token, you may login and try again");
                     body.put("path", request.getServletPath());

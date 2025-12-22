@@ -1,7 +1,6 @@
 package com.exercise.project.controller.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,35 +25,19 @@ public class ForgotPasswordController {
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse> forgotPassword(
         @RequestBody ForgotPasswordRequest request) {
-        try {
-            passwordResetService.requestPasswordReset(request);
+        passwordResetService.requestPasswordReset(request);
 
-            return ResponseEntity.ok(
-                new ApiResponse("Reset password Request", true, request));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse("Reset password Request", true, request));
     }
 
     @PostMapping("/reset-password/{token}")
     public ResponseEntity<ApiResponse> resetPassword(
         @PathVariable String token,
         @Valid @RequestBody ResetPasswordRequest request) {
-        try {
-            passwordResetService.updatePassword(request, token);
+        passwordResetService.updatePassword(request, token);
 
-            return ResponseEntity.ok(
-                new ApiResponse("Reset password Request", true, request));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse("Reset password Request", true, request));
     }
 }

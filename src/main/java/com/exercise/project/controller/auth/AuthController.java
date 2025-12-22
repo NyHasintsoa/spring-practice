@@ -45,19 +45,11 @@ public class AuthController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/me")
     public ResponseEntity<ApiResponse> getCurrentUser() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "current user informations",
-                    true,
-                    authService.getConnectedUserInfo()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    e.getMessage(),
-                    false,
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "current user informations",
+                true,
+                authService.getConnectedUserInfo()));
     }
 
     @PostMapping("/sign-in")
@@ -88,33 +80,19 @@ public class AuthController {
                     e.getMessage(),
                     false,
                     attemtp));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                new ApiResponse(
-                    e.getMessage(),
-                    false,
-                    HttpServletResponse.SC_UNAUTHORIZED));
         }
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse> register(
         @RequestBody @Valid RegisterRequest request) {
-        try {
-            authService.register(request);
+        authService.register(request);
 
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Message for email verification is sended to the user, please verify your mailbox !",
-                    true,
-                    null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    e.getMessage(),
-                    false,
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Message for email verification is sended to the user, please verify your mailbox !",
+                true,
+                null));
     }
 
     @PostMapping("/refresh")
@@ -132,12 +110,6 @@ public class AuthController {
                     "UNAUTHORIZED",
                     false,
                     e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
         }
     }
 
@@ -146,29 +118,21 @@ public class AuthController {
     public ResponseEntity<ApiResponse> logout(
         HttpServletResponse response,
         HttpServletRequest request) {
-        try {
-            authService.logout(request);
+        authService.logout(request);
 
-            ResponseCookie jwtCookie = ResponseCookie.from(
-                JWT_COOKIE_STORAGE_KEY, "")
-                .secure(true)
-                .path("/")
-                .maxAge(0)
-                .build();
-            response.addHeader("Set-Cookie", jwtCookie.toString());
+        ResponseCookie jwtCookie = ResponseCookie.from(
+            JWT_COOKIE_STORAGE_KEY, "")
+            .secure(true)
+            .path("/")
+            .maxAge(0)
+            .build();
+        response.addHeader("Set-Cookie", jwtCookie.toString());
 
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "user logged out successfully !",
-                    true,
-                    null));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "user logged out successfully !",
+                true,
+                null));
     }
 
 }

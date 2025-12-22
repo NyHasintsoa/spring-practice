@@ -38,130 +38,74 @@ public class PostController {
     @PostMapping("")
     public ResponseEntity<ApiResponse> submitNewPost(
         @ModelAttribute @Valid PostRequest request) {
-        try {
-            Post newPost = postService.submitNewPost(request);
+        Post newPost = postService.submitNewPost(request);
 
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Submit new Post from connected User",
-                    true,
-                    postService.convertToResponse(newPost)));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Submit new Post from connected User",
+                true,
+                postService.convertToResponse(newPost)));
     }
 
     @GetMapping("")
     public ResponseEntity<ApiResponse> getAll() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "All Posts",
-                    true,
-                    postService.convertAllToDto(postService.getAll())));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "All Posts",
+                true,
+                postService.convertAllToDto(postService.getAll())));
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/author")
     public ResponseEntity<ApiResponse> getByConnectedAuthor() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Get Post By The connected Author",
-                    true,
-                    postService.convertAllToDto(postService.getOwnPosts())));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Get Post By The connected Author",
+                true,
+                postService.convertAllToDto(postService.getOwnPosts())));
     }
 
     @GetMapping("/comment")
     public ResponseEntity<ApiResponse> getAllPostsWithCommentCount() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "All Posts with Comment Count",
-                    true,
-                    postService.convertAllToResponse(postService.getAll())));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "All Posts with Comment Count",
+                true,
+                postService.convertAllToResponse(postService.getAll())));
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/author/comment")
     public ResponseEntity<ApiResponse> getPostsWithCommentByConnectedAuthor() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Get All Posts and Comment Count By The connected Author",
-                    true,
-                    postService.convertAllToResponse(postService.getOwnPosts())));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Get All Posts and Comment Count By The connected Author",
+                true,
+                postService.convertAllToResponse(postService.getOwnPosts())));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getById(
         @PathVariable String id) {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Get Post By Id",
-                    true,
-                    postService.convertToDto(postService.getById(id))));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Get Post By Id",
+                true,
+                postService.convertToDto(postService.getById(id))));
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<ApiResponse> getCommentsForPost(
         @PathVariable String id,
         @PageableDefault(page = 0, size = 10, sort = "publishedAt", direction = Direction.ASC) Pageable pageable) {
-        try {
-            Post post = postService.getById(id);
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Get Paginated Comments From Post Id",
-                    true,
-                    postService.getPaginatedCommentFromPost(post, pageable).stream()
-                        .map(comment -> new CommentDto(comment))));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        Post post = postService.getById(id);
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Get Paginated Comments From Post Id",
+                true,
+                postService.getPaginatedCommentFromPost(post, pageable).stream()
+                    .map(comment -> new CommentDto(comment))));
     }
 
     @PostMapping("/{id}/comment")
@@ -182,12 +126,6 @@ public class PostController {
                     "NOT_FOUND",
                     false,
                     e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
         }
     }
 
@@ -206,12 +144,6 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ApiResponse(
                     "NOT_FOUND",
-                    false,
-                    e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
                     false,
                     e.getMessage()));
         }
