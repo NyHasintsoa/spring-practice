@@ -1,6 +1,6 @@
 package com.exercise.project.security.jwt.utils;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.security.user.AuthUserDetails;
 
 import io.jsonwebtoken.Claims;

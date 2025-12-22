@@ -1,6 +1,6 @@
 package com.exercise.project.security.jwt.refresh;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 
 public interface JwtRefreshTokenInterface {
 

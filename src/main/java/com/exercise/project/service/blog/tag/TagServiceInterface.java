@@ -3,8 +3,8 @@ package com.exercise.project.service.blog.tag;
 import java.util.List;
 import java.util.Optional;
 
-import com.exercise.project.dto.blog.TagDto;
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.dto.blog.TagDto;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.request.blog.TagRequest;
 

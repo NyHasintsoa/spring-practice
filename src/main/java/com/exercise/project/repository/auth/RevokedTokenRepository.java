@@ -5,11 +5,8 @@ import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.exercise.project.entity.auth.RevokedToken;
+import com.exercise.project.model.entity.auth.RevokedToken;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
-@Hidden
 @Repository
 public interface RevokedTokenRepository extends JpaRepository<RevokedToken, String> {
 

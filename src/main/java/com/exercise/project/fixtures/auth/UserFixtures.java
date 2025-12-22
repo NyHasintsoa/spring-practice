@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.auth.User;
-import com.exercise.project.enums.Roles;
+import com.exercise.project.model.entity.auth.User;
+import com.exercise.project.model.enums.Roles;
 import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.auth.UserRepository;
 

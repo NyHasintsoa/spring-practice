@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-import com.exercise.project.entity.auth.User;
-import com.exercise.project.enums.Roles;
+import com.exercise.project.model.entity.auth.User;
+import com.exercise.project.model.enums.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.exercise.project.entity.auth;
+package com.exercise.project.model.entity.auth;
 
 import java.util.Date;
 
@@ -11,8 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,11 +35,9 @@ public class ResetPasswordRequest {
     private String hashedToken;
 
     @Column(name = "requested_at", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date requestedAt;
 
     @Column(name = "expires_at", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date expiresAt;
 
 }

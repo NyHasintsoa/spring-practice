@@ -6,15 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.exercise.project.entity.auth.ResetPasswordRequest;
+import com.exercise.project.model.entity.auth.ResetPasswordRequest;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import java.util.Optional;
 import java.util.List;
 import java.util.Date;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 
-@Hidden
 @Repository
 public interface ResetPasswordRequestRepository extends JpaRepository<ResetPasswordRequest, Integer> {
 

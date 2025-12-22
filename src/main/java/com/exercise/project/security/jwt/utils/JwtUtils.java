@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.auth.User;
-import com.exercise.project.enums.Roles;
+import com.exercise.project.model.entity.auth.User;
+import com.exercise.project.model.enums.Roles;
 import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.util.KeyPairUtil;
 

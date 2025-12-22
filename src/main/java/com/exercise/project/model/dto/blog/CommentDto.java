@@ -1,10 +1,10 @@
-package com.exercise.project.dto.blog;
+package com.exercise.project.model.dto.blog;
 
 import java.util.Date;
 import java.util.UUID;
 
-import com.exercise.project.dto.UserDto;
-import com.exercise.project.entity.blog.Comment;
+import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.entity.blog.Comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

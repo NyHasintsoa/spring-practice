@@ -1,9 +1,9 @@
-package com.exercise.project.entity.blog;
+package com.exercise.project.model.entity.blog;
 
 import java.util.Date;
 import java.util.UUID;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,24 +18,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "blog_post_likes")
-public class PostLike {
+@Table(name = "blog_comments")
+public class Comment {
 
     @Id
     @Column(nullable = false, unique = true, updatable = false)
     private UUID id;
 
-    @Column(name = "liked_at", nullable = false)
-    private Date likedAt;
+    @Column(name = "content", nullable = false, length = 500, updatable = false)
+    private String content;
 
-    @Column(name = "ip_address", nullable = false)
-    private String ipAddress;
+    @Column(name = "published_at", nullable = false, updatable = false)
+    private Date publishedAt;
 
-    @ManyToOne(cascade = CascadeType.DETACH, targetEntity = Post.class, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Post.class, optional = false)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne(cascade = CascadeType.DETACH, targetEntity = User.class, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
     @JoinColumn(name = "author_id")
     private User author;
 

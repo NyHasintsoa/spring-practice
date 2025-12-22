@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.dto.blog.TagDto;
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.dto.blog.TagDto;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.repository.blog.TagRepository;
 import com.exercise.project.request.blog.TagRequest;

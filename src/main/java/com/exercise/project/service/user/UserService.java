@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.dto.UserDto;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
 import com.exercise.project.repository.auth.UserRepository;
 import com.exercise.project.service.BaseService;

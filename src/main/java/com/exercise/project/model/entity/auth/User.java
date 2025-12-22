@@ -1,4 +1,4 @@
-package com.exercise.project.entity.auth;
+package com.exercise.project.model.entity.auth;
 
 import java.util.Collection;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.exercise.project.enums.Roles;
+import com.exercise.project.model.enums.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

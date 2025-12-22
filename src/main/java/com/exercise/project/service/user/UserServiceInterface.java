@@ -2,8 +2,8 @@ package com.exercise.project.service.user;
 
 import java.util.List;
 
-import com.exercise.project.dto.UserDto;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
 
 public interface UserServiceInterface {

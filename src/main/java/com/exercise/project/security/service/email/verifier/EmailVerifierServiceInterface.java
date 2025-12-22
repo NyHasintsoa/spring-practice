@@ -1,6 +1,6 @@
 package com.exercise.project.security.service.email.verifier;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 
 public interface EmailVerifierServiceInterface {
 

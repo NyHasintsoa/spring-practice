@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.auth.ResetPasswordRequest;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.ResetPasswordRequest;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.InvalidResetPasswordTokenException;
 import com.exercise.project.repository.auth.ResetPasswordRequestRepository;
 import com.exercise.project.security.service.reset.token.generator.PasswordResetTokenGeneratorInterface;

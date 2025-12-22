@@ -1,11 +1,11 @@
-package com.exercise.project.entity.blog;
+package com.exercise.project.model.entity.blog;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.UUID;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

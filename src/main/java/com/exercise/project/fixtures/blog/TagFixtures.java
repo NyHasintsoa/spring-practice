@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.blog.TagRepository;
 

@@ -1,4 +1,4 @@
-package com.exercise.project.entity.blog;
+package com.exercise.project.model.entity.blog;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -14,12 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.dto.blog.PostDto;
-import com.exercise.project.entity.auth.User;
-import com.exercise.project.entity.blog.Comment;
-import com.exercise.project.entity.blog.Post;
-import com.exercise.project.entity.blog.PostLike;
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.dto.blog.PostDto;
+import com.exercise.project.model.entity.auth.User;
+import com.exercise.project.model.entity.blog.Comment;
+import com.exercise.project.model.entity.blog.Post;
+import com.exercise.project.model.entity.blog.PostLike;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.repository.blog.CommentRepository;
 import com.exercise.project.repository.blog.PostLikeRepository;

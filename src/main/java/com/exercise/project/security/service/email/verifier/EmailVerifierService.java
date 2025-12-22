@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.SendMailException;
 import com.exercise.project.service.user.UserServiceInterface;
 

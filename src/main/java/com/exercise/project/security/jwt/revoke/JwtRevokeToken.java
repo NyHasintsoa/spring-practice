@@ -3,7 +3,7 @@ package com.exercise.project.security.jwt.revoke;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.auth.RevokedToken;
+import com.exercise.project.model.entity.auth.RevokedToken;
 import com.exercise.project.repository.auth.RevokedTokenRepository;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 

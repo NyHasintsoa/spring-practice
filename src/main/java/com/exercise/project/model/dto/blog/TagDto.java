@@ -1,8 +1,8 @@
-package com.exercise.project.dto.blog;
+package com.exercise.project.model.dto.blog;
 
 import java.util.UUID;
 
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.entity.blog.Tag;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

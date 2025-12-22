@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.entity.auth.User;
-import com.exercise.project.entity.blog.Comment;
-import com.exercise.project.entity.blog.Post;
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.entity.auth.User;
+import com.exercise.project.model.entity.blog.Comment;
+import com.exercise.project.model.entity.blog.Post;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.auth.UserRepository;
 import com.exercise.project.repository.blog.PostRepository;

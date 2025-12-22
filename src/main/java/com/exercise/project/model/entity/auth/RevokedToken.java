@@ -1,4 +1,4 @@
-package com.exercise.project.entity.auth;
+package com.exercise.project.model.entity.auth;
 
 import java.util.Date;
 

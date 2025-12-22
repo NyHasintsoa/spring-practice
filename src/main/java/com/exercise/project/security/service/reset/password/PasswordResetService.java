@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import com.exercise.project.entity.auth.ResetPasswordRequest;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.auth.ResetPasswordRequest;
+import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.SendMailException;
 import com.exercise.project.repository.auth.ResetPasswordRequestRepository;
 import com.exercise.project.repository.auth.UserRepository;

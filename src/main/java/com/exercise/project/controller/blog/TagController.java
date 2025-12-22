@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exercise.project.entity.blog.Tag;
+import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.request.blog.TagRequest;
 import com.exercise.project.response.ApiResponse;
 import com.exercise.project.service.blog.tag.TagServiceInterface;

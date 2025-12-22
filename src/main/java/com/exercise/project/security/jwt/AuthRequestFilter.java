@@ -18,13 +18,13 @@ import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.user.AuthUserDetails;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class AuthRequestFilter extends OncePerRequestFilter {
@@ -43,9 +43,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-        @SuppressWarnings("null") HttpServletRequest request,
-        @SuppressWarnings("null") HttpServletResponse response,
-        @SuppressWarnings("null") FilterChain filterChain)
+        HttpServletRequest request,
+        HttpServletResponse response,
+        FilterChain filterChain)
         throws ServletException, IOException, UsernameNotFoundException {
         try {
             String jwt = jwtTokenParser.parseJwt(request);

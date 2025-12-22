@@ -25,7 +25,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.exercise.project.security.jwt.AuthEntryPoint;
 import com.exercise.project.security.jwt.AuthRequestFilter;
 import com.exercise.project.security.service.AuthUserDetailsService;
-import com.exercise.project.security.service.OAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -41,9 +40,6 @@ public class SecurityConfig {
     @Autowired
     private AuthEntryPoint authEntryPoint;
 
-    @Autowired
-    private OAuth2UserService oAuth2UserService;
-
     @Value("${project.cors.allow.origins}")
     private String[] CORS_ALLOWED_ORIGINS;
 
@@ -55,10 +51,6 @@ public class SecurityConfig {
             .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(
                 (request) -> request.anyRequest().permitAll())
-            .oauth2Login((oauth2) -> oauth2
-                .authorizationEndpoint((endpoint) -> endpoint.baseUri("/oauth2/authorization"))
-                .redirectionEndpoint((endpoint) -> endpoint.baseUri("/oauth2/callback/*"))
-                .userInfoEndpoint((endpoint) -> endpoint.userService(oAuth2UserService)))
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
             .authenticationManager(authenticationManager())

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.exercise.project.dto.blog.PostDto;
-import com.exercise.project.entity.blog.Comment;
-import com.exercise.project.entity.blog.Post;
+import com.exercise.project.model.dto.blog.PostDto;
+import com.exercise.project.model.entity.blog.Comment;
+import com.exercise.project.model.entity.blog.Post;
 import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.request.blog.CommentRequest;
 import com.exercise.project.request.blog.PostRequest;

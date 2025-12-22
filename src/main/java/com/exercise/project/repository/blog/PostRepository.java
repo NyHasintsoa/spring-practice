@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.exercise.project.entity.blog.Post;
-import com.exercise.project.entity.auth.User;
+import com.exercise.project.model.entity.blog.Post;
+import com.exercise.project.model.entity.auth.User;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {

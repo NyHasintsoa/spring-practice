@@ -3,8 +3,8 @@ package com.exercise.project.response.blog;
 import java.util.Date;
 import java.util.UUID;
 
-import com.exercise.project.dto.UserDto;
-import com.exercise.project.entity.blog.Post;
+import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.entity.blog.Post;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
