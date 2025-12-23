@@ -153,6 +153,11 @@ public class PostService extends BaseService<Post> implements PostServiceInterfa
     }
 
     @Override
+    public Page<Post> getPaginatedPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Post> getOwnPosts() {
         return postRepository.findByAuthor(getUser());
     }

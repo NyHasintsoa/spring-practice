@@ -1,6 +1,7 @@
 package com.exercise.project.controller.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.model.dto.blog.CommentDto;
+import com.exercise.project.model.dto.blog.PostDto;
 import com.exercise.project.model.entity.blog.Comment;
 import com.exercise.project.model.entity.blog.Post;
 import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.request.blog.CommentRequest;
 import com.exercise.project.request.blog.PostRequest;
 import com.exercise.project.response.ApiResponse;
+import com.exercise.project.response.PaginationResponse;
 import com.exercise.project.service.blog.post.PostServiceInterface;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +40,8 @@ public class PostController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("")
     public ResponseEntity<ApiResponse> submitNewPost(
-        @ModelAttribute @Valid PostRequest request) {
+        @ModelAttribute @Valid PostRequest request
+    ) {
         Post newPost = postService.submitNewPost(request);
 
         return ResponseEntity.ok(
@@ -48,12 +52,20 @@ public class PostController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse> getAll() {
+    public ResponseEntity<ApiResponse> getAll(
+        @PageableDefault(page = 0, size = 10, sort = "publishedAt", direction = Direction.ASC) Pageable pageable
+    ) {
+        Page<Post> pagedPosts = postService.getPaginatedPosts(pageable);
+
         return ResponseEntity.ok(
             new ApiResponse(
-                "All Posts",
+                "Paginated Posts",
                 true,
-                postService.convertAllToDto(postService.getAll())));
+                new PaginationResponse<Post>(pagedPosts, pagedPosts.stream().map(
+                    post -> new PostDto(post)
+                ))
+            )
+        );
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -87,31 +99,42 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getById(
-        @PathVariable String id) {
+        @PathVariable String id
+    ) {
         return ResponseEntity.ok(
             new ApiResponse(
                 "Get Post By Id",
                 true,
-                postService.convertToDto(postService.getById(id))));
+                postService.convertToDto(postService.getById(id))
+            )
+        );
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<ApiResponse> getCommentsForPost(
         @PathVariable String id,
-        @PageableDefault(page = 0, size = 10, sort = "publishedAt", direction = Direction.ASC) Pageable pageable) {
+        @PageableDefault(page = 0, size = 10, sort = "publishedAt", direction = Direction.ASC) Pageable pageable
+    ) {
         Post post = postService.getById(id);
+        Page<Comment> pagedComments = postService.getPaginatedCommentFromPost(post, pageable);
         return ResponseEntity.ok(
             new ApiResponse(
                 "Get Paginated Comments From Post Id",
                 true,
-                postService.getPaginatedCommentFromPost(post, pageable).stream()
-                    .map(comment -> new CommentDto(comment))));
+                new PaginationResponse<Comment>(
+                    pagedComments,
+                    pagedComments.stream()
+                        .map(comment -> new CommentDto(comment))
+                )
+            )
+        );
     }
 
     @PostMapping("/{id}/comment")
     public ResponseEntity<ApiResponse> commentPostByPostId(
         @PathVariable String id,
-        @RequestBody @Valid CommentRequest request) {
+        @RequestBody @Valid CommentRequest request
+    ) {
         try {
             Comment comment = postService.submitCommentByPostId(id, request);
 
@@ -133,7 +156,8 @@ public class PostController {
     @PostMapping("/{id}/like")
     public ResponseEntity<ApiResponse> likePostByPostId(
         @PathVariable String id,
-        HttpServletRequest request) {
+        HttpServletRequest request
+    ) {
         try {
             return ResponseEntity.ok(
                 new ApiResponse(

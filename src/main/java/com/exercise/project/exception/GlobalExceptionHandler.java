@@ -31,6 +31,19 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse> handleInvalidUUID(
+        IllegalArgumentException ex
+    ) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
+            new ApiResponse(
+                "NOT_ACCEPTABLE_UUID",
+                false,
+                ex.getMessage()
+            )
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleException(
         Exception ex

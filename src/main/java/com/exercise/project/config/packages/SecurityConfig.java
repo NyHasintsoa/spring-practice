@@ -50,11 +50,12 @@ public class SecurityConfig {
             .csrf((csrf) -> csrf.disable())
             .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(
-                (request) -> request.anyRequest().permitAll())
+                (request) -> request.anyRequest().permitAll()
+            )
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
             .authenticationManager(authenticationManager())
-            .exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();

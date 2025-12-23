@@ -61,6 +61,11 @@ public interface PostServiceInterface {
     public List<Post> getAll();
 
     /**
+     * Get Paginated Posts
+     */
+    public Page<Post> getPaginatedPosts(Pageable pageable);
+
+    /**
      * Get All Posts for the connected User
      */
     public List<Post> getOwnPosts();
