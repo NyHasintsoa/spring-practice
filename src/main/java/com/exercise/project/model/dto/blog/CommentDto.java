@@ -3,7 +3,7 @@ package com.exercise.project.model.dto.blog;
 import java.util.Date;
 import java.util.UUID;
 
-import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.blog.Comment;
 
 import lombok.AllArgsConstructor;

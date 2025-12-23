@@ -1,7 +1,6 @@
 package com.exercise.project.util;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,11 +26,12 @@ public class ImageFileUtil {
                 Date createdAt = new Date();
                 String storageFileName = createdAt.getTime() + getExtensionFile(imageFile);
                 Path uploadPath = Paths.get(uploadDir);
-                if (!Files.exists(uploadPath)) {
+                if (!Files.exists(uploadPath))
                     Files.createDirectories(uploadPath);
-                }
-                InputStream inputStream = imageFile.getInputStream();
-                Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(
+                    imageFile.getInputStream(),
+                    Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING
+                );
 
                 return storageFileName;
             } catch (IOException e) {

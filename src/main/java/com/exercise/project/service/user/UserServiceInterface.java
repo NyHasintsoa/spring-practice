@@ -2,7 +2,7 @@ package com.exercise.project.service.user;
 
 import java.util.List;
 
-import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
 

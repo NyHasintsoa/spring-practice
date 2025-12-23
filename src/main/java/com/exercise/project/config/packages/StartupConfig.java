@@ -15,7 +15,7 @@ public class StartupConfig {
     CommandLineRunner startupInfo() {
         return args -> {
             System.out.println("\n" + "=".repeat(70));
-            System.out.println("API Documentations Endpoint : https://127.0.0.1:8000/swagger-ui");
+            System.out.println("Project Running on : https://127.0.0.1:8000");
             System.out.println("=".repeat(70) + "\n");
         };
     }

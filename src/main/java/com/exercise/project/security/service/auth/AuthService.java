@@ -14,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.enums.Roles;
 import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;

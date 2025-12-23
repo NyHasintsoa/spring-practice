@@ -1,4 +1,4 @@
-package com.exercise.project.model.dto;
+package com.exercise.project.model.dto.auth;
 
 import java.util.Set;
 import java.util.UUID;

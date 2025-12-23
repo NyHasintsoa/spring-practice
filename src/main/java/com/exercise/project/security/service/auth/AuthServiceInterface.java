@@ -2,7 +2,7 @@ package com.exercise.project.security.service.auth;
 
 import java.net.URI;
 
-import com.exercise.project.model.dto.UserDto;
+import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;

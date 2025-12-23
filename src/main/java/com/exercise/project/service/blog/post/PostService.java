@@ -58,6 +58,7 @@ public class PostService extends BaseService<Post> implements PostServiceInterfa
     @Value("${project.blog.image.upload.path}")
     private String UPLOAD_DIR;
 
+    @Transactional
     @Override
     public Post submitNewPost(PostRequest request) {
         Post post = new Post();
@@ -91,6 +92,7 @@ public class PostService extends BaseService<Post> implements PostServiceInterfa
         return commentRepository.save(comment);
     }
 
+    @Transactional
     @Override
     public LikePostResponse likePostByPostId(String postId, HttpServletRequest request) {
         Post post = postRepository.findById(UUID.fromString(postId))
