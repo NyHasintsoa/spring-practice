@@ -1,4 +1,4 @@
-package com.exercise.project.security.jwt;
+package com.exercise.project.security.filter;
 
 import java.io.IOException;
 import java.util.HashMap;

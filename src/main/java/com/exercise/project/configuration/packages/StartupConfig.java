@@ -1,4 +1,4 @@
-package com.exercise.project.config.packages;
+package com.exercise.project.configuration.packages;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;

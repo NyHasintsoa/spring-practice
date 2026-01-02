@@ -1,4 +1,4 @@
-package com.exercise.project.config.packages;
+package com.exercise.project.configuration.packages;
 
 import java.util.Arrays;
 
@@ -23,8 +23,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.exercise.project.model.enums.Roles;
+import com.exercise.project.security.filter.AuthRequestFilter;
 import com.exercise.project.security.jwt.AuthEntryPoint;
-import com.exercise.project.security.jwt.AuthRequestFilter;
 import com.exercise.project.security.service.AuthUserDetailsService;
 
 @Configuration
