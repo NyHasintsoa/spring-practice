@@ -22,6 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.exercise.project.model.enums.Roles;
 import com.exercise.project.security.jwt.AuthEntryPoint;
 import com.exercise.project.security.jwt.AuthRequestFilter;
 import com.exercise.project.security.service.AuthUserDetailsService;
@@ -45,12 +46,15 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(
-        HttpSecurity httpSecurity) throws Exception {
+        HttpSecurity httpSecurity
+    ) throws Exception {
         httpSecurity
             .csrf((csrf) -> csrf.disable())
             .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(
-                (request) -> request.anyRequest().permitAll()
+                (request) -> request
+                    .requestMatchers("/admin/**").hasAnyAuthority(Roles.ROLE_ADMIN.getAuthority())
+                    .anyRequest().permitAll()
             )
             .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())

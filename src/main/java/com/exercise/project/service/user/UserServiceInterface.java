@@ -21,6 +21,11 @@ public interface UserServiceInterface {
     public User getByEmail(String email);
 
     /**
+     * Check if email is already used
+     */
+    public boolean emailIsUsed(String email);
+
+    /**
      * Lock User by email
      */
     public User lockUserByEmail(String email);

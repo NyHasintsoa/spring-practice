@@ -31,7 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("${project.api.prefix}/posts")
+@RequestMapping("${project.api.prefix}/blog/posts")
 public class PostController {
 
     @Autowired

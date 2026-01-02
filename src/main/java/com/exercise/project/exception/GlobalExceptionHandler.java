@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,15 +45,28 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiResponse> handleAuthorizationException(
+        AuthorizationDeniedException ex
+    ) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+            new ApiResponse(
+                "UNAUTHORIZED",
+                false,
+                ex.getMessage()
+            )
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleException(
         Exception ex
     ) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
             new ApiResponse(
-                "INTERNAL_SERVER_ERROR",
+                ex.getMessage(),
                 false,
-                ex.getMessage()
+                ex.getLocalizedMessage()
             )
         );
     }

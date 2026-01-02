@@ -45,8 +45,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
         HttpServletRequest request,
         HttpServletResponse response,
-        FilterChain filterChain)
-        throws ServletException, IOException, UsernameNotFoundException {
+        FilterChain filterChain
+    ) throws ServletException, IOException, UsernameNotFoundException
+    {
         try {
             String jwt = jwtTokenParser.parseJwt(request);
             if (StringUtils.hasText(jwt) && jwtUtils.validateToken(jwt)) {
@@ -64,15 +65,16 @@ public class AuthRequestFilter extends OncePerRequestFilter {
                 }
                 AuthUserDetails userDetails = jwtUtils.buildUserDetailsFromToken(jwt);
                 UsernamePasswordAuthenticationToken auth = UsernamePasswordAuthenticationToken.authenticated(
-                    userDetails, null,
-                    userDetails.getAuthorities());
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
+                );
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         } catch (JwtException e) {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             final Map<String, Object> body = new HashMap<>();
-            body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
             body.put("error", "Unauthorized");
             body.put("message", e.getMessage() + " : Invalid or expired token, you may login and try again");
             body.put("path", request.getServletPath());

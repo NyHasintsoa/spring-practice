@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.exception.AlreadyExistsException;
 import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.enums.Roles;
@@ -83,6 +84,8 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
 
     @Override
     public void register(RegisterRequest request) {
+        if (userService.emailIsUsed(request.getEmail()))
+            throw new AlreadyExistsException("EMAIL_ALREADY_EXIST");
         User newUser = new User();
         newUser.setEmail(request.getEmail());
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));

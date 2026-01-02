@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exercise.project.exception.AlreadyExistsException;
 import com.exercise.project.exception.InvalidRefreshTokenException;
 import com.exercise.project.response.ApiResponse;
 import com.exercise.project.security.request.RefreshTokenRequest;
@@ -85,14 +86,27 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse> register(
-        @RequestBody @Valid RegisterRequest request) {
-        authService.register(request);
+        @RequestBody @Valid RegisterRequest request
+    ) {
+        try {
+            authService.register(request);
 
-        return ResponseEntity.ok(
-            new ApiResponse(
-                "Message for email verification is sended to the user, please verify your mailbox !",
-                true,
-                null));
+            return ResponseEntity.ok(
+                new ApiResponse(
+                    "Message for email verification is sended to the user, please verify your mailbox !",
+                    true,
+                    null
+                )
+            );
+        } catch (AlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiResponse(
+                    e.getMessage(),
+                    false,
+                    "EMAIL_NOT_UNIQUE_VALIDATION"
+                )
+            );
+        }
     }
 
     @PostMapping("/refresh")

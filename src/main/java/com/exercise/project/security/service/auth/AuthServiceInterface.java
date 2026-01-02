@@ -2,6 +2,7 @@ package com.exercise.project.security.service.auth;
 
 import java.net.URI;
 
+import com.exercise.project.exception.AlreadyExistsException;
 import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.security.request.ProfileUserRequest;
@@ -22,6 +23,8 @@ public interface AuthServiceInterface {
 
     /**
      * Register User with Register Request
+     * 
+     * @throws AlreadyExistsException
      */
     public void register(RegisterRequest request);
 

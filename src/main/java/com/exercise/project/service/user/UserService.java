@@ -31,6 +31,11 @@ public class UserService extends BaseService<User> implements UserServiceInterfa
     }
 
     @Override
+    public boolean emailIsUsed(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
     public User lockUserByEmail(String email) {
         User user = getByEmail(email);
         user.setAccountNonLocked(false);
