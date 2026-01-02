@@ -78,7 +78,7 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
 
         return new JwtResponse(
             jwtUtils.generateTokenForUser(user),
-            request.getRememberMe() ? jwtRefreshToken.createRefreshToken(user) : null,
+            jwtRefreshToken.createRefreshToken(user),
             new UserInfoResponse(user));
     }
 
