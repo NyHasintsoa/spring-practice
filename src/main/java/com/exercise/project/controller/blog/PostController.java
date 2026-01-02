@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,6 @@ import com.exercise.project.model.dto.blog.CommentDto;
 import com.exercise.project.model.dto.blog.PostDto;
 import com.exercise.project.model.entity.blog.Comment;
 import com.exercise.project.model.entity.blog.Post;
-import com.exercise.project.exception.ResourceNotFoundException;
 import com.exercise.project.request.blog.CommentRequest;
 import com.exercise.project.request.blog.PostRequest;
 import com.exercise.project.response.ApiResponse;
@@ -123,6 +121,7 @@ public class PostController {
     ) {
         Post post = postService.getById(id);
         Page<Comment> pagedComments = postService.getPaginatedCommentFromPost(post, pageable);
+
         return ResponseEntity.ok(
             new ApiResponse(
                 "Get Paginated Comments From Post Id",
@@ -141,23 +140,15 @@ public class PostController {
         @PathVariable String id,
         @RequestBody @Valid CommentRequest request
     ) {
-        try {
-            Comment comment = postService.submitCommentByPostId(id, request);
+        Comment comment = postService.submitCommentByPostId(id, request);
 
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Comment Post",
-                    true,
-                    new CommentDto(comment)
-                )
-            );
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiResponse(
-                    "NOT_FOUND",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Comment Post",
+                true,
+                new CommentDto(comment)
+            )
+        );
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -166,20 +157,12 @@ public class PostController {
         @PathVariable String id,
         HttpServletRequest request
     ) {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Like Post By PostId",
-                    true,
-                    postService.likePostByPostId(id, request)
-                )
-            );
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiResponse(
-                    "NOT_FOUND",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Like Post By PostId",
+                true,
+                postService.likePostByPostId(id, request)
+            )
+        );
     }
 }

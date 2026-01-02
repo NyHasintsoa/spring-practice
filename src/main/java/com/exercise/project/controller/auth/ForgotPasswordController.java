@@ -24,7 +24,8 @@ public class ForgotPasswordController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse> forgotPassword(
-        @RequestBody ForgotPasswordRequest request) {
+        @RequestBody ForgotPasswordRequest request
+    ) {
         passwordResetService.requestPasswordReset(request);
 
         return ResponseEntity.ok(
@@ -35,7 +36,8 @@ public class ForgotPasswordController {
     @PostMapping("/reset-password/{token}")
     public ResponseEntity<ApiResponse> resetPassword(
         @PathVariable String token,
-        @Valid @RequestBody ResetPasswordRequest request) {
+        @Valid @RequestBody ResetPasswordRequest request
+    ) {
         passwordResetService.updatePassword(request, token);
 
         return ResponseEntity.ok(

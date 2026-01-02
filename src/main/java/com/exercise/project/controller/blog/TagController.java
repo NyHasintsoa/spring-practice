@@ -1,7 +1,6 @@
 package com.exercise.project.controller.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,84 +26,55 @@ public class TagController {
 
     @GetMapping("")
     public ResponseEntity<ApiResponse> getAll() {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "All Tags",
-                    true,
-                    tagService.convertAllToDto(tagService.getAll())
-                )
-            );
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "All Tags",
+                true,
+                tagService.convertAllToDto(tagService.getAll())
+            )
+        );
     }
 
     @PostMapping("")
     public ResponseEntity<ApiResponse> addNewTag(
-        @RequestBody @Valid TagRequest request) {
-        try {
-            Tag newTag = tagService.addTag(request);
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Add new Tag from Request",
-                    true,
-                    tagService.convertToDto(newTag)
-                )
-            );
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        @RequestBody @Valid TagRequest request
+    ) {
+        Tag newTag = tagService.addTag(request);
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Add new Tag from Request",
+                true,
+                tagService.convertToDto(newTag)
+            )
+        );
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> updateTagById(
         @PathVariable String id,
-        @RequestBody @Valid TagRequest request) {
-        try {
-            Tag updatedTag = tagService.updateTagFromId(id, request);
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Update Tag from Request",
-                    true,
-                    tagService.convertToDto(updatedTag)
-                )
-            );
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        @RequestBody @Valid TagRequest request
+    ) {
+        Tag updatedTag = tagService.updateTagFromId(id, request);
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Update Tag from Request",
+                true,
+                tagService.convertToDto(updatedTag)
+            )
+        );
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getById(
-        @PathVariable String id) {
-        try {
-            return ResponseEntity.ok(
-                new ApiResponse(
-                    "Get Tag By Id",
-                    true,
-                    tagService.convertToDto(tagService.getById(id))
-                )
-            );
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiResponse(
-                    "INTERNAL_SERVER_ERROR",
-                    false,
-                    e.getMessage()));
-        }
+        @PathVariable String id
+    ) {
+        return ResponseEntity.ok(
+            new ApiResponse(
+                "Get Tag By Id",
+                true,
+                tagService.convertToDto(tagService.getById(id))
+            )
+        );
     }
 
 }
