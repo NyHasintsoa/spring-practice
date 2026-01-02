@@ -28,7 +28,8 @@ public class ForgotPasswordController {
         passwordResetService.requestPasswordReset(request);
 
         return ResponseEntity.ok(
-            new ApiResponse("Reset password Request", true, request));
+            new ApiResponse("Reset password Request", true, request)
+        );
     }
 
     @PostMapping("/reset-password/{token}")
@@ -38,6 +39,7 @@ public class ForgotPasswordController {
         passwordResetService.updatePassword(request, token);
 
         return ResponseEntity.ok(
-            new ApiResponse("Reset password Request", true, request));
+            new ApiResponse("Reset password Request", true, request)
+        );
     }
 }

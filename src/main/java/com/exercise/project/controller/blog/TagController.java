@@ -32,7 +32,9 @@ public class TagController {
                 new ApiResponse(
                     "All Tags",
                     true,
-                    tagService.convertAllToDto(tagService.getAll())));
+                    tagService.convertAllToDto(tagService.getAll())
+                )
+            );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
@@ -51,7 +53,9 @@ public class TagController {
                 new ApiResponse(
                     "Add new Tag from Request",
                     true,
-                    tagService.convertToDto(newTag)));
+                    tagService.convertToDto(newTag)
+                )
+            );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
@@ -71,7 +75,9 @@ public class TagController {
                 new ApiResponse(
                     "Update Tag from Request",
                     true,
-                    tagService.convertToDto(updatedTag)));
+                    tagService.convertToDto(updatedTag)
+                )
+            );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(
@@ -89,7 +95,9 @@ public class TagController {
                 new ApiResponse(
                     "Get Tag By Id",
                     true,
-                    tagService.convertToDto(tagService.getById(id))));
+                    tagService.convertToDto(tagService.getById(id))
+                )
+            );
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiResponse(

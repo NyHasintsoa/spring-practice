@@ -20,11 +20,14 @@ public class ProfileUserController {
     private AuthServiceInterface authService;
 
     @PutMapping("/profile")
-    public ResponseEntity<ApiResponse> updateProfile(@RequestBody ProfileUserRequest request) {
+    public ResponseEntity<ApiResponse> updateProfile(
+        @RequestBody ProfileUserRequest request
+    ) {
         UserInfoResponse userInfo = authService.updateUserProfile(request);
 
         return ResponseEntity.ok(
-            new ApiResponse("Profile User Updated successfully", true, userInfo));
+            new ApiResponse("Profile User Updated successfully", true, userInfo)
+        );
     }
 
 }

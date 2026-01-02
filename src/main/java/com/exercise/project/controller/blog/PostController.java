@@ -75,7 +75,9 @@ public class PostController {
             new ApiResponse(
                 "Get Post By The connected Author",
                 true,
-                postService.convertAllToDto(postService.getOwnPosts())));
+                postService.convertAllToDto(postService.getOwnPosts())
+            )
+        );
     }
 
     @GetMapping("/comment")
@@ -84,7 +86,9 @@ public class PostController {
             new ApiResponse(
                 "All Posts with Comment Count",
                 true,
-                postService.convertAllToResponse(postService.getAll())));
+                postService.convertAllToResponse(postService.getAll())
+            )
+        );
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -94,7 +98,9 @@ public class PostController {
             new ApiResponse(
                 "Get All Posts and Comment Count By The connected Author",
                 true,
-                postService.convertAllToResponse(postService.getOwnPosts())));
+                postService.convertAllToResponse(postService.getOwnPosts())
+            )
+        );
     }
 
     @GetMapping("/{id}")
@@ -142,7 +148,9 @@ public class PostController {
                 new ApiResponse(
                     "Comment Post",
                     true,
-                    new CommentDto(comment)));
+                    new CommentDto(comment)
+                )
+            );
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ApiResponse(
@@ -163,7 +171,9 @@ public class PostController {
                 new ApiResponse(
                     "Like Post By PostId",
                     true,
-                    postService.likePostByPostId(id, request)));
+                    postService.likePostByPostId(id, request)
+                )
+            );
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ApiResponse(

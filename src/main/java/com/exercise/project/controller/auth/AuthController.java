@@ -50,13 +50,16 @@ public class AuthController {
             new ApiResponse(
                 "current user informations",
                 true,
-                authService.getConnectedUserInfo()));
+                authService.getConnectedUserInfo()
+            )
+        );
     }
 
     @PostMapping("/sign-in")
     public ResponseEntity<ApiResponse> signIn(
         @RequestBody @Valid SignInRequest request,
-        HttpServletResponse response) {
+        HttpServletResponse response
+    ) {
         try {
             JwtResponse jwtResponse = authService.signIn(request);
             ResponseCookie jwtCookie = ResponseCookie.from(
@@ -72,7 +75,9 @@ public class AuthController {
                 new ApiResponse(
                     "Sign in Request",
                     true,
-                    jwtResponse));
+                    jwtResponse
+                )
+            );
         } catch (BadCredentialsException e) {
             Long attemtp = loginAttemptService.loginFailed(request.getEmail());
 
@@ -80,7 +85,9 @@ public class AuthController {
                 new ApiResponse(
                     e.getMessage(),
                     false,
-                    attemtp));
+                    attemtp
+                )
+            );
         }
     }
 
@@ -111,19 +118,24 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse> refreshToken(
-        @RequestBody @Valid RefreshTokenRequest request) {
+        @RequestBody @Valid RefreshTokenRequest request
+    ) {
         try {
             return ResponseEntity.ok(
                 new ApiResponse(
                     "Refresh token generated successfully",
                     true,
-                    authService.refreshToken(request)));
+                    authService.refreshToken(request)
+                )
+            );
         } catch (InvalidRefreshTokenException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                 new ApiResponse(
                     "UNAUTHORIZED",
                     false,
-                    e.getMessage()));
+                    e.getMessage()
+                )
+            );
         }
     }
 
@@ -131,7 +143,8 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse> logout(
         HttpServletResponse response,
-        HttpServletRequest request) {
+        HttpServletRequest request
+    ) {
         authService.logout(request);
 
         ResponseCookie jwtCookie = ResponseCookie.from(
@@ -146,7 +159,9 @@ public class AuthController {
             new ApiResponse(
                 "user logged out successfully !",
                 true,
-                null));
+                null
+            )
+        );
     }
 
 }

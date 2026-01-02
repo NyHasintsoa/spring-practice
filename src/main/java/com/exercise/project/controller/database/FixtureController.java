@@ -24,7 +24,9 @@ public class FixtureController {
             new ApiResponse(
                 "Database Populated successfully",
                 true,
-                null));
+                null
+            )
+        );
     }
 
 }
