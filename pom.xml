@@ -39,6 +39,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<jwt.version>0.13.0</jwt.version>
+		<swagger.version>2.2.41</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -130,6 +131,18 @@
 			<!-- <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId> -->
 			<!-- <version>3.0.0</version> -->
 		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

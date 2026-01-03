@@ -78,6 +78,7 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
 
         return new JwtResponse(
             jwtUtils.generateTokenForUser(user),
+            "Bearer",
             jwtRefreshToken.createRefreshToken(user),
             new UserInfoResponse(user));
     }
@@ -116,7 +117,7 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
     @Override
     public JwtResponse refreshToken(RefreshTokenRequest request) {
         String newAccessToken = jwtRefreshToken.refreshAccessToken(request.getRefreshToken());
-        return new JwtResponse(newAccessToken, null, null);
+        return new JwtResponse(newAccessToken, "Bearer", null, null);
     }
 
     @Override
