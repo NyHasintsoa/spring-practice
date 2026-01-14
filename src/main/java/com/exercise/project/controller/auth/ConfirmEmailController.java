@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.security.service.auth.AuthServiceInterface;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "Email Confirmation")
 @RequestMapping("${project.api.prefix}/auth")
 public class ConfirmEmailController {
 

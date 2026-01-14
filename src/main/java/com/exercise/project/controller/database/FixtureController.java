@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exercise.project.fixtures.AppFixtures;
 import com.exercise.project.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "Fixtures")
 @RequestMapping("${project.api.prefix}/databases")
 public class FixtureController {
 

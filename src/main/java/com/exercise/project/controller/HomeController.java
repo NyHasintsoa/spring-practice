@@ -7,9 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.project.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "Home")
 public class HomeController {
 
+    @Operation(
+        description = "Test endpoint to show if server running"
+    )
     @GetMapping("/test")
     public ResponseEntity<ApiResponse> testRequest() {
         return ResponseEntity.ok(
@@ -21,6 +28,9 @@ public class HomeController {
         );
     }
 
+    @Operation(
+        description = "Test secure endpoint"
+    )
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/security-test")
     public ResponseEntity<ApiResponse> testSecuredRequest() {
@@ -28,7 +38,7 @@ public class HomeController {
             new ApiResponse(
                 "Hello World !",
                 true,
-                "this is a message"
+                "this message appear when connected"
             )
         );
     }

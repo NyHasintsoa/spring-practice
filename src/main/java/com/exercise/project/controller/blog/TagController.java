@@ -18,13 +18,14 @@ import com.exercise.project.service.blog.tag.TagServiceInterface;
 import jakarta.validation.Valid;
 
 @RestController
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Tag")
 @RequestMapping("${project.api.prefix}/tags")
 public class TagController {
 
     @Autowired
     private TagServiceInterface tagService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<ApiResponse> getAll() {
         return ResponseEntity.ok(
             new ApiResponse(
@@ -35,7 +36,7 @@ public class TagController {
         );
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ApiResponse> addNewTag(
         @RequestBody @Valid TagRequest request
     ) {

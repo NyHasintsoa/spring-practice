@@ -12,7 +12,10 @@ import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.response.UserInfoResponse;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "User Profile")
 @RequestMapping("${project.api.prefix}/auth")
 public class ProfileUserController {
 

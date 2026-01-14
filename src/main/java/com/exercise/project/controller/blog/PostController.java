@@ -25,10 +25,12 @@ import com.exercise.project.response.ApiResponse;
 import com.exercise.project.response.PaginationResponse;
 import com.exercise.project.service.blog.post.PostServiceInterface;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
+@Tag(name = "Blog Post")
 @RequestMapping("${project.api.prefix}/blog/posts")
 public class PostController {
 
@@ -36,7 +38,7 @@ public class PostController {
     private PostServiceInterface postService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ApiResponse> submitNewPost(
         @ModelAttribute @Valid PostRequest request
     ) {
@@ -49,7 +51,7 @@ public class PostController {
                 postService.convertToResponse(newPost)));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<ApiResponse> getAll(
         @PageableDefault(page = 0, size = 10, sort = "publishedAt", direction = Direction.ASC) Pageable pageable
     ) {

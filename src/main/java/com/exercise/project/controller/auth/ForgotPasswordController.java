@@ -13,9 +13,11 @@ import com.exercise.project.security.request.ForgotPasswordRequest;
 import com.exercise.project.security.request.ResetPasswordRequest;
 import com.exercise.project.security.service.reset.password.PasswordResetServiceInterface;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
+@Tag(name = "Forgot password")
 @RequestMapping("${project.api.prefix}/auth")
 public class ForgotPasswordController {
 

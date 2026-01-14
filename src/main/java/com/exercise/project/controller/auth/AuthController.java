@@ -22,11 +22,13 @@ import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
+@Tag(name = "Authentication")
 @RequestMapping("${project.api.prefix}/auth")
 public class AuthController {
 
