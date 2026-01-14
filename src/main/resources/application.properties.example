@@ -71,14 +71,14 @@ spring.datasource.password=
 ###############################################
 # Redis Database Properties
 ###############################################
-spring.data.redis.host=127.0.0.1
-spring.data.redis.port=6379
-spring.data.redis.database=0
-spring.data.redis.jedis.pool.max-active=8
-spring.data.redis.jedis.pool.max-wait=-1ms
-spring.data.redis.jedis.pool.max-idle=8
-spring.data.redis.jedis.pool.min-idle=0
-spring.session.redis.repository-type=default
+# spring.data.redis.host=127.0.0.1
+# spring.data.redis.port=6379
+# spring.data.redis.database=0
+# spring.data.redis.jedis.pool.max-active=8
+# spring.data.redis.jedis.pool.max-wait=-1ms
+# spring.data.redis.jedis.pool.max-idle=8
+# spring.data.redis.jedis.pool.min-idle=0
+# spring.session.redis.repository-type=default
 ###############################################
 
 ###############################################

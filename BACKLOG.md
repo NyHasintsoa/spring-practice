@@ -22,7 +22,7 @@ Use Spring MCP Client to perform connexion with MCP Server from express.
 | Authentication with JWT | 🔥       | ✅      | _Hasintsoa_ | 2025-08-10 | 2025-08-10  | Implement signing with `KeyPair`                                           |
 | Simple Refresh Token    | 🔥       | ✅      | _Hasintsoa_ | 2025-08-11 | 2025-08-11  | Store refresh token in database                                            |
 | Revoke Token            | 🔥       | ✅      | _Hasintsoa_ | 2025-08-12 | 2025-08-12  | Mark revoked tokens in database when `logout`                              |
-| Login Attempts Tracking | 🔥       | ✅      | _Hasintsoa_ | 2025-08-13 | 2025-08-13  | Use Redis to store & check login attempts and `lock` user after n attempts |
+| Login Attempts Tracking | 🔥       | 🕓      | _Hasintsoa_ | 2025-08-13 | 2025-08-13  | Use Redis to store & check login attempts and `lock` user after n attempts |
 | 2FA Authentication      | 🔥       | ✅      | _Hasintsoa_ | 2025-08-17 | 2025-08-17  | Send Mail to verify user's account AND enable user                         |
 | Password Recovery       | 🔥       | ✅      | _Hasintsoa_ | 2025-08-23 | 2025-09-16  | Send Mail to reset user's password (no bundle)                             |
 | Update Profile User     | 🔥       | ✅      | Hasintsoa   | 2025-11-03 | 2025-11-02  | Update FullName and phone of the user                                      |

@@ -21,7 +21,6 @@ import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
-import com.exercise.project.security.service.redis.login.RedisLoginAttemptServiceInterface;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,9 +32,6 @@ public class AuthController {
 
     @Autowired
     private AuthServiceInterface authService;
-
-    @Autowired
-    private RedisLoginAttemptServiceInterface loginAttemptService;
 
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;
@@ -79,13 +75,11 @@ public class AuthController {
                 )
             );
         } catch (BadCredentialsException e) {
-            Long attemtp = loginAttemptService.loginFailed(request.getEmail());
-
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new ApiResponse(
                     e.getMessage(),
                     false,
-                    attemtp
+                    "Attemps number here"
                 )
             );
         }
