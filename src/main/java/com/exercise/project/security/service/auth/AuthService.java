@@ -19,7 +19,6 @@ import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.enums.Roles;
 import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
-import com.exercise.project.security.jwt.refresh.JwtRefreshTokenInterface;
 import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.request.ProfileUserRequest;
@@ -42,9 +41,6 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
 
     @Autowired
     private JwtUtilsInterface jwtUtils;
-
-    @Autowired
-    private JwtRefreshTokenInterface jwtRefreshToken;
 
     @Autowired
     private JwtRevokeTokenInterface jwtRevokeToken;
@@ -70,16 +66,15 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
     @Override
     public JwtResponse signIn(SignInRequest request) {
         Authentication authentication = authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         User user = ((User) authentication.getPrincipal());
 
         return new JwtResponse(
             jwtUtils.generateTokenForUser(user),
             "Bearer",
-            jwtRefreshToken.createRefreshToken(user),
+            "Refresh Token Here",
             new UserInfoResponse(user));
     }
 
@@ -116,8 +111,12 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
 
     @Override
     public JwtResponse refreshToken(RefreshTokenRequest request) {
-        String newAccessToken = jwtRefreshToken.refreshAccessToken(request.getRefreshToken());
-        return new JwtResponse(newAccessToken, "Bearer", null, null);
+        return new JwtResponse(
+            "Refresh Token Here",
+            "Bearer",
+            null,
+            null
+        );
     }
 
     @Override
