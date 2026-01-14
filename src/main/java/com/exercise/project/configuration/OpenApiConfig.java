@@ -1,4 +1,4 @@
-package com.exercise.project.configuration.packages;
+package com.exercise.project.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
