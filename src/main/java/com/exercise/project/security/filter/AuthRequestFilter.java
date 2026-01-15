@@ -15,8 +15,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
-import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
+import com.exercise.project.security.service.token.JwtTokenServiceInterface;
 import com.exercise.project.security.user.AuthUserDetails;
 
 import io.jsonwebtoken.JwtException;
@@ -36,7 +36,7 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     private JwtUtilsInterface jwtUtils;
 
     @Autowired
-    private JwtRevokeTokenInterface jwtRevokeToken;
+    private JwtTokenServiceInterface jwtTokenService;
 
     @Autowired
     private JwtTokenParserInterface jwtTokenParser;
@@ -51,7 +51,7 @@ public class AuthRequestFilter extends OncePerRequestFilter {
         try {
             String jwt = jwtTokenParser.parseJwt(request);
             if (StringUtils.hasText(jwt) && jwtUtils.validateToken(jwt)) {
-                if (jwtRevokeToken.isTokenRevoked(jwtUtils.extractTokenId(jwt))) {
+                if (jwtTokenService.isTokenRevoked(jwtUtils.extractTokenId(jwt))) {
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     final Map<String, Object> body = new HashMap<>();

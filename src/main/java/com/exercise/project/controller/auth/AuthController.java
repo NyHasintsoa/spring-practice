@@ -23,7 +23,6 @@ import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.service.auth.AuthServiceInterface;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
@@ -62,7 +61,8 @@ public class AuthController {
             JwtResponse jwtResponse = authService.signIn(request);
             ResponseCookie jwtCookie = ResponseCookie.from(
                 JWT_COOKIE_STORAGE_KEY,
-                jwtResponse.getToken()).httpOnly(true)
+                jwtResponse.getToken())
+                .httpOnly(true)
                 .secure(true)
                 .path("/")
                 .maxAge(JWT_TOKEN_EXPIRATION)
@@ -133,31 +133,6 @@ public class AuthController {
                 )
             );
         }
-    }
-
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("/logout")
-    public ResponseEntity<ApiResponse> logout(
-        HttpServletResponse response,
-        HttpServletRequest request
-    ) {
-        authService.logout(request);
-
-        ResponseCookie jwtCookie = ResponseCookie.from(
-            JWT_COOKIE_STORAGE_KEY, "")
-            .secure(true)
-            .path("/")
-            .maxAge(0)
-            .build();
-        response.addHeader("Set-Cookie", jwtCookie.toString());
-
-        return ResponseEntity.ok(
-            new ApiResponse(
-                "user logged out successfully !",
-                true,
-                null
-            )
-        );
     }
 
 }

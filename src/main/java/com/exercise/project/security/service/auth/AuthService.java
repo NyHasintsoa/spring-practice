@@ -18,8 +18,6 @@ import com.exercise.project.exception.AlreadyExistsException;
 import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.enums.Roles;
-import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
-import com.exercise.project.security.jwt.revoke.JwtRevokeTokenInterface;
 import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
@@ -28,11 +26,10 @@ import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
 import com.exercise.project.security.service.email.verifier.EmailVerifierServiceInterface;
+import com.exercise.project.security.service.token.JwtTokenServiceInterface;
 import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.service.BaseService;
 import com.exercise.project.service.user.UserServiceInterface;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class AuthService extends BaseService<User> implements AuthServiceInterface {
@@ -43,10 +40,7 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
     private JwtUtilsInterface jwtUtils;
 
     @Autowired
-    private JwtRevokeTokenInterface jwtRevokeToken;
-
-    @Autowired
-    private JwtTokenParserInterface jwtTokenParser;
+    private JwtTokenServiceInterface jwtTokenService;
 
     @Autowired
     private UserServiceInterface userService;
@@ -70,9 +64,11 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = ((User) authentication.getPrincipal());
+        String token = jwtUtils.generateTokenForUser(user);
+        jwtTokenService.storeToken(token, user);
 
         return new JwtResponse(
-            jwtUtils.generateTokenForUser(user),
+            token,
             "Bearer",
             "Refresh Token Here",
             new UserInfoResponse(user));
@@ -117,12 +113,6 @@ public class AuthService extends BaseService<User> implements AuthServiceInterfa
             null,
             null
         );
-    }
-
-    @Override
-    public void logout(HttpServletRequest request) {
-        String token = jwtTokenParser.parseJwt(request);
-        jwtRevokeToken.revokeToken(token, false);
     }
 
     @Override

@@ -12,8 +12,6 @@ import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 public interface AuthServiceInterface {
 
     /**
@@ -42,11 +40,6 @@ public interface AuthServiceInterface {
      * Generate Refresh token from refresh token request
      */
     public JwtResponse refreshToken(RefreshTokenRequest request);
-
-    /**
-     * Log out user and revoke token
-     */
-    public void logout(HttpServletRequest request);
 
     /**
      * Build Redirect URL after payment successfully

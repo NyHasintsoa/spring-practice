@@ -24,6 +24,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.exercise.project.model.enums.Roles;
 import com.exercise.project.security.filter.AuthRequestFilter;
+import com.exercise.project.security.handler.AuthLogoutHandler;
+import com.exercise.project.security.handler.AuthLogoutSuccessHandler;
 import com.exercise.project.security.jwt.AuthEntryPoint;
 import com.exercise.project.security.service.AuthUserDetailsService;
 
@@ -41,6 +43,12 @@ public class SecurityConfig {
     @Autowired
     private AuthEntryPoint authEntryPoint;
 
+    @Autowired
+    private AuthLogoutHandler authLogoutHandler;
+
+    @Autowired
+    private AuthLogoutSuccessHandler authLogoutSuccessHandler;
+
     @Value("${project.cors.allow.origins}")
     private String[] CORS_ALLOWED_ORIGINS;
 
@@ -56,11 +64,20 @@ public class SecurityConfig {
                     .requestMatchers("/admin/**").hasAnyAuthority(Roles.ROLE_ADMIN.getAuthority())
                     .anyRequest().permitAll()
             )
-            .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(
+                manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authenticationProvider(authenticationProvider())
             .authenticationManager(authenticationManager())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
-            .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
+            .logout(
+                (cb) -> cb
+                    .logoutUrl("/api/auth/logout")
+                    .addLogoutHandler(authLogoutHandler)
+                    .logoutSuccessHandler(authLogoutSuccessHandler)
+            )
+        ;
 
         return httpSecurity.build();
     }
