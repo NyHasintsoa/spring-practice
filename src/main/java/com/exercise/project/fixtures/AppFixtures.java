@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.exercise.project.fixtures.auth.UserFixtures;
 import com.exercise.project.fixtures.blog.PostFixtures;
 import com.exercise.project.fixtures.blog.TagFixtures;
-import com.exercise.project.service.database.DatabaseServiceInterface;
+import com.exercise.project.service.database.DatabaseService;
 
 @Service
 public class AppFixtures {
@@ -21,7 +21,7 @@ public class AppFixtures {
     private PostFixtures postFixtures;
 
     @Autowired
-    private DatabaseServiceInterface databaseService;
+    private DatabaseService databaseService;
 
     public void init() {
         /** TRUNCATE ALL TABLES */

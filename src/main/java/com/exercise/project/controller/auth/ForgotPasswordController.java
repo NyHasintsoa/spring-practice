@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exercise.project.response.ApiResponse;
 import com.exercise.project.security.request.ForgotPasswordRequest;
 import com.exercise.project.security.request.ResetPasswordRequest;
-import com.exercise.project.security.service.reset.password.PasswordResetServiceInterface;
+import com.exercise.project.security.service.reset.password.PasswordResetService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 public class ForgotPasswordController {
 
     @Autowired
-    private PasswordResetServiceInterface passwordResetService;
+    private PasswordResetService passwordResetService;
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse> forgotPassword(

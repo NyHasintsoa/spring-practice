@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
-import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
-import com.exercise.project.security.service.token.JwtTokenServiceInterface;
+import com.exercise.project.security.jwt.parser.JwtTokenParser;
+import com.exercise.project.security.jwt.utils.JwtUtils;
+import com.exercise.project.security.service.token.JwtTokenService;
 import com.exercise.project.security.user.AuthUserDetails;
 
 import io.jsonwebtoken.JwtException;
@@ -33,13 +33,13 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     private String BEARER_PREFIX;
 
     @Autowired
-    private JwtUtilsInterface jwtUtils;
+    private JwtUtils jwtUtils;
 
     @Autowired
-    private JwtTokenServiceInterface jwtTokenService;
+    private JwtTokenService jwtTokenService;
 
     @Autowired
-    private JwtTokenParserInterface jwtTokenParser;
+    private JwtTokenParser jwtTokenParser;
 
     @Override
     protected void doFilterInternal(

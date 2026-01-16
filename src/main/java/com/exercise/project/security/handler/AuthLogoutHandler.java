@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.security.jwt.parser.JwtTokenParserInterface;
-import com.exercise.project.security.service.token.JwtTokenServiceInterface;
+import com.exercise.project.security.jwt.parser.JwtTokenParser;
+import com.exercise.project.security.service.token.JwtTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,10 +18,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthLogoutHandler implements LogoutHandler {
 
     @Autowired
-    private JwtTokenParserInterface tokenParser;
+    private JwtTokenParser tokenParser;
 
     @Autowired
-    private JwtTokenServiceInterface jwtTokenService;
+    private JwtTokenService jwtTokenService;
 
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;

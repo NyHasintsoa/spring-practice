@@ -1,62 +1,48 @@
 package com.exercise.project.service.user;
 
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.exception.UserNotFoundException;
-import com.exercise.project.repository.auth.UserRepository;
-import com.exercise.project.service.BaseService;
 
-@Service
-public class UserService extends BaseService<User> implements UserServiceInterface {
+public interface UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    /**
+     * Store user in the database
+     */
+    public User persistUser(User user);
 
-    @Override
-    public User persistUser(User user) {
-        user.setId(UUID.randomUUID());
+    /**
+     * Get User by email address
+     * 
+     * @throws UserNotFoundException
+     */
+    public User getByEmail(String email);
 
-        return userRepository.save(user);
-    }
+    /**
+     * Check if email is already used
+     */
+    public boolean emailIsUsed(String email);
 
-    @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-            () -> new UserNotFoundException("user not found with this email : " + email));
-    }
+    /**
+     * Lock User by email
+     */
+    public User lockUserByEmail(String email);
 
-    @Override
-    public boolean emailIsUsed(String email) {
-        return userRepository.existsByEmail(email);
-    }
+    /**
+     * Save Existing user to the database
+     */
+    public User saveUser(User user);
 
-    @Override
-    public User lockUserByEmail(String email) {
-        User user = getByEmail(email);
-        user.setAccountNonLocked(false);
+    /**
+     * Convert User To DTO
+     */
+    public UserDto convertToDto(User data);
 
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
-    @Override
-    public UserDto convertToDto(User data) {
-        return new UserDto(
-            data.getId(),
-            data.getEmail(),
-            data.getUsername(),
-            data.getFullName(),
-            data.getRoles()
-        );
-    }
+    /**
+     * Convert All Users to DTO
+     */
+    public List<Object> convertAllToDto(List<User> datas);
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exercise.project.response.ApiResponse;
 import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.response.UserInfoResponse;
-import com.exercise.project.security.service.auth.AuthServiceInterface;
+import com.exercise.project.security.service.auth.AuthService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ProfileUserController {
 
     @Autowired
-    private AuthServiceInterface authService;
+    private AuthService authService;
 
     @PutMapping("/profile")
     public ResponseEntity<ApiResponse> updateProfile(

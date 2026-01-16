@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.request.blog.TagRequest;
 import com.exercise.project.response.ApiResponse;
-import com.exercise.project.service.blog.tag.TagServiceInterface;
+import com.exercise.project.service.blog.tag.TagService;
 
 import jakarta.validation.Valid;
 
@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 public class TagController {
 
     @Autowired
-    private TagServiceInterface tagService;
+    private TagService tagService;
 
     @GetMapping
     public ResponseEntity<ApiResponse> getAll() {

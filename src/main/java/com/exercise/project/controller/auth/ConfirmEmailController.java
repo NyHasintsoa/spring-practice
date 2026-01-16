@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exercise.project.security.service.auth.AuthServiceInterface;
+import com.exercise.project.security.service.auth.AuthService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ConfirmEmailController {
 
     @Autowired
-    private AuthServiceInterface authService;
+    private AuthService authService;
 
     @GetMapping("/confirm-email")
     public ResponseEntity<Void> confirmEmail(

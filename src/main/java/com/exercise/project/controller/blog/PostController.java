@@ -23,7 +23,7 @@ import com.exercise.project.request.blog.CommentRequest;
 import com.exercise.project.request.blog.PostRequest;
 import com.exercise.project.response.ApiResponse;
 import com.exercise.project.response.PaginationResponse;
-import com.exercise.project.service.blog.post.PostServiceInterface;
+import com.exercise.project.service.blog.post.PostService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,7 +35,7 @@ import jakarta.validation.Valid;
 public class PostController {
 
     @Autowired
-    private PostServiceInterface postService;
+    private PostService postService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping

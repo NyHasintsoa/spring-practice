@@ -20,7 +20,7 @@ import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
-import com.exercise.project.security.service.auth.AuthServiceInterface;
+import com.exercise.project.security.service.auth.AuthService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private AuthServiceInterface authService;
+    private AuthService authService;
 
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;

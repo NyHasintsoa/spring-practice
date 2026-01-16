@@ -2,71 +2,59 @@ package com.exercise.project.service.blog.tag;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.dto.blog.TagDto;
 import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.exception.ResourceNotFoundException;
-import com.exercise.project.repository.blog.TagRepository;
 import com.exercise.project.request.blog.TagRequest;
-import com.exercise.project.service.BaseService;
 
-@Service
-public class TagService extends BaseService<Tag> implements TagServiceInterface {
+public interface TagService {
 
-    @Autowired
-    private TagRepository tagRepository;
+    /**
+     * Store Tag in the database
+     */
+    public Tag persistTag(Tag tag);
 
-    @Override
-    public Tag persistTag(Tag tag) {
-        tag.setId(UUID.randomUUID());
+    /**
+     * Persist Tag in the database
+     */
+    public Tag saveTag(Tag tag);
 
-        return tagRepository.save(tag);
-    }
+    /**
+     * Add new Tag from Request
+     */
+    public Tag addTag(TagRequest request);
 
-    @Override
-    public Tag saveTag(Tag tag) {
-        return tagRepository.save(tag);
-    }
+    /**
+     * Update Existing Tag from Request
+     */
+    public Tag updateTagFromId(String id, TagRequest request);
 
-    @Override
-    public Tag addTag(TagRequest request) {
-        Tag tag = new Tag();
-        tag.setName(request.getName());
+    /**
+     * Get Tag By Id
+     * 
+     * @throws ResourceNotFoundException
+     */
+    public Tag getById(String id);
 
-        return persistTag(tag);
-    }
+    /**
+     * Get All Tags
+     */
+    public List<Tag> getAll();
 
-    @Override
-    public Tag updateTagFromId(String id, TagRequest request) {
-        Tag tag = getById(id);
-        tag.setName(request.getName());
+    /**
+     * Get By Name
+     */
+    public Optional<Tag> findByName(String name);
 
-        return saveTag(tag);
-    }
+    /**
+     * Convert Tag to DTO
+     */
+    public TagDto convertToDto(Tag data);
 
-    @Override
-    public Tag getById(String id) {
-        return tagRepository.findById(UUID.fromString(id)).orElseThrow(
-            () -> new ResourceNotFoundException("tag not found with this id : " + id));
-    }
-
-    @Override
-    public Optional<Tag> findByName(String name) {
-        return tagRepository.findByName(name);
-    }
-
-    @Override
-    public List<Tag> getAll() {
-        return tagRepository.findAll();
-    }
-
-    @Override
-    public TagDto convertToDto(Tag data) {
-        return new TagDto(data);
-    }
+    /**
+     * Convert All To DTO
+     */
+    public List<Object> convertAllToDto(List<Tag> datas);
 
 }

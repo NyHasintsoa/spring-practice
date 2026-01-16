@@ -1,140 +1,59 @@
 package com.exercise.project.security.service.auth;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import com.exercise.project.exception.AlreadyExistsException;
 import com.exercise.project.model.dto.auth.UserDto;
 import com.exercise.project.model.entity.auth.User;
-import com.exercise.project.model.enums.Roles;
-import com.exercise.project.security.jwt.utils.JwtUtilsInterface;
 import com.exercise.project.security.request.ProfileUserRequest;
 import com.exercise.project.security.request.RefreshTokenRequest;
 import com.exercise.project.security.request.RegisterRequest;
 import com.exercise.project.security.request.SignInRequest;
 import com.exercise.project.security.response.JwtResponse;
 import com.exercise.project.security.response.UserInfoResponse;
-import com.exercise.project.security.service.email.verifier.EmailVerifierServiceInterface;
-import com.exercise.project.security.service.token.JwtTokenServiceInterface;
-import com.exercise.project.security.user.AuthUserDetails;
-import com.exercise.project.service.BaseService;
-import com.exercise.project.service.user.UserServiceInterface;
 
-@Service
-public class AuthService extends BaseService<User> implements AuthServiceInterface {
-    @Autowired
-    private AuthenticationManager authManager;
+public interface AuthService {
 
-    @Autowired
-    private JwtUtilsInterface jwtUtils;
+    /**
+     * Sign in User with Sign in Request
+     */
+    public JwtResponse signIn(SignInRequest request);
 
-    @Autowired
-    private JwtTokenServiceInterface jwtTokenService;
+    /**
+     * Register User with Register Request
+     * 
+     * @throws AlreadyExistsException
+     */
+    public void register(RegisterRequest request);
 
-    @Autowired
-    private UserServiceInterface userService;
+    /**
+     * Confirm User By Token
+     */
+    public void confirmUserByToken(String token);
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    /**
+     * Get User Informations to show in the response
+     */
+    public UserInfoResponse getConnectedUserInfo();
 
-    @Autowired
-    private EmailVerifierServiceInterface emailVerifierService;
+    /**
+     * Generate Refresh token from refresh token request
+     */
+    public JwtResponse refreshToken(RefreshTokenRequest request);
 
-    @Value("${project.jwt.bearer.prefix}")
-    private String BEARER_PREFIX;
+    /**
+     * Build Redirect URL after payment successfully
+     */
+    public URI buildRedirectUrl();
 
-    @Value("${project.frontend.url}")
-    private String FRONTEND_URL;
+    /**
+     * Update User profile
+     */
+    public UserInfoResponse updateUserProfile(ProfileUserRequest request);
 
-    @Override
-    public JwtResponse signIn(SignInRequest request) {
-        Authentication authentication = authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = ((User) authentication.getPrincipal());
-        String token = jwtUtils.generateTokenForUser(user);
-        jwtTokenService.storeToken(token, user);
-
-        return new JwtResponse(
-            token,
-            "Bearer",
-            "Refresh Token Here",
-            new UserInfoResponse(user));
-    }
-
-    @Override
-    public void register(RegisterRequest request) {
-        if (userService.emailIsUsed(request.getEmail()))
-            throw new AlreadyExistsException("EMAIL_ALREADY_EXIST");
-        User newUser = new User();
-        newUser.setEmail(request.getEmail());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-        newUser.setFullName(request.getFullname());
-        Set<Roles> roles = new HashSet<Roles>();
-        roles.add(Roles.ROLE_USER);
-        newUser.setRoles(roles);
-        newUser.setCreatedAt(new Date());
-        newUser.setEnabled(false);
-        newUser.setAccountNonLocked(true);
-
-        emailVerifierService.sendEmailConfirmation(newUser);
-        userService.persistUser(newUser);
-    }
-
-    @Override
-    public void confirmUserByToken(String token) {
-        emailVerifierService.handleEmailConfirmation(token);
-    }
-
-    @Override
-    public UserInfoResponse getConnectedUserInfo() {
-        AuthUserDetails userDetails = getConnectedUser();
-
-        return new UserInfoResponse(userService.getByEmail(userDetails.getEmail()));
-    }
-
-    @Override
-    public JwtResponse refreshToken(RefreshTokenRequest request) {
-        return new JwtResponse(
-            "Refresh Token Here",
-            "Bearer",
-            null,
-            null
-        );
-    }
-
-    @Override
-    public URI buildRedirectUrl() {
-        return URI.create(FRONTEND_URL + "/sign-in");
-    }
-
-    @Override
-    public UserInfoResponse updateUserProfile(ProfileUserRequest request) {
-        AuthUserDetails userDetails = getConnectedUser();
-
-        User user = userService.getByEmail(userDetails.getEmail());
-        user.setFullName(request.getFirstname() + " " + request.getLastname());
-        user.setPhone(request.getPhone());
-        User updatedUser = userService.saveUser(user);
-
-        return new UserInfoResponse(updatedUser);
-    }
-
-    @Override
-    public UserDto convertToDto(User data) {
-        return userService.convertToDto(data);
-    }
+    /**
+     * Convert User To DTO
+     */
+    public UserDto convertToDto(User data);
 
 }
