@@ -44,7 +44,7 @@ clear: ## Alias of clean command
 
 .PHONY: build
 build: ## Alias of package
-	@make package
+	$(MAKE) package
 
 .PHONY: package
 package: ## Pack to project from packaging configuration

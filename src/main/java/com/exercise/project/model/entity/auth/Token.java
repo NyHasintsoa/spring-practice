@@ -38,8 +38,8 @@ public class Token {
     @Column(name = "revoked_at")
     private Date revokedAt;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.DETACH)
-    @JoinColumn(nullable = false, name = "user_id", updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
 }
