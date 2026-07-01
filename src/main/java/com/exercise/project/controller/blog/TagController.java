@@ -1,6 +1,5 @@
 package com.exercise.project.controller.blog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +15,15 @@ import com.exercise.project.response.ApiResponse;
 import com.exercise.project.service.blog.tag.TagService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @io.swagger.v3.oas.annotations.tags.Tag(name = "Blog Tag")
 @RequestMapping("${project.api.prefix}/tags")
 public class TagController {
 
-    @Autowired
-    private TagService tagService;
+    private final TagService tagService;
 
     @GetMapping
     public ResponseEntity<ApiResponse> getAll() {

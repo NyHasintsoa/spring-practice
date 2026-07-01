@@ -1,6 +1,5 @@
 package com.exercise.project.controller.blog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -28,14 +27,15 @@ import com.exercise.project.service.blog.post.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @Tag(name = "Blog Post")
 @RequestMapping("${project.api.prefix}/blog/posts")
 public class PostController {
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping

@@ -2,7 +2,6 @@ package com.exercise.project.security.service.reset.token.verifier;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +11,11 @@ import com.exercise.project.exception.InvalidResetPasswordTokenException;
 import com.exercise.project.repository.auth.ResetPasswordRequestRepository;
 import com.exercise.project.security.service.reset.token.generator.PasswordResetTokenGenerator;
 
-@Service
-public class PasswordResetTokenVerifierImpl implements PasswordResetTokenVerifier {
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private ResetPasswordRequestRepository resetPasswordRequestRepository;
+@Service
+@RequiredArgsConstructor
+public class PasswordResetTokenVerifierImpl implements PasswordResetTokenVerifier {
 
     @Value("${project.secret.key}")
     private String PROJECT_SECRET_KEY;
@@ -24,8 +23,8 @@ public class PasswordResetTokenVerifierImpl implements PasswordResetTokenVerifie
     @Value("${project.reset.password.selector.length}")
     private Integer SELECTOR_LENGTH;
 
-    @Autowired
-    private PasswordResetTokenGenerator passwordResetTokenGenerator;
+    private final PasswordResetTokenGenerator passwordResetTokenGenerator;
+    private final ResetPasswordRequestRepository resetPasswordRequestRepository;
 
     @Override
     public User validateTokenAndFetchUser(String token) {

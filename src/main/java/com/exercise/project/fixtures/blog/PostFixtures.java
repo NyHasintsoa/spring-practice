@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.entity.auth.User;
@@ -20,17 +19,15 @@ import com.exercise.project.repository.blog.PostRepository;
 import com.exercise.project.repository.blog.TagRepository;
 import com.exercise.project.util.RandomArrayUtil;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PostFixtures extends BaseFixtures<Post> {
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final TagRepository tagRepository;
+    private final UserRepository userRepository;
 
     private List<Tag> tags() {
         return tagRepository.findAll();

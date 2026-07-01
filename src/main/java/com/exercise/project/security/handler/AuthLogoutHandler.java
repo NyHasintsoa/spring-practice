@@ -1,7 +1,6 @@
 package com.exercise.project.security.handler;
 
 import org.jspecify.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
@@ -13,15 +12,14 @@ import com.exercise.project.security.service.token.JwtTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class AuthLogoutHandler implements LogoutHandler {
 
-    @Autowired
-    private JwtTokenParser tokenParser;
-
-    @Autowired
-    private JwtTokenService jwtTokenService;
+    private final JwtTokenParser tokenParser;
+    private final JwtTokenService jwtTokenService;
 
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;

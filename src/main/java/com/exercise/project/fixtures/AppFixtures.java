@@ -1,6 +1,5 @@
 package com.exercise.project.fixtures;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.fixtures.auth.UserFixtures;
@@ -8,20 +7,16 @@ import com.exercise.project.fixtures.blog.PostFixtures;
 import com.exercise.project.fixtures.blog.TagFixtures;
 import com.exercise.project.service.database.DatabaseService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AppFixtures {
 
-    @Autowired
-    private UserFixtures userFixtures;
-
-    @Autowired
-    private TagFixtures tagFixtures;
-
-    @Autowired
-    private PostFixtures postFixtures;
-
-    @Autowired
-    private DatabaseService databaseService;
+    private final UserFixtures userFixtures;
+    private final TagFixtures tagFixtures;
+    private final PostFixtures postFixtures;
+    private final DatabaseService databaseService;
 
     public void init() {
         /** TRUNCATE ALL TABLES */

@@ -1,6 +1,5 @@
 package com.exercise.project.controller.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,14 +12,15 @@ import com.exercise.project.security.response.UserInfoResponse;
 import com.exercise.project.security.service.auth.AuthService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @Tag(name = "User Profile")
 @RequestMapping("${project.api.prefix}/auth")
 public class ProfileUserController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @PutMapping("/profile")
     public ResponseEntity<ApiResponse> updateProfile(

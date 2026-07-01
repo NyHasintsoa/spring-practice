@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,25 +30,18 @@ import com.exercise.project.security.user.AuthUserDetails;
 import com.exercise.project.service.BaseService;
 import com.exercise.project.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl extends BaseService<User> implements AuthService {
-    @Autowired
-    private AuthenticationManager authManager;
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private JwtTokenService jwtTokenService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
-    private EmailVerifierService emailVerifierService;
+    private final AuthenticationManager authManager;
+    private final JwtUtils jwtUtils;
+    private final JwtTokenService jwtTokenService;
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final EmailVerifierService emailVerifierService;
 
     @Value("${project.jwt.bearer.prefix}")
     private String BEARER_PREFIX;

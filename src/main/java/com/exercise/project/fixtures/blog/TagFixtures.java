@@ -2,18 +2,19 @@ package com.exercise.project.fixtures.blog;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.entity.blog.Tag;
 import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.blog.TagRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TagFixtures extends BaseFixtures<Tag> {
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     @Override
     public Tag create() {

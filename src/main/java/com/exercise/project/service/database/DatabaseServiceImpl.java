@@ -21,24 +21,25 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     public void truncateUsers() {
-        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
-        entityManager.createNativeQuery("TRUNCATE TABLE users").executeUpdate();
-        entityManager.createNativeQuery("TRUNCATE TABLE user_roles").executeUpdate();
-        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+        entityManager.createNativeQuery("TRUNCATE TABLE users, user_roles RESTART IDENTITY CASCADE").executeUpdate();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void truncateAllTables() {
         String query = """
-                    SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_type = 'BASE TABLE'
-            """;
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = current_schema() 
+              AND table_type = 'BASE TABLE'
+              AND table_name NOT LIKE 'databasechangelog%' -- Optionnel : Éviter de vider Liquibase/Flyway si présent
+        """;
+        
         List<String> tableNames = entityManager.createNativeQuery(query).getResultList();
-        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
-        for (String tableName : tableNames) {
-            entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
+        
+        if (!tableNames.isEmpty()) {
+            String tables = String.join(", ", tableNames);
+            entityManager.createNativeQuery("TRUNCATE TABLE " + tables + " RESTART IDENTITY CASCADE").executeUpdate();
         }
-        entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
     }
-
 }

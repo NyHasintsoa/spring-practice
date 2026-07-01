@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,28 +17,25 @@ import com.exercise.project.security.jwt.parser.JwtTokenParser;
 import com.exercise.project.security.jwt.utils.JwtUtils;
 import com.exercise.project.security.service.token.JwtTokenService;
 import com.exercise.project.security.user.AuthUserDetails;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import tools.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class AuthRequestFilter extends OncePerRequestFilter {
 
     @Value("${project.jwt.bearer.prefix}")
     private String BEARER_PREFIX;
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private JwtTokenService jwtTokenService;
-
-    @Autowired
-    private JwtTokenParser jwtTokenParser;
+    private final JwtUtils jwtUtils;
+    private final JwtTokenService jwtTokenService;
+    private final JwtTokenParser jwtTokenParser;
 
     @Override
     protected void doFilterInternal(

@@ -58,7 +58,7 @@ keypair: ## Generate keypair for JWT Authentication
 
 .PHONY: properties
 properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resources dir
-	@if [ -f "$(RESOURCES_DIR)/application.properties" ]; then; else cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
+	@if [ ! -f "$(RESOURCES_DIR)/application.properties" ]; then cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
 
 ##
 ##-----------------------------------
@@ -66,8 +66,8 @@ properties: $(RESOURCES_DIR)/application.properties.example ## Create properties
 ##-----------------------------------
 .PHONY: deploy
 deploy: ## Deploy to local apache server
-	@if [ -d "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)" ]; then rm -r "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"; fi
-	@if [ -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war" ]; then rm "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"; fi
+	@rm -rf "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"
+	@rm -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"
 	@make install
 	@cp ./target/$(PROJECT_ARTIFACT_ID).war $(DEPLOY_DIR)/
 

@@ -2,7 +2,6 @@ package com.exercise.project.configuration;
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,25 +28,19 @@ import com.exercise.project.security.handler.AuthLogoutSuccessHandler;
 import com.exercise.project.security.jwt.AuthEntryPoint;
 import com.exercise.project.security.service.AuthUserDetailsService;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private AuthUserDetailsService userService;
-
-    @Autowired
-    private AuthRequestFilter authTokenFilter;
-
-    @Autowired
-    private AuthEntryPoint authEntryPoint;
-
-    @Autowired
-    private AuthLogoutHandler authLogoutHandler;
-
-    @Autowired
-    private AuthLogoutSuccessHandler authLogoutSuccessHandler;
+    private final AuthUserDetailsService userService;
+    private final AuthRequestFilter authTokenFilter;
+    private final AuthEntryPoint authEntryPoint;
+    private final AuthLogoutHandler authLogoutHandler;
+    private final AuthLogoutSuccessHandler authLogoutSuccessHandler;
 
     @Value("${project.cors.allow.origins}")
     private String[] CORS_ALLOWED_ORIGINS;

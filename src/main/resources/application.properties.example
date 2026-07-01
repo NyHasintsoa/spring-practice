@@ -6,7 +6,7 @@ project.login.max.attempts=3
 project.cors.allow.origins=
 project.frontend.url=https://127.0.0.1:3000
 project.backend.url=https://127.0.0.1:8000
-project.secret.key=abd2e2d1d4e90cd99695283c512f756b
+project.secret.key=
 project.blog.image.upload.path=public/blog/images/
 # FRAMEWORK CONFIG ############################
 server.servlet.session.cookie.secure=true

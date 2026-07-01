@@ -3,7 +3,6 @@ package com.exercise.project.security.service.token;
 import java.util.Date;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.entity.auth.Token;
@@ -13,15 +12,14 @@ import com.exercise.project.repository.auth.TokenRepository;
 import com.exercise.project.security.jwt.utils.JwtUtils;
 
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-    @Autowired
-    private TokenRepository tokenRepository;
-
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final TokenRepository tokenRepository;
+    private final JwtUtils jwtUtils;
 
     @Override
     public void revokeToken(String token) {

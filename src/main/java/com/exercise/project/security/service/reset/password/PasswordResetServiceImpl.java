@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -30,15 +29,11 @@ import com.exercise.project.security.service.reset.token.verifier.PasswordResetT
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class PasswordResetServiceImpl implements PasswordResetService {
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private SpringTemplateEngine templateEngine;
 
     @Value("${project.reset.password.token.expiration}")
     private Integer RESET_PASSWORD_TOKEN_EXPIRATION;
@@ -58,20 +53,13 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Value("${project.reset.password.selector.length}")
     private Integer SELECTOR_LENGTH;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ResetPasswordRequestRepository resetPasswordRequestRepository;
-
-    @Autowired
-    private PasswordResetTokenGenerator tokenGenerator;
-
-    @Autowired
-    private PasswordResetTokenVerifier tokenVerifier;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
+    private final SpringTemplateEngine templateEngine;
+    private final UserRepository userRepository;
+    private final ResetPasswordRequestRepository resetPasswordRequestRepository;
+    private final PasswordResetTokenGenerator tokenGenerator;
+    private final PasswordResetTokenVerifier tokenVerifier;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional

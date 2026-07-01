@@ -1,6 +1,5 @@
 package com.exercise.project.controller.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exercise.project.security.service.auth.AuthService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @Tag(name = "Email Confirmation")
 @RequestMapping("${project.api.prefix}/auth")
 public class ConfirmEmailController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @GetMapping("/confirm-email")
     public ResponseEntity<Void> confirmEmail(

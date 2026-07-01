@@ -2,7 +2,6 @@ package com.exercise.project.service.user;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.dto.auth.UserDto;
@@ -11,11 +10,13 @@ import com.exercise.project.exception.UserNotFoundException;
 import com.exercise.project.repository.auth.UserRepository;
 import com.exercise.project.service.BaseService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public User persistUser(User user) {

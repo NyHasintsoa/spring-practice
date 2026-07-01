@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,8 +20,10 @@ import com.exercise.project.service.user.UserService;
 import io.jsonwebtoken.Jwts;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EmailVerifierServiceImpl implements EmailVerifierService {
 
     @Value("${project.mail.from}")
@@ -34,14 +35,9 @@ public class EmailVerifierServiceImpl implements EmailVerifierService {
     @Value("${project.backend.url}")
     private String BACKEND_URL;
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private SpringTemplateEngine templateEngine;
-
-    @Autowired
-    private UserService userService;
+    private final JavaMailSender mailSender;
+    private final SpringTemplateEngine templateEngine;
+    private final UserService userService;
 
     private Integer TOKEN_EXPIRATION_TIME = 3600000;
 

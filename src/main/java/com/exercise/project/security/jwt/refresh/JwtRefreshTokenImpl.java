@@ -2,7 +2,6 @@ package com.exercise.project.security.jwt.refresh;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +12,15 @@ import com.exercise.project.repository.auth.RefreshTokenRepository;
 import com.exercise.project.security.jwt.utils.JwtUtils;
 import com.exercise.project.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JwtRefreshTokenImpl implements JwtRefreshToken {
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
-
-    @Autowired
-    private UserService userService;
+    private final JwtUtils jwtUtils;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserService userService;
 
     @Value("${project.jwt.refresh.token.expiration}")
     private Integer JWT_REFRESH_TOKEN_EXPIRATION;

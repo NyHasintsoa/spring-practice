@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exercise.project.model.dto.blog.TagDto;
@@ -14,11 +13,13 @@ import com.exercise.project.repository.blog.TagRepository;
 import com.exercise.project.request.blog.TagRequest;
 import com.exercise.project.service.BaseService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TagServiceImpl extends BaseService<Tag> implements TagService {
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     @Override
     public Tag persistTag(Tag tag) {
