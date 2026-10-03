@@ -43,9 +43,6 @@ public class AuthServiceImpl extends BaseService<User> implements AuthService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmailVerifierService emailVerifierService;
 
-    @Value("${project.jwt.bearer.prefix}")
-    private String BEARER_PREFIX;
-
     @Value("${project.frontend.url}")
     private String FRONTEND_URL;
 

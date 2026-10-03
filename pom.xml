@@ -9,13 +9,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.0</version>
+		<version>4.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.exercise</groupId>
 	<artifactId>project</artifactId>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
 	<name>Project</name>
 	<description>A lot of description about project</description>
 	<url/>
@@ -37,8 +37,9 @@
 	</scm>
 
 	<properties>
-		<java.version>26</java.version>
+		<java.version>25</java.version>
 		<jwt.version>0.13.0</jwt.version>
+		<spring-ai.version>2.0.1</spring-ai.version>
 	</properties>
 
 	<dependencies>
@@ -73,6 +74,10 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-ollama</artifactId>
 		</dependency>
 
 		<dependency>
@@ -119,7 +124,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>3.0.0</version>
+			<version>3.1.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
 		<dependency>
@@ -170,20 +175,8 @@
 		<dependency>
 			<groupId>com.github.slugify</groupId>
 			<artifactId>slugify</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/tools.jackson.core/jackson-core -->
-		<!-- <dependency> -->
-			<!-- <groupId>tools.jackson.core</groupId> -->
-			<!-- <artifactId>jackson-core</artifactId> -->
-			<!-- <version>3.2.0</version> -->
-		<!-- </dependency> -->
-		<!-- https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
-		<!-- <dependency> -->
-			<!-- <groupId>tools.jackson.core</groupId> -->
-			<!-- <artifactId>jackson-databind</artifactId> -->
-			<!-- <version>3.2.0</version> -->
-		<!-- </dependency> -->
 	</dependencies>
 
 	<build>
@@ -218,4 +211,16 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencyManagement>
+		<dependencies>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-bom</artifactId>
+			<version>${spring-ai.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

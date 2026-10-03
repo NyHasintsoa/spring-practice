@@ -126,7 +126,7 @@ spring.mail.properties[mail.debug]=false
 ###############################################
 # Security Properties
 ###############################################
-project.jwt.bearer.prefix=Bearer 
+project.jwt.bearer.prefix=Bearer
 project.jwt.cookie.token.storage.key=
 project.jwt.cookie.refresh.token.storage.key=
 project.jwt.token.expiration=3600000

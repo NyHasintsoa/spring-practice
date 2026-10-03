@@ -30,11 +30,12 @@ public class JwtTokenParserImpl implements JwtTokenParser {
     private String getJwtFromHeader(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(BEARER_PREFIX)) {
-            return headerAuth.substring(BEARER_PREFIX.length());
+            return headerAuth.substring((BEARER_PREFIX + " ").length());
         }
         return null;
     }
 
+    @SuppressWarnings("null")
     private String getJwtFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null)

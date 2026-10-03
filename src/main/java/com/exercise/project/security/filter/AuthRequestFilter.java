@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,9 +28,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class AuthRequestFilter extends OncePerRequestFilter {
-
-    @Value("${project.jwt.bearer.prefix}")
-    private String BEARER_PREFIX;
 
     private final JwtUtils jwtUtils;
     private final JwtTokenService jwtTokenService;

@@ -1,5 +1,7 @@
-MVN := @mvn
-MAKE := @make
+.SILENT:
+
+MVN := mvn
+MAKE := make
 
 .DEFAULT_GOAL := help
 
@@ -7,7 +9,7 @@ MAKE := @make
 # Deployment Configuration
 #------------------------------------
 DEPLOY_DIR := /opt/apache-tomcat/webapps
-PROJECT_ARTIFACT_ID := mcp-spring
+PROJECT_ARTIFACT_ID := api-spring
 #------------------------------------
 
 PROJECT_DIR := $(PWD)/src/main/java/com/exercise/project
@@ -22,9 +24,9 @@ install: ## Install all dependencies of the project
 
 .PHONY: init
 init: # Init the project
-	@make properties
-	@make install
-	@make keypair
+	$(MAKE) properties
+	$(MAKE) install
+	$(MAKE) keypair
 
 .PHONY: dev
 dev: ## Run the project
@@ -52,13 +54,13 @@ package: ## Pack to project from packaging configuration
 
 .PHONY: keypair
 keypair: ## Generate keypair for JWT Authentication
-	@mkdir -p "$(RESOURCES_DIR)/jwt/"
-	@openssl genpkey -algorithm RSA -out "$(RESOURCES_DIR)/jwt/private.pem" -pkeyopt rsa_keygen_bits:2048
-	@openssl rsa -pubout -in "$(RESOURCES_DIR)/jwt/private.pem" -out "$(RESOURCES_DIR)/jwt/public.pem"
+	mkdir -p "$(RESOURCES_DIR)/jwt/"
+	openssl genpkey -algorithm RSA -out "$(RESOURCES_DIR)/jwt/private.pem" -pkeyopt rsa_keygen_bits:2048
+	openssl rsa -pubout -in "$(RESOURCES_DIR)/jwt/private.pem" -out "$(RESOURCES_DIR)/jwt/public.pem"
 
 .PHONY: properties
 properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resources dir
-	@if [ ! -f "$(RESOURCES_DIR)/application.properties" ]; then cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
+	if [ ! -f "$(RESOURCES_DIR)/application.properties" ]; then cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
 
 ##
 ##-----------------------------------
@@ -66,14 +68,14 @@ properties: $(RESOURCES_DIR)/application.properties.example ## Create properties
 ##-----------------------------------
 .PHONY: deploy
 deploy: ## Deploy to local apache server
-	@rm -rf "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"
-	@rm -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"
-	@make install
-	@cp ./target/$(PROJECT_ARTIFACT_ID).war $(DEPLOY_DIR)/
+	rm -rf "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"
+	rm -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"
+	$(MAKE) install
+	cp ./target/$(PROJECT_ARTIFACT_ID).war $(DEPLOY_DIR)/
 
 .PHONY: help
 help: ## List commands
-	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+	grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 #-----------------------------------
 # Dependencies
@@ -82,8 +84,8 @@ target/$(PROJECT_ARTIFACT_ID).war:
 	$(MVN) clean install
 
 "$(RESOURCES_DIR)/application.properties.example":
-	@touch "$(RESOURCES_DIR)/application.properties.example"
+	touch "$(RESOURCES_DIR)/application.properties.example"
 
 "$(RESOURCES_DIR)/mail/mailpit-auth-file":
-	@touch $(RESOURCES_DIR)/mailpit-auth-file
+	touch $(RESOURCES_DIR)/mailpit-auth-file
 #-----------------------------------
