@@ -40,7 +40,7 @@ public class ResetPasswordRequest {
     @Column(name = "requested_at", nullable = false)
     private Date requestedAt;
 
-    @Column(name = "expires_at", nullable = false)
-    private Date expiresAt;
+    @Column(name = "expired_at", nullable = false)
+    private Date expiredAt;
 
 }

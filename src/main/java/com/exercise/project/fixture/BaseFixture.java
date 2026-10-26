@@ -1,4 +1,4 @@
-package com.exercise.project.fixtures;
+package com.exercise.project.fixture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.Random;
 import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
 
-public abstract class BaseFixtures<T> {
+public abstract class BaseFixture<T> {
 
     private Faker faker;
 
-    public BaseFixtures() {
+    public BaseFixture() {
         faker = Faker.instance(Locale.ENGLISH);
     }
 

@@ -19,7 +19,7 @@ public interface ResetPasswordRequestRepository extends JpaRepository<ResetPassw
     List<ResetPasswordRequest> findByUserAndRequestedAtAfter(User user, Date requestedAt);
 
     @Modifying
-    @Query("DELETE FROM ResetPasswordRequest r WHERE r.expiresAt < :now")
+    @Query("DELETE FROM ResetPasswordRequest r WHERE r.expiredAt < :now")
     void deleteExpiredRequests(@Param("now") Date now);
 
     void deleteByUser(User user);

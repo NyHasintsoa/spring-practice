@@ -66,7 +66,7 @@ public class SecurityConfig {
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
             .logout(
                 (cb) -> cb
-                    .logoutUrl("/api/auth/logout")
+                    .logoutUrl("/api/auth/sign-out")
                     .addLogoutHandler(authLogoutHandler)
                     .logoutSuccessHandler(authLogoutSuccessHandler)
             )

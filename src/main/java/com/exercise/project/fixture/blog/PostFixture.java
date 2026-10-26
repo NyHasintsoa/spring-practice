@@ -1,4 +1,4 @@
-package com.exercise.project.fixtures.blog;
+package com.exercise.project.fixture.blog;
 
 import java.util.Collection;
 import java.util.Date;
@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.fixture.BaseFixture;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.entity.blog.Comment;
 import com.exercise.project.model.entity.blog.Post;
 import com.exercise.project.model.entity.blog.Tag;
-import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.auth.UserRepository;
 import com.exercise.project.repository.blog.PostRepository;
 import com.exercise.project.repository.blog.TagRepository;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PostFixtures extends BaseFixtures<Post> {
+public class PostFixture extends BaseFixture<Post> {
 
     private final PostRepository postRepository;
     private final TagRepository tagRepository;
@@ -76,10 +76,11 @@ public class PostFixtures extends BaseFixtures<Post> {
         } catch (Exception e) {
             System.out.println(
                 "\n##############################################\n" +
-                    "POSTS \n" +
-                    "\n##############################################\n" +
-                    e.getMessage() +
-                    "\n##############################################\n");
+                "POSTS \n" +
+                "\n##############################################\n" +
+                e.getMessage() +
+                "\n##############################################\n"
+            );
         }
     }
 

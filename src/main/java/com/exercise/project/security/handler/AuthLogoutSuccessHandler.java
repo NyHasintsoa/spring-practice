@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -23,7 +22,7 @@ public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(
         HttpServletRequest request,
         HttpServletResponse response,
-        @Nullable Authentication authentication
+        Authentication authentication
     ) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_OK);

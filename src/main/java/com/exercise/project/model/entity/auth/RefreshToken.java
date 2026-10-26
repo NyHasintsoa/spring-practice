@@ -29,7 +29,7 @@ public class RefreshToken {
     @Column(name = "email", length = 255, nullable = false)
     private String email;
 
-    @Column(name = "expiry_date", nullable = false)
-    private Date expiryDate;
+    @Column(name = "expired_at", nullable = false)
+    private Date expiredAt;
 
 }

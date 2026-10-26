@@ -1,4 +1,4 @@
-package com.exercise.project.fixtures.auth;
+package com.exercise.project.fixture.auth;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,16 +9,16 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.fixture.BaseFixture;
 import com.exercise.project.model.entity.auth.User;
 import com.exercise.project.model.enums.Roles;
-import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.auth.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserFixtures extends BaseFixtures<User> {
+public class UserFixture extends BaseFixture<User> {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -72,10 +72,11 @@ public class UserFixtures extends BaseFixtures<User> {
         } catch (Exception e) {
             System.out.println(
                 "\n##############################################\n" +
-                    "USERS \n" +
-                    "\n##############################################\n" +
-                    e.getMessage() +
-                    "\n##############################################\n");
+                "USERS \n" +
+                "\n##############################################\n" +
+                e.getMessage() +
+                "\n##############################################\n"
+            );
         }
     }
 

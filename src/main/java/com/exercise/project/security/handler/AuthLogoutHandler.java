@@ -24,6 +24,7 @@ public class AuthLogoutHandler implements LogoutHandler {
     @Value("${project.jwt.cookie.token.storage.key}")
     private String JWT_COOKIE_STORAGE_KEY;
 
+
     @Override
     public void logout(
         HttpServletRequest request,
@@ -31,7 +32,8 @@ public class AuthLogoutHandler implements LogoutHandler {
         @Nullable Authentication authentication
     ) {
         String token = tokenParser.parseJwt(request);
-        jwtTokenService.revokeToken(token);
+        if (!token.isBlank())
+            jwtTokenService.revokeToken(token);
 
         ResponseCookie jwtCookie = ResponseCookie.from(
             JWT_COOKIE_STORAGE_KEY, "")

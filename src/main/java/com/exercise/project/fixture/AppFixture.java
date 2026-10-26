@@ -1,21 +1,21 @@
-package com.exercise.project.fixtures;
+package com.exercise.project.fixture;
 
 import org.springframework.stereotype.Service;
 
-import com.exercise.project.fixtures.auth.UserFixtures;
-import com.exercise.project.fixtures.blog.PostFixtures;
-import com.exercise.project.fixtures.blog.TagFixtures;
+import com.exercise.project.fixture.auth.UserFixture;
+import com.exercise.project.fixture.blog.PostFixture;
+import com.exercise.project.fixture.blog.TagFixture;
 import com.exercise.project.service.database.DatabaseService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AppFixtures {
+public class AppFixture {
 
-    private final UserFixtures userFixtures;
-    private final TagFixtures tagFixtures;
-    private final PostFixtures postFixtures;
+    private final UserFixture userFixtures;
+    private final TagFixture tagFixtures;
+    private final PostFixture postFixtures;
     private final DatabaseService databaseService;
 
     public void init() {

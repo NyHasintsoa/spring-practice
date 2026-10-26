@@ -87,10 +87,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         Calendar expCalendar = Calendar.getInstance();
         expCalendar.setTime(now);
         expCalendar.add(Calendar.SECOND, RESET_PASSWORD_TOKEN_EXPIRATION);
-        Date expiresAt = expCalendar.getTime();
+        Date expiredAt = expCalendar.getTime();
 
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
-        resetPasswordRequest.setExpiresAt(expiresAt);
+        resetPasswordRequest.setExpiredAt(expiredAt);
         resetPasswordRequest.setUser(user);
         resetPasswordRequest.setHashedToken(hashedToken);
         resetPasswordRequest.setRequestedAt(now);

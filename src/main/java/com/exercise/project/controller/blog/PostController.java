@@ -48,7 +48,9 @@ public class PostController {
             new ApiResponse(
                 "Submit new Post from connected User",
                 true,
-                postService.convertToResponse(newPost)));
+                postService.convertToResponse(newPost)
+            )
+        );
     }
 
     @GetMapping

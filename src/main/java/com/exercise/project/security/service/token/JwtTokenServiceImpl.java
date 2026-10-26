@@ -24,7 +24,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public void revokeToken(String token) {
         Claims claims = jwtUtils.getClaimsFromToken(token);
-        Optional<Token> isRevokedToken = tokenRepository.findByTokenId(claims.getId());
+        Optional<Token> isRevokedToken = tokenRepository.findById(claims.getId());
         if (isRevokedToken.isPresent()) {
             Token revokedToken = isRevokedToken.get();
             if (revokedToken.getRevokedAt() == null) {
@@ -36,7 +36,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public Boolean isTokenRevoked(String tokenId) {
-        Optional<Token> istoken = tokenRepository.findByTokenId(tokenId);
+        Optional<Token> istoken = tokenRepository.findById(tokenId);
         if (istoken.isEmpty())
             return true;
         return istoken.get().getRevokedAt() != null;
@@ -46,8 +46,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     public Token storeToken(String token, User user) {
         Claims claims = jwtUtils.getClaimsFromToken(token);
         Token storeToken = new Token();
-        storeToken.setTokenId(claims.getId());
-        storeToken.setExpiryDate(claims.getExpiration());
+        storeToken.setId(claims.getId());
+        storeToken.setExpiredAt(claims.getExpiration());
         storeToken.setTokenType(TokenType.BEARER_TOKEN);
         storeToken.setUser(user);
 

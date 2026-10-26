@@ -1,18 +1,18 @@
-package com.exercise.project.fixtures.blog;
+package com.exercise.project.fixture.blog;
 
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.exercise.project.fixture.BaseFixture;
 import com.exercise.project.model.entity.blog.Tag;
-import com.exercise.project.fixtures.BaseFixtures;
 import com.exercise.project.repository.blog.TagRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class TagFixtures extends BaseFixtures<Tag> {
+public class TagFixture extends BaseFixture<Tag> {
 
     private final TagRepository tagRepository;
 
@@ -32,10 +32,11 @@ public class TagFixtures extends BaseFixtures<Tag> {
         } catch (Exception e) {
             System.out.println(
                 "\n##############################################\n" +
-                    "TAGS \n" +
-                    "\n##############################################\n" +
-                    e.getMessage() +
-                    "\n##############################################\n");
+                "TAGS \n" +
+                "\n##############################################\n" +
+                e.getMessage() +
+                "\n##############################################\n"
+            );
         }
     }
 

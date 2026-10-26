@@ -25,11 +25,11 @@ import lombok.Setter;
 public class Token {
 
     @Id
-    @Column(name = "token_id", length = 250, nullable = false, unique = true)
-    private String tokenId;
+    @Column(name = "id", length = 250, nullable = false, unique = true)
+    private String id;
 
-    @Column(name = "expiry_date", nullable = false, updatable = false)
-    private Date expiryDate;
+    @Column(name = "expired_at", nullable = false, updatable = false)
+    private Date expiredAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "token_type", nullable = false)

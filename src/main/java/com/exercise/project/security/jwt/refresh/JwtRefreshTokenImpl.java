@@ -29,7 +29,7 @@ public class JwtRefreshTokenImpl implements JwtRefreshToken {
     public String createRefreshToken(User user) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setEmail(user.getEmail());
-        refreshToken.setExpiryDate(new Date(new Date().getTime() + JWT_REFRESH_TOKEN_EXPIRATION));
+        refreshToken.setExpiredAt(new Date(new Date().getTime() + JWT_REFRESH_TOKEN_EXPIRATION));
         refreshToken.setRefreshToken(jwtUtils.generateRefreshTokenForUser(user));
         refreshTokenRepository.save(refreshToken);
 
@@ -45,7 +45,7 @@ public class JwtRefreshTokenImpl implements JwtRefreshToken {
         RefreshToken storedToken = refreshTokenRepository.findByRefreshToken(refreshToken)
             .orElseThrow(() -> new InvalidRefreshTokenException());
 
-        if (storedToken.getExpiryDate().before(new Date())) {
+        if (storedToken.getExpiredAt().before(new Date())) {
             refreshTokenRepository.delete(storedToken);
             throw new InvalidRefreshTokenException();
         }

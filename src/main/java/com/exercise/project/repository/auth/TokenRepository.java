@@ -9,8 +9,8 @@ import com.exercise.project.model.entity.auth.Token;
 
 public interface TokenRepository extends JpaRepository<Token, String> {
 
-    Optional<Token> findByTokenId(String tokenId);
+    Optional<Token> findById(String id);
 
-    void deleteByExpiryDateBefore(Date date);
+    void deleteByExpiredAtBefore(Date date);
 
 }

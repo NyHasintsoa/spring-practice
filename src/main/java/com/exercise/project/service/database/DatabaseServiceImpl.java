@@ -24,8 +24,8 @@ public class DatabaseServiceImpl implements DatabaseService {
         entityManager.createNativeQuery("TRUNCATE TABLE users, user_roles RESTART IDENTITY CASCADE").executeUpdate();
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     public void truncateAllTables() {
         String query = """
             SELECT table_name 
