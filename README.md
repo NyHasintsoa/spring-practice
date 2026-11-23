@@ -1,28 +1,29 @@
 # 🚀 Spring Api Resource
 
 This backlog tracks the key features and tasks for implementing JWT authentication in the project.  
-Statuses follow the legend below and are updated as development progresses.  
-Use Spring MCP Client to perform connexion with MCP Server from express.
+Statuses follow the legend below and are updated as development progresses.
 
 ---
 
 ## 📜 Table of Contents
 
-- [About the Project](#📖-about-the-project)
-- [Features](#✨-features)
-- [Tech Stack](#🛠-tech-stack)
-- [Getting Started](#🚀-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Running the App](#running-the-app)
-- [Configuration](#⚙-configuration)
-- [Usage](#📦-usage)
-- [API Documentation](#📚-api-documentation)
-- [Project Structure](#📂-project-structure)
-- [Security Notes](#🔐-security-notes)
-- [Contributing](#🤝-contributing)
-- [License](#📄-license)
-- [Contact](#📬-contact)
+1. [🚀 Spring Api Resource](#-spring-api-resource)
+   1. [📜 Table of Contents](#-table-of-contents)
+   2. [📖 About the Project](#-about-the-project)
+   3. [✨ Features](#-features)
+   4. [🛠 Tech Stack](#-tech-stack)
+   5. [🚀 Getting Started](#-getting-started)
+      1. [Prerequisites](#prerequisites)
+      2. [Installation](#installation)
+      3. [Running the App](#running-the-app)
+   6. [⚙ Configuration](#-configuration)
+   7. [📦 Usage](#-usage)
+   8. [📚 API Documentation](#-api-documentation)
+   9. [📂 Project Structure](#-project-structure)
+   10. [🔐 Security Notes](#-security-notes)
+   11. [🤝 Contributing](#-contributing)
+   12. [📄 License](#-license)
+   13. [📬 Contact](#-contact)
 
 ---
 
@@ -38,17 +39,14 @@ The private and public keys are loaded from the `resources/jwt/` directory, allo
 - ✅ Secure JWT authentication using **RSA** keys
 - ✅ REST API with **Spring Boot**
 - ✅ Maven project structure
-- ✅ Ready for deployment on **Tomcat**
-- ✅ External configuration for production security
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Java** 17+ (or your project’s Java version)
-- **Spring Boot** 3.5.x
+- **Spring Boot** 4.2.x
 - **Maven**
-- **Tomcat** (deployment)
 - **JWT (Java JWT / jjwt)**
 
 ---
@@ -62,7 +60,6 @@ Make sure you have installed:
 - Java 17+ (`java -version`)
 - Maven (`mvn -v`)
 - Git
-- Tomcat (for deployment) or use embedded Spring Boot server for dev
 
 ### Installation
 
@@ -86,13 +83,6 @@ mvn clean spring-boot:run
 ```
 
 Access the app at: http://localhost:8080
-
-Production (Tomcat)
-Deploy the generated WAR from target/ into your Tomcat webapps/ directory.
-
-```bash
-make deploy
-```
 
 ## ⚙ Configuration
 

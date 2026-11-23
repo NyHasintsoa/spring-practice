@@ -1,0 +1,79 @@
+###############################################
+# Project Properties
+###############################################
+project.api.prefix=/api
+project.login.max.attempts=3
+project.cors.allow.origins=
+project.frontend.url=
+project.backend.url=
+project.secret.key=
+project.blog.image.upload.path=public/blog/images/
+# FRAMEWORK CONFIG ############################
+server.servlet.session.cookie.secure=true
+server.port=8000
+server.servlet.session.cookie.http-only=true
+server.servlet.session.cookie.same-site=lax
+# FRAMEWORK CONFIG ############################
+spring.application.name=Spring Api Ressource
+spring.thymeleaf.check-template-location=false
+spring.thymeleaf.suffix=.html
+spring.profiles.active=local
+# LOGGING LEVEL ###############################
+#logging.level.root=error
+#logging.level.sql=trace
+# HTTPS SERVER ################################
+server.ssl.enabled=false
+server.ssl.certificate=
+server.ssl.certificate-private-key=
+###############################################
+
+###############################################
+# SpringDoc Properties
+###############################################
+springdoc.api-docs.enabled=true
+springdoc.api-docs.path=/api
+springdoc.swagger-ui.path=/swagger-ui
+springdoc.show-actuator=true
+springdoc.cache.disabled=true
+springdoc.swagger-ui.with-credentials=true
+springdoc.default-produces-media-type=application/json
+springdoc.default-consumes-media-type=application/json
+###############################################
+
+###############################################
+# Database Properties
+###############################################
+spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/spring-project
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.username=username
+spring.datasource.password=password
+###############################################
+
+###############################################
+# ORM Properties (JPA)
+###############################################
+#spring.jpa.properties.hibernate.default_schema=preferedSchema
+#spring.jpa.properties.hibernate.transaction.jta.platform=
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.database=postgresql
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.open-in-view=true
+###############################################
+
+###############################################
+# Mailing Properties
+###############################################
+project.mail.email.from=noreply@domain.com
+project.mail.name.from=Spring Admin Society
+spring.mail.host=127.0.0.1
+spring.mail.port=1025
+spring.mail.ssl.enabled=false
+spring.mail.protocol=smtp
+spring.mail.username=
+spring.mail.password=
+spring.mail.test-connection=false
+# LOGGING ###########################
+spring.mail.properties[mail.debug]=true
+###############################################

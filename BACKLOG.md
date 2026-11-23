@@ -2,7 +2,6 @@
 
 This backlog tracks the key features and tasks for implementing JWT authentication in the project.  
 Statuses follow the legend below and are updated as development progresses.  
-Use Spring MCP Client to perform connexion with MCP Server from express.
 
 ---
 
@@ -27,15 +26,5 @@ Use Spring MCP Client to perform connexion with MCP Server from express.
 | Password Recovery       |    🔥    |   ✅   | _Hasintsoa_ | 2025-09-16  | Send Mail to reset user's password (no bundle)                             |
 | Update Profile User     |    🔥    |   ✅   | _Hasintsoa_ | 2025-11-02  | Update FullName and phone of the user                                      |
 | OAuth2 Social Login     |    🕓    |   🕓   | _Hasintsoa_ |             | Use `Google` and `Github` to perform Social login Authentication           |
-
----
-
-## 🚀 Epic 2 – Blog for Articles
-
-| Task                         | Priority | Status | Assignee    | Due Date | Finish Date | Notes                        |
-| ---------------------------- | :------: | :----: | ----------- | -------- | ----------- | ---------------------------- |
-| Create Post                  |    🔥    |   ✅   | _Hasintsoa_ |          | 2025-11-03  | Add some tags for each posts |
-| Create comment for each Post |    🔥    |   ✅   | _Hasintsoa_ |          | 2025-11-03  |                              |
-| Create Post Like             |    🔥    |   ✅   | _Hasintsoa_ |          | 2025-11-06  |                              |
 
 ---
