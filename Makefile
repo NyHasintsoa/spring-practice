@@ -1,16 +1,8 @@
 .SILENT:
 
 MVN := mvn
-MAKE := make
 
 .DEFAULT_GOAL := help
-
-#------------------------------------
-# Deployment Configuration
-#------------------------------------
-DEPLOY_DIR := /opt/apache-tomcat/webapps
-PROJECT_ARTIFACT_ID := api-spring
-#------------------------------------
 
 PROJECT_DIR := $(PWD)/src/main/java/com/exercise/project
 RESOURCES_DIR := $(PWD)/src/main/resources
@@ -31,6 +23,9 @@ init: # Init the project
 .PHONY: dev
 dev: ## Run the project
 	$(MVN) clean spring-boot:run
+
+.PHONY: run
+run: dev ## Run the project (alias: dev)
 
 .PHONY: test
 test: ## Test the project
@@ -58,21 +53,10 @@ keypair: ## Generate keypair for JWT Authentication
 	openssl genpkey -algorithm RSA -out "$(RESOURCES_DIR)/jwt/private.pem" -pkeyopt rsa_keygen_bits:2048
 	openssl rsa -pubout -in "$(RESOURCES_DIR)/jwt/private.pem" -out "$(RESOURCES_DIR)/jwt/public.pem"
 
-.PHONY: properties
-properties: $(RESOURCES_DIR)/application.properties.example ## Create properties file to resources dir
-	if [ ! -f "$(RESOURCES_DIR)/application.properties" ]; then cp "$(RESOURCES_DIR)/application.properties.example" "$(RESOURCES_DIR)/application.properties" ; fi
-
 ##
 ##-----------------------------------
 ## Other
 ##-----------------------------------
-.PHONY: deploy
-deploy: ## Deploy to local apache server
-	rm -rf "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID)"
-	rm -f "$(DEPLOY_DIR)/$(PROJECT_ARTIFACT_ID).war"
-	$(MAKE) install
-	cp ./target/$(PROJECT_ARTIFACT_ID).war $(DEPLOY_DIR)/
-
 .PHONY: help
 help: ## List commands
 	grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
@@ -80,12 +64,5 @@ help: ## List commands
 #-----------------------------------
 # Dependencies
 #-----------------------------------
-target/$(PROJECT_ARTIFACT_ID).war:
-	$(MVN) clean install
 
-"$(RESOURCES_DIR)/application.properties.example":
-	touch "$(RESOURCES_DIR)/application.properties.example"
-
-"$(RESOURCES_DIR)/mail/mailpit-auth-file":
-	touch $(RESOURCES_DIR)/mailpit-auth-file
 #-----------------------------------
